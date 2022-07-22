@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +35,85 @@
   to {
     transform: rotate(360deg);
   }
+} */
+
+body {
+  font-family: mundial, sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 1.2em;
+  display: flex;
 }
+
+nav {
+  background-color: #548687;
+ 
+  height: 100px;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: row;
+  border-bottom: 2px black;
+}
+#access{
+  border-style: groove;
+ border:solid 5px;
+ 
+ border-color: black;
+ position: fixed;
+ margin-top: 50px;
+ padding-left: 50px;
+ padding-right: 30px;
+ padding-top: 15px;
+ padding-bottom: 15px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-40%, -50%);
+}
+
+#log-sign-btn{
+  position: fixed;
+ margin-bottom: 100px;
+ padding-left: 50px;
+
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+}
+#form-btn{
+  position: fixed;
+ 
+
+
+    top: 20%;
+    left: 45%;
+    transform: translate(-50%, 1200%);
+}
+#inspiration-box{
+  
+ border-style: groove;
+ border:solid 5px;
+ 
+ border-color: black;
+ position: fixed;
+ margin-top: 50px;
+ padding-top: 50px;
+ padding-bottom: 50px;
+ padding-left: 30px;
+ padding-right: 30px;
+    top: 50%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+}
+
+#profile{
+  position: fixed;
+ margin-top: 50px;
+ padding-top: 50px;
+ padding-bottom: 50px;
+ padding-left: 30px;
+ padding-right: 30px;
+    top: 50%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+}
+
