@@ -11,6 +11,15 @@ Rails.application.routes.draw do
   get '/random_lyrics', to: "lyric_snippets#get_random_lyrics"
   get '/random_chords', to: "chord_progressions#get_random_chords"
 
+  get '/user_inspirations', to: "inspirations#get_user_inspirations"
+
+  delete '/logout', to: "sessions#destroy"
+  post '/login', to: "sessions#create"
+  post '/signup', to: "users#create"
+
+  # to remeber session cookie on refresh
+  get '/me', to: "users#show"
+
   # Routing logic: fallback requests for React Router.
   # Leave this here to help deploy your app later!
   get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }

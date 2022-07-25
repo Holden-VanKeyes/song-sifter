@@ -4,26 +4,87 @@ import SignUp from './SignUp'
 import Button from 'react-bootstrap/Button'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import { useState } from 'react'
+import Card from 'react-bootstrap/Card'
 
-export default function Home() {
+import Offcanvas from 'react-bootstrap/Offcanvas'
+import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
+
+export default function Home({ loginSignup, isLoggedIn }) {
   const [showForm, setShowForm] = useState(false)
+
+  const [show, setShow] = useState(false)
+
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
 
   function handleClick() {
     setShowForm(!showForm)
   }
-  return (
-    <>
-      <div id="log-sign-btn">
-        <ButtonGroup aria-label="Basic example">
-          <Button variant="secondary" onClick={handleClick}>
-            Sign Up
-          </Button>
-          <Button variant="secondary" onClick={handleClick}>
-            Login
-          </Button>
-        </ButtonGroup>
-      </div>
-      <div id="access">{showForm ? <SignUp /> : <Login />}</div>
-    </>
-  )
+  if (!isLoggedIn) {
+    return (
+      <>
+        <div id="log-sign-btn">
+          <ButtonToolbar aria-label="Toolbar with button groups">
+            <ButtonGroup className="me-2" aria-label="First group">
+              <Button variant="secondary" onClick={handleClick}>
+                Sign Up
+              </Button>
+            </ButtonGroup>
+            <ButtonGroup className="me-2" aria-label="Second group">
+              <Button variant="secondary" onClick={handleClick}>
+                Log In
+              </Button>
+            </ButtonGroup>
+            <ButtonGroup className="me-2" aria-label="Second group">
+              <Button variant="primary" onClick={handleShow}>
+                About
+              </Button>
+            </ButtonGroup>
+          </ButtonToolbar>
+        </div>
+        <div id="access">
+          {showForm ? (
+            <Login loginSignup={loginSignup} />
+          ) : (
+            <SignUp loginSignup={loginSignup} />
+          )}
+        </div>
+
+        <div>
+          <Offcanvas show={show} onHide={handleClose}>
+            <Offcanvas.Header closeButton>
+              <Offcanvas.Title>Song Sifter</Offcanvas.Title>
+            </Offcanvas.Header>
+            <Offcanvas.Body>
+              Song Sifter was created for musicians, producers, songwriters in
+              need of a little creative spark! Hit up the create section to
+              generate the following song-starters based on mood/style: A
+              4-chord progression, a lyric snippet, and an enigmatic expression.
+              Insead of cycling through to find the perfect fit, we suggest you
+              spend some time with the first recommendation as it may help you
+              escape your songwriting crutches. You can also send us your own
+              lyrics/chords/enigmas to add to our library of inspirations, and
+              if you create something musical from your customized inspiration,
+              we encourage you to share with the community via the Share page.
+              Log in or Sign up to explore more!
+            </Offcanvas.Body>
+          </Offcanvas>
+        </div>
+      </>
+    )
+  } else {
+    return (
+      <Card style={{ width: '18rem' }} id="examples">
+        <Card.Img variant="top" src="" />
+        <Card.Body>
+          <Card.Title>Card Title</Card.Title>
+          <Card.Text>
+            Some quick example text to build on the card title and make up the
+            bulk of the card's content.
+          </Card.Text>
+          <Button variant="primary">Go somewhere</Button>
+        </Card.Body>
+      </Card>
+    )
+  }
 }

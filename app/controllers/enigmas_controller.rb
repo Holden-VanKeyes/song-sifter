@@ -6,13 +6,21 @@ class EnigmasController < ApplicationController
        end
    
        def show
-        # enigma = Enigma.find(params[:id])
-        # render json: enigma
-        render json: Enigma.find_by(id: params[:id]) || Enigma.random
+       
+        enigma = Enigma.find(params[:id])
+        render json: enigma
+        # render json: Enigma.find_by(id: params[:id]) || Enigma.random
        end
 
+
+      #  def get_one_enigma
+      #   enigma = Enigma.find(params[:id])
+      #   render json: enigma
+      #   # render json: Enigma.find_by(id: params[:id]) || Enigma.random
+      #  end
+
        def get_random_enigma
-        # byebug
+       
         @one_enigma = Enigma.where(category: params[:category])
         
          render json: @one_enigma.limit(1).order("RANDOM()").first
@@ -20,6 +28,7 @@ class EnigmasController < ApplicationController
        end
    
       def index
+       
        render json: Enigma.all
       end
    

@@ -19,3 +19,4 @@ class SessionsController < ApplicationController
             render json: {error:"No active session"}, status: :unauthorized
         end
     end
+end

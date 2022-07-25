@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
     skip_before_action :authorize, only: [:create], :raise => false
     rescue_from ActiveRecord::RecordNotFound, with: :user_not_found
+    
     def create
      user = User.create!(user_params)
      session[:user_id] = user.id

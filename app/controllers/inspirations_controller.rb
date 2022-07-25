@@ -6,17 +6,26 @@ class InspirationsController < ApplicationController
     end
 
     def show
+     
     inspiration = Inspiration.find(params[:id])
     render json: inspiration
     end
 
     def index
+        render json: Inspiration.all
+   
+
+    
+    end
+
+    def get_user_inspirations
     inspirations = Inspiration.where(user_id: params[:user_id])
     render json: inspirations
     end
 
     def destroy
-        byebug
+   
+
     inspiration = Inspiration.find(params[:id])
     inspiration.destroy
     head :no_content

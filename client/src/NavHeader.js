@@ -1,13 +1,24 @@
 import React from 'react'
 import { useState } from 'react'
-import { Nav, Navbar, Badge } from 'react-bootstrap'
+import { Nav, Navbar } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import Button from 'react-bootstrap/Button'
+import { useNavigate } from 'react-router-dom'
 
-function NavHeader() {
+function NavHeader({ isLoggedIn, handleLogout }) {
+  const navigate = useNavigate()
+
+  const handleNavigate = () => {
+    navigate('/')
+  }
+
   return (
     <div>
       <Navbar bg="bbcolors" variant="dark" fixed="top" className="navbar py-4">
         <Navbar.Brand className="nav-link">Song Sifter</Navbar.Brand>
+        {/* <Navbar.Form pullRight>
+        </Navbar.Form> */}
+        {/* <Button bsStyle="primary">Login</Button> */}
 
         <Nav>
           <Link
@@ -52,15 +63,39 @@ function NavHeader() {
             Share
           </Link>
         </Nav>
-        <Badge
-          pill
-          bg="info"
-          style={{
-            padding: '10px',
-            textDecoration: 'none',
-            color: '#99E1D9',
-          }}
-        ></Badge>
+        {isLoggedIn ? (
+          <Nav>
+            <Button
+              onClick={handleLogout}
+              size="sm"
+              bg="3E885B"
+              id="pill"
+              style={{
+                padding: '10px',
+                textDecoration: 'none',
+                color: 'white',
+              }}
+            >
+              LOGOUT
+            </Button>
+          </Nav>
+        ) : (
+          <Nav>
+            <Button
+              onClick={handleNavigate}
+              size="sm"
+              bg="3E885B"
+              id="pill"
+              style={{
+                padding: '10px',
+                textDecoration: 'none',
+                color: 'white',
+              }}
+            >
+              LOG IN
+            </Button>
+          </Nav>
+        )}
       </Navbar>
     </div>
   )

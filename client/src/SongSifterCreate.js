@@ -9,7 +9,7 @@ import InspirationPopUp from './InspirationPopUp'
 import { useNavigate } from 'react-router-dom'
 import UserProfile from './UserProfile'
 
-function SongSifterCreate() {
+function SongSifterCreate({ currentUser }) {
   const [chordSelect, setChordSelect] = useState('')
   const [enigmaSelect, setEnigmaSelect] = useState('')
   const [lyricSelect, setLyricSelect] = useState('')
@@ -60,9 +60,10 @@ function SongSifterCreate() {
   }
 
   async function handleSave() {
+    console.log(currentUser)
     const newInspiration = {
       title: inspirationName,
-      user_id: '3',
+      user_id: currentUser.id,
       chord_progression_id: randomChords.id,
       enigma_id: randomEnigma.id,
       lyric_snippet_id: randomLyric.id,

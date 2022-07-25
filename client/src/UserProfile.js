@@ -5,39 +5,89 @@ import Nav from 'react-bootstrap/Nav'
 import Row from 'react-bootstrap/Row'
 import Tab from 'react-bootstrap/Tab'
 import { useEffect } from 'react'
+import Table from 'react-bootstrap/Table'
+import Button from 'react-bootstrap/Button'
+import { useNavigate } from 'react-router-dom'
 
-export default function UserProfile() {
+export default function UserProfile({ currentUser }) {
+  const [userInspirations, setUserInspirations] = useState([])
+
+  const navigate = useNavigate()
+
   useEffect(() => {
-    fetch(`/inspirations?user_id=${3}`)
+    fetch(`/user_inspirations?user_id=${currentUser}`)
       .then((response) => response.json())
-      .then((data) => console.log(data))
+      .then((data) => {
+        setUserInspirations(data)
+      })
   }, [])
+
+  // useEffect(() => {
+  //   getInspos()
+  // }, [])
+
+  // async function getInspos() {
+  //   const response = await fetch(`/user_inspirations?user_id=${currentUser.id}`)
+  //     .then((response) => response.json())
+  //     .then((data) => setUserInspirations(data))
+  //   const inspos = response.json()
+  //   if (response.ok) setUserInspirations(inspos)
+  //   console.log(userInspirations)
+  // }
+
+  async function handleDelete(e) {
+    const inspoId = e.target.value
+    const response = await fetch(`/inspirations/${inspoId}`, {
+      method: 'DELETE',
+    })
+
+    if (response.ok) {
+      console.log('deleted')
+      await fetch(`/user_inspirations?user_id=${currentUser}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setUserInspirations(data)
+        })
+    } else {
+      console.log('not deleted')
+    }
+  }
   return (
     <div id="profile">
-      <Tab.Container id="left-tabs-example" defaultActiveKey="first">
-        <Row>
-          <Col sm={3}>
-            <Nav variant="pills" className="flex-column">
-              <Nav.Item>
-                <Nav.Link eventKey="first" href="#">
-                  Tab 1
-                </Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link eventKey="second" href="#">
-                  Tab 2
-                </Nav.Link>
-              </Nav.Item>
-            </Nav>
-          </Col>
-          <Col sm={9}>
-            <Tab.Content>
-              <Tab.Pane eventKey="first"></Tab.Pane>
-              <Tab.Pane eventKey="second">Peas and Carrots</Tab.Pane>
-            </Tab.Content>
-          </Col>
-        </Row>
-      </Tab.Container>
+      <Table striped bordered hover className="table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Chords</th>
+            <th>Lyrics</th>
+            <th>Enigma</th>
+            <th>Delete/Share</th>
+          </tr>
+        </thead>
+        <tbody>
+          {userInspirations.map((inspiration) => (
+            <tr>
+              <td>{inspiration.title}</td>
+              <td>{inspiration.chord_return}</td>
+              <td>{inspiration.lyric_return}</td>
+              <td>{inspiration.enigma_return}</td>
+              <td>
+                <Button
+                  value={inspiration.id}
+                  style={{ marginTop: '5px', marginLeft: '15px' }}
+                  onClick={handleDelete}
+                >
+                  Delete
+                </Button>
+
+                <Button style={{ marginTop: '15px', marginLeft: '15px' }}>
+                  Share
+                </Button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
     </div>
   )
 }

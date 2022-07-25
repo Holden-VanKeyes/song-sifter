@@ -4,4 +4,8 @@ class User < ApplicationRecord
     has_many :enigmas, through: :inspirations
     has_many :lyric_snippets, through: :inspirations
     has_many :chord_progressions, through: :inspirations
+
+    has_secure_password
+
+    validates :username, presence: true, uniqueness: :true
 end

@@ -2,35 +2,58 @@ import React from 'react'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-export default function Login() {
-  const [userName, setUserName] = useState('')
+export default function Login({ loginSignup }) {
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  function handleLogIn(e) {
+
+  const navigate = useNavigate()
+
+  async function handleSubmit(e) {
     e.preventDefault()
+
+    const response = await fetch('/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      }),
+    })
+    const user = await response.json()
+    if (response.ok) {
+      //set currentUser state in App to response object
+      loginSignup(user)
+      navigate('/UserProfile')
+    } else {
+      //set Errors state
+      console.log('errors:', user.error)
+    }
   }
 
-  function handleUserName(e) {
-    setUserName(e.target.value)
+  function handleUsername(e) {
+    setUsername(e.target.value)
   }
 
   function handlePassword(e) {
     setPassword(e.target.value)
   }
+
   return (
     <div>
-      <Form id="log-in" onSubmit={handleLogIn}>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+      <Form id="log-in" onSubmit={handleSubmit}>
+        <Form.Group className="mb-3">
           <Form.Label>Username</Form.Label>
           <Form.Control
-            type="email"
+            // type="email"
             placeholder="Enter Username"
-            onChange={handleUserName}
+            onChange={handleUsername}
           />
           <Form.Text className="text-muted"></Form.Text>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Group className="mb-3">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
@@ -40,7 +63,7 @@ export default function Login() {
         </Form.Group>
 
         <Button variant="primary" type="submit">
-          Login
+          Log In
         </Button>
       </Form>
     </div>
