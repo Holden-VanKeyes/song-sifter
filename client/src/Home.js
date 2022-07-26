@@ -8,8 +8,9 @@ import Card from 'react-bootstrap/Card'
 
 import Offcanvas from 'react-bootstrap/Offcanvas'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
+import UserAdditions from './UserAdditions'
 
-export default function Home({ loginSignup, isLoggedIn }) {
+export default function Home({ loginSignup, isLoggedIn, handleUserImage }) {
   const [showForm, setShowForm] = useState(false)
 
   const [show, setShow] = useState(false)
@@ -27,12 +28,12 @@ export default function Home({ loginSignup, isLoggedIn }) {
           <ButtonToolbar aria-label="Toolbar with button groups">
             <ButtonGroup className="me-2" aria-label="First group">
               <Button variant="secondary" onClick={handleClick}>
-                Sign Up
+                Log In
               </Button>
             </ButtonGroup>
             <ButtonGroup className="me-2" aria-label="Second group">
               <Button variant="secondary" onClick={handleClick}>
-                Log In
+                Sign Up
               </Button>
             </ButtonGroup>
             <ButtonGroup className="me-2" aria-label="Second group">
@@ -46,7 +47,10 @@ export default function Home({ loginSignup, isLoggedIn }) {
           {showForm ? (
             <Login loginSignup={loginSignup} />
           ) : (
-            <SignUp loginSignup={loginSignup} />
+            <SignUp
+              loginSignup={loginSignup}
+              handleUserImage={handleUserImage}
+            />
           )}
         </div>
 
@@ -73,18 +77,6 @@ export default function Home({ loginSignup, isLoggedIn }) {
       </>
     )
   } else {
-    return (
-      <Card style={{ width: '18rem' }} id="examples">
-        <Card.Img variant="top" src="" />
-        <Card.Body>
-          <Card.Title>Card Title</Card.Title>
-          <Card.Text>
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </Card.Text>
-          <Button variant="primary">Go somewhere</Button>
-        </Card.Body>
-      </Card>
-    )
+    return <UserAdditions />
   }
 }

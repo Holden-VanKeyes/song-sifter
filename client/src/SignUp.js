@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-export default function SignUp({ loginSignup }) {
+export default function SignUp({ loginSignup, handleUserImage }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [passwordConfirm, setPasswordConfirm] = useState('')
@@ -36,6 +36,7 @@ export default function SignUp({ loginSignup }) {
     const user = await response.json()
     if (response.ok) {
       loginSignup(user)
+      handleUserImage()
       // navigate("/home");
     } else {
       //set Errors state

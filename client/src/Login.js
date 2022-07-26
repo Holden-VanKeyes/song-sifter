@@ -25,7 +25,7 @@ export default function Login({ loginSignup }) {
     if (response.ok) {
       //set currentUser state in App to response object
       loginSignup(user)
-      navigate('/UserProfile')
+      // navigate('/UserProfile')
     } else {
       //set Errors state
       console.log('errors:', user.error)

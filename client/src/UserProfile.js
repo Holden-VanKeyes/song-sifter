@@ -1,16 +1,15 @@
 import React, { useState } from 'react'
-import Carousel from 'react-bootstrap/Carousel'
-import Col from 'react-bootstrap/Col'
-import Nav from 'react-bootstrap/Nav'
-import Row from 'react-bootstrap/Row'
-import Tab from 'react-bootstrap/Tab'
+
 import { useEffect } from 'react'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import { useNavigate } from 'react-router-dom'
 
-export default function UserProfile({ currentUser }) {
+function UserProfile({ currentUser, isLoggedIn }) {
   const [userInspirations, setUserInspirations] = useState([])
+
+  const image_url =
+    'https://res.cloudinary.com/shooksounds/image/upload/v1658846648/Song%20Sifter/SongSifterLyric_dpnd6k.png'
 
   const navigate = useNavigate()
 
@@ -22,18 +21,9 @@ export default function UserProfile({ currentUser }) {
       })
   }, [])
 
-  // useEffect(() => {
-  //   getInspos()
-  // }, [])
-
-  // async function getInspos() {
-  //   const response = await fetch(`/user_inspirations?user_id=${currentUser.id}`)
-  //     .then((response) => response.json())
-  //     .then((data) => setUserInspirations(data))
-  //   const inspos = response.json()
-  //   if (response.ok) setUserInspirations(inspos)
-  //   console.log(userInspirations)
-  // }
+  const handleClick = () => {
+    navigate('/')
+  }
 
   async function handleDelete(e) {
     const inspoId = e.target.value
@@ -52,42 +42,53 @@ export default function UserProfile({ currentUser }) {
       console.log('not deleted')
     }
   }
-  return (
-    <div id="profile">
-      <Table striped bordered hover className="table">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Chords</th>
-            <th>Lyrics</th>
-            <th>Enigma</th>
-            <th>Delete/Share</th>
-          </tr>
-        </thead>
-        <tbody>
-          {userInspirations.map((inspiration) => (
-            <tr>
-              <td>{inspiration.title}</td>
-              <td>{inspiration.chord_return}</td>
-              <td>{inspiration.lyric_return}</td>
-              <td>{inspiration.enigma_return}</td>
-              <td>
-                <Button
-                  value={inspiration.id}
-                  style={{ marginTop: '5px', marginLeft: '15px' }}
-                  onClick={handleDelete}
-                >
-                  Delete
-                </Button>
 
-                <Button style={{ marginTop: '15px', marginLeft: '15px' }}>
-                  Share
-                </Button>
-              </td>
+  return (
+    <div>
+      {/* <img
+        class="rounded-circle"
+        alt="80x80"
+        src=""
+        data-holder-rendered="true"
+      ></img> */}
+
+      <div id="profile">
+        <Table striped bordered hover className="table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Chords</th>
+              <th>Lyrics</th>
+              <th>Enigma</th>
+              <th>Delete/Share</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {userInspirations.map((inspiration) => (
+              <tr>
+                <td>{inspiration.title}</td>
+                <td>{inspiration.chord_return}</td>
+                <td>{inspiration.lyric_return}</td>
+                <td>{inspiration.enigma_return}</td>
+                <td>
+                  <Button
+                    value={inspiration.id}
+                    style={{ marginTop: '5px', marginLeft: '15px' }}
+                    onClick={handleDelete}
+                  >
+                    Delete
+                  </Button>
+
+                  <Button style={{ marginTop: '15px', marginLeft: '15px' }}>
+                    Share
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
     </div>
   )
 }
+export default UserProfile

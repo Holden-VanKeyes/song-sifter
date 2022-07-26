@@ -125,7 +125,7 @@ nav {
 #pill{
   
   border-radius: 16px;
-  margin-left: 1300px;
+  margin-left: 1200px;
   background-color: #17BEBB;
 }
 
@@ -169,3 +169,49 @@ nav {
      left: 45%;
      transform: translate(-50%, -50%);
 }
+
+#login-alert{
+  position: fixed;
+  margin-top: 50px;
+  padding-top: 100px;
+  padding-bottom: 50px;
+  padding-left: 50px;
+  padding-right: 50px;
+     top: 50%;
+     left: 45%;
+     transform: translate(-50%, -50%);
+}
+
+#carousel{
+  /* border-style: groove;
+  border:solid 5px; */
+  background-color: #32936F;
+  border-color: black;
+  position: fixed;
+  margin-top: 50px;
+ 
+  padding-top: 50px;
+  padding-bottom: 50px;
+  padding-left: 20px;
+  padding-right: 50px;
+     top: 50%;
+
+     left: 50%;
+     
+     transform: translate(-50%, -50%);
+}
+
+.carousel-inner img {
+  margin: auto;
+}
+
+.jumbotron{
+  background-image: url(https://res.cloudinary.com/shooksounds/image/upload/v1658846648/Song%20Sifter/SongSifterLyric_dpnd6k.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+}
+
+
+

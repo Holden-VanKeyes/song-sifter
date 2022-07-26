@@ -62,6 +62,16 @@ function NavHeader({ isLoggedIn, handleLogout }) {
           >
             Share
           </Link>
+          <Link
+            to="/UserAdditions"
+            style={{
+              padding: '10px',
+              textDecoration: 'none',
+              color: '#99E1D9',
+            }}
+          >
+            AddOne
+          </Link>
         </Nav>
         {isLoggedIn ? (
           <Nav>
@@ -79,23 +89,7 @@ function NavHeader({ isLoggedIn, handleLogout }) {
               LOGOUT
             </Button>
           </Nav>
-        ) : (
-          <Nav>
-            <Button
-              onClick={handleNavigate}
-              size="sm"
-              bg="3E885B"
-              id="pill"
-              style={{
-                padding: '10px',
-                textDecoration: 'none',
-                color: 'white',
-              }}
-            >
-              LOG IN
-            </Button>
-          </Nav>
-        )}
+        ) : null}
       </Navbar>
     </div>
   )

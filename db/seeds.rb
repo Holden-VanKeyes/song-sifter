@@ -15,25 +15,32 @@ chord_cat3 = 'angular - odd - atmospheric'
 
 puts 'seeding chords...'
 
-ChordProgression.create(category: chord_cat1, chords: "Gmaj, Amaj, Cmaj, Dmaj", author: "Tom - Austin, TX")
-ChordProgression.create(category: chord_cat1, chords: "Emaj, Amaj, Dmaj Gbmaj", author: "Mike St. Clair - Austin, TX")
-ChordProgression.create(category: chord_cat1, chords: "Asus, Dmaj, Asus, Dmaj", author: "Abram Shook - Austin, TX")
+ChordProgression.create(category: chord_cat1, chords: "Bmin7 - Fmaj9 - Dmin7 - Csus2", author: "Jack Van Norman - Austin, TX")
+ChordProgression.create(category: chord_cat1, chords: "Gmaj - Amaj - Cmaj - Dmaj", author: "Tom - Austin, TX")
+ChordProgression.create(category: chord_cat1, chords: "Emaj - Amaj - Dmaj - Gbmaj", author: "Mike St. Clair - Austin, TX")
+ChordProgression.create(category: chord_cat1, chords: "Asus - Dmaj - Asus - Dmaj", author: "Abram Shook - Austin, TX")
 ChordProgression.create(category: chord_cat1, chords: "Emaj - E7 - F#min - B7", author: "Abram Shook - Austin, TX")
 ChordProgression.create(category: chord_cat1, chords: "Cmaj - Fmaj - D7 - Gmaj", author: "Abram Shook - Austin, TX")
 ChordProgression.create(category: chord_cat1, chords: "G6sus2 - Em7 - EbMaj7 - C6/9", author: "Christopher Cox - Los Angeles, CA")
 ChordProgression.create(category: chord_cat1, chords: "D#11 - C#m(b13) - Bm7 - C#m(b13) ", author: "Christopher Cox - Los Angeles, CA")
-ChordProgression.create(category: chord_cat2, chords: "Bm, F#m, Em, F#m", author: "Tom - Austin, TX")
-ChordProgression.create(category: chord_cat2, chords: "Gmin, Emin, F#min, C#min", author: "Mike St. Clair - Austin, TX")
+ChordProgression.create(category: chord_cat1, chords: "Dmaj - Gmaj - Dmaj - Amaj", author: "Homestead Recording - Fayettville, AR")
+
+ChordProgression.create(category: chord_cat2, chords: "Bm - F#m - Em - F#m", author: "Tom - Austin, TX")
+ChordProgression.create(category: chord_cat2, chords: "Gmin - Emin - F#min - C#min", author: "Mike St. Clair - Austin, TX")
 ChordProgression.create(category: chord_cat2, chords: "Emin - Gmaj7 - F#min7(b5) - Amin6", author: "Abram Shook - Austin, TX")
 ChordProgression.create(category: chord_cat2, chords: "Dbmaj7 - Cmaj7 - Abmin - Gbmaj7", author: "Abram Shook - Austin, TX")
 ChordProgression.create(category: chord_cat2, chords: "A9 - Abmin - Dbmin - Bmaj7", author: "Abram Shook - Austin, TX")
 ChordProgression.create(category: chord_cat2, chords: "Bm - F#/A# - Am6 - G#m7", author: "Christopher Cox - Los Angeles, CA")
-ChordProgression.create(category: chord_cat3, chords: "Dmaj7, Amaj7, F#m, Gmaj", author: "Tom - Austin, TX")
-ChordProgression.create(category: chord_cat3, chords: "Cmaj, Ebmaj, Abmaj, Gbmaj", author: "Mike St. Clair - Austin, TX")
+ChordProgression.create(category: chord_cat2, chords: "Am - Em - Am - Em", author: "Homestead Recording - Fayettville, AR")
+ChordProgression.create(category: chord_cat2, chords: "G6/B - A7 - D - G", author: "Christian Dufner - Austin, TX")
+
+ChordProgression.create(category: chord_cat3, chords: "Dmaj7 - Amaj7 - F#m - Gmaj", author: "Tom - Austin, TX")
+ChordProgression.create(category: chord_cat3, chords: "Cmaj - Ebmaj - Abmaj - Gbmaj", author: "Mike St. Clair - Austin, TX")
 ChordProgression.create(category: chord_cat3, chords: "Gmaj7 - Emin - Bb(b5) - Fmaj7", author: "Abram Shook - Austin, TX")
 ChordProgression.create(category: chord_cat3, chords: "F#aug9 - E9 - Amaj6 - Dbmin", author: "Abram Shook - Austin, TX")
 ChordProgression.create(category: chord_cat3, chords: "Eb7 - Ddim - Db7b5 - Cmin", author: "Abram Shook - Austin, TX")
 ChordProgression.create(category: chord_cat3, chords: "Am - C/G - Fm7/9 - EbMaj7", author: "Christopher Cox - Los Angeles, CA")
+ChordProgression.create(category: chord_cat3, chords: "Gmaj - Dm - C - Gmaj", author: "Homestead Recording - Fayettville, AR")
 
 #ENIGMA_SEEDS
 enigma_cat1 = "on production/arrangement"
@@ -45,13 +52,19 @@ puts "seeding enigmas..."
 Enigma.create(category: enigma_cat1, enigma: "Re-write a song on a different instrument", author: "Tom - Austin, TX")
 Enigma.create(category: enigma_cat1, enigma: "Set a timer for 7 minutes, play through and loop one section of a song and change one element with each repetition.", author: "Christopher Cox - Los Angeles, CA")
 Enigma.create(category: enigma_cat1, enigma: "Write a series of lyric fragments on a piece of paper. Tear the paper in half, throw one half away, use half of the lyric fragments from the half page you kept.", author: "Christopher Cox - Los Angeles, CA")
-Enigma.create(category: enigma_cat1, enigma: "replace the drummers sticks with chopsticks", author: "Abram Shook - Austin, TX")
+Enigma.create(category: enigma_cat1, enigma: "Replace the drummers sticks with chopsticks", author: "Abram Shook - Austin, TX")
+Enigma.create(category: enigma_cat1, enigma: "Cut everthing in half", author: "Homestead Recording - Fayettville, AR")
+Enigma.create(category: enigma_cat1, enigma: "Don't play that part", author: "Homestead Recording - Fayettville, AR")
+Enigma.create(category: enigma_cat1, enigma: "Can this be more simple", author: "Homestead Recording - Fayettville, AR")
+
 
 
 Enigma.create(category: enigma_cat2, enigma: "Record a choir of harmonic voices, then take out the main/lead voice and write something new", author: "Tom - Austin, TX")
 Enigma.create(category: enigma_cat2, enigma: "Use a harmonica to dictate the key and chords of the song your writing", author: "Tom - Austin, TX")
 Enigma.create(category: enigma_cat2, enigma: "Describe a landscape using three sounds.", author: "Christopher Cox - Los Angeles, CA")
 Enigma.create(category: enigma_cat2, enigma: "Write a bridge keeping one common tone between all chords.", author: "Christopher Cox - Los Angeles, CA")
+Enigma.create(category: enigma_cat2, enigma: "Make the high parts low and the low parts high", author: "Jack Van Norman - Austin, TX")
+Enigma.create(category: enigma_cat2, enigma: "Freely sing a new melody with nonsense/gibberish, and just focus on the sound of the words and how they feel. Go back and find words that fit that feel", author: "Christian Dufner - Austin, TX")
 
 Enigma.create(category: enigma_cat3, enigma: "Keep a journal during altered states of consciousness then let those journal entries inform your recording/writing process", author: "Tom - Austin, TX")
 Enigma.create(category: enigma_cat3, enigma: "Take the first word that comes to mind, and then use the letters that word as the first letters for a list of words. 
@@ -62,6 +75,7 @@ Enigma.create(category: enigma_cat3, enigma: "Tape a note down on a polyphonic s
 Enigma.create(category: enigma_cat3, enigma: "Write/sing the lyrics of one section in your song in a different language. ", author: "Christopher Cox - Los Angeles, CA")
 Enigma.create(category: enigma_cat3, enigma: "Write lyrics describing a scene from your favorite film without mentioning specific characters or settings.", author: "Christopher Cox - Los Angeles, CA")
 Enigma.create(category: enigma_cat3, enigma: "Think of a letter...now write a song without using that letter", author: "Abram Shook - Austin, TX")
+Enigma.create(category: enigma_cat3, enigma: "Where were you when it happened?", author: "Homestead Recording - Fayettville, AR")
 
 
 #LYRIC_SEEDS
@@ -78,12 +92,21 @@ And sake me out of these woes, Yeah, I keep my head up when I start to get down,
 LyricSnippet.create(category: lyric_cat1, lyrics: "You’ve got me talking like it’s simpler times, When a man could be a prophet, And his words could save a life", author: "Mike St. Clair - Austin, TX")
 LyricSnippet.create(category: lyric_cat1, lyrics: "Wear down the places you love like a river through a canyon", author: "Christopher Cox - Los Angeles, CA")
 LyricSnippet.create(category: lyric_cat1, lyrics: "The evening tapped the window and I jumped out of my skin", author: "Christopher Cox - Los Angeles, CA")
+LyricSnippet.create(category: lyric_cat1, lyrics: "If the Colorado river were to carry me away, to Matagorda in the Bay", author: "Christian Dufner - Austin, TX")
+
+
 LyricSnippet.create(category: lyric_cat2, lyrics: "All the swirls of sunshine on my skin and soaking in", author: "Tom - Austin, TX")
+LyricSnippet.create(category: lyric_cat2, lyrics: "Whispered with an honest gaze", author: "Homestead Recording - Fayettville, AR")
+
 LyricSnippet.create(category: lyric_cat3, lyrics: "Like a moon caught drifting, without a planet", author: "Tom - Austin, TX")
 LyricSnippet.create(category: lyric_cat3, lyrics: "Nice of you to try and save me as I was saving you", author: "Christopher Cox - Los Angeles, CA")
+LyricSnippet.create(category: lyric_cat3, lyrics: "Don't turn your back on me", author: "Homestead Recording - Fayettville, AR")
+LyricSnippet.create(category: lyric_cat3, lyrics: "Getting the run-around", author: "Homestead Recording - Fayettville, AR")
+
 LyricSnippet.create(category: lyric_cat4, lyrics: "The little elf wandering the forest in my head", author: "Tom - Austin, TX")
 LyricSnippet.create(category: lyric_cat4, lyrics: "Your voice sang like a motorcycle", author: "Christopher Cox - Los Angeles, CA")
 LyricSnippet.create(category: lyric_cat4, lyrics: "I want a life without keys, I need a life without locks", author: "Christopher Cox - Los Angeles, CA")
+LyricSnippet.create(category: lyric_cat4, lyrics: "I am a lonely planet", author: "Homestead Recording - Fayettville, AR")
 
 #USERS
 puts "seeding users..."
