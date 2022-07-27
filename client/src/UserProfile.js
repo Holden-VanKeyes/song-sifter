@@ -25,6 +25,12 @@ function UserProfile({ currentUser, isLoggedIn, userImage }) {
     navigate('/')
   }
 
+  function handleDeleteConfirmation(e) {
+    if (window.confirm('are you sure you want to delete?'))
+      return handleDelete(e)
+    else return null
+  }
+
   async function handleDelete(e) {
     const inspoId = e.target.value
     const response = await fetch(`/inspirations/${inspoId}`, {
@@ -68,12 +74,15 @@ function UserProfile({ currentUser, isLoggedIn, userImage }) {
                   <Button
                     value={inspiration.id}
                     style={{ marginTop: '5px', marginLeft: '15px' }}
-                    onClick={handleDelete}
+                    onClick={handleDeleteConfirmation}
                   >
                     Delete
                   </Button>
 
-                  <Button style={{ marginTop: '15px', marginLeft: '15px' }}>
+                  <Button
+                    value={inspiration.id}
+                    style={{ marginTop: '15px', marginLeft: '15px' }}
+                  >
                     Share
                   </Button>
                 </td>

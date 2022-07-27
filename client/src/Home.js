@@ -18,8 +18,11 @@ export default function Home({ loginSignup, isLoggedIn, handleUserImage }) {
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
 
-  function handleClick() {
-    setShowForm(!showForm)
+  function handleShowLogIn() {
+    setShowForm(true)
+  }
+  function handleShowSignUp() {
+    setShowForm(false)
   }
   if (!isLoggedIn) {
     return (
@@ -27,12 +30,12 @@ export default function Home({ loginSignup, isLoggedIn, handleUserImage }) {
         <div id="log-sign-btn">
           <ButtonToolbar aria-label="Toolbar with button groups">
             <ButtonGroup className="me-2" aria-label="First group">
-              <Button variant="secondary" onClick={handleClick}>
+              <Button variant="secondary" onClick={handleShowLogIn}>
                 Log In
               </Button>
             </ButtonGroup>
             <ButtonGroup className="me-2" aria-label="Second group">
-              <Button variant="secondary" onClick={handleClick}>
+              <Button variant="secondary" onClick={handleShowSignUp}>
                 Sign Up
               </Button>
             </ButtonGroup>
