@@ -106,16 +106,16 @@ nav {
 }
 
 #profile{
-  position: relative;
-  margin-top: 300px;
- /* margin-top: 450px;
- padding-top: 50px;
+  position: fixed;
+  margin-top: 0px;
+ /* margin-top: 450px; */
+ padding-top: 0px;
  padding-bottom: 50px;
  padding-left: 80px;
  padding-right: 30px;
-    top: 50%;
-    left: 45%;
-    transform: translate(-50%, -50%); */
+    top: 60%;
+    left: 48%;
+    transform: translate(-50%, -50%);
    
   margin-left: auto;
   margin-right: auto;
@@ -205,13 +205,18 @@ nav {
   margin: auto;
 }
 
-.jumbotron{
-  background-image: url(https://res.cloudinary.com/shooksounds/image/upload/v1658846648/Song%20Sifter/SongSifterLyric_dpnd6k.png);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
 
+
+.avatar {
+ 
+  margin-top: 0px;
+  
+  width: 180px;
 }
 
+
+.table{
+
+}
 
 

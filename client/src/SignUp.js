@@ -4,10 +4,11 @@ import Form from 'react-bootstrap/Form'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-export default function SignUp({ loginSignup, handleUserImage }) {
+export default function SignUp({ loginSignup }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [passwordConfirm, setPasswordConfirm] = useState('')
+  const [userImage, setUserImage] = useState('')
 
   function handleUsername(e) {
     setUsername(e.target.value)
@@ -23,7 +24,13 @@ export default function SignUp({ loginSignup, handleUserImage }) {
 
   async function handleSubmit(e) {
     e.preventDefault()
-    console.log('YO')
+
+    await fetch(`https://avatars.dicebear.com/api/bottts/${username}.svg`)
+      .then((response) => response.url)
+      .then((data) => handleSetUser(data))
+  }
+
+  async function handleSetUser(data) {
     const response = await fetch('/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -31,13 +38,13 @@ export default function SignUp({ loginSignup, handleUserImage }) {
         username: username,
         password: password,
         passwordConfirm: passwordConfirm,
+        profile_pic: data,
       }),
     })
     const user = await response.json()
     if (response.ok) {
       loginSignup(user)
-      handleUserImage()
-      // navigate("/home");
+      console.log(user)
     } else {
       //set Errors state
       console.log(user.errors)

@@ -5,7 +5,7 @@ import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import { useNavigate } from 'react-router-dom'
 
-function UserProfile({ currentUser, isLoggedIn }) {
+function UserProfile({ currentUser, isLoggedIn, userImage }) {
   const [userInspirations, setUserInspirations] = useState([])
 
   const image_url =
@@ -45,14 +45,8 @@ function UserProfile({ currentUser, isLoggedIn }) {
 
   return (
     <div>
-      {/* <img
-        class="rounded-circle"
-        alt="80x80"
-        src=""
-        data-holder-rendered="true"
-      ></img> */}
-
       <div id="profile">
+        <img className="avatar" src={`${userImage}`} alt="user avatar" />
         <Table striped bordered hover className="table">
           <thead>
             <tr>

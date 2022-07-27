@@ -15,9 +15,11 @@ function App() {
   const [currentUser, setCurrentUser] = useState({
     id: '',
     username: '',
+    profile_pic: '',
   })
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [userImage, setUserImage] = useState('')
+
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -39,18 +41,8 @@ function App() {
   function handleLoginSignup(user) {
     setCurrentUser(user)
     setIsLoggedIn(true)
-    // navigate('/UserProfile')
-  }
 
-  async function handleUserImage() {
-    await fetch(
-      'https://app.pixelencounter.com/api/basic/monsters/random/jpeg?size=100',
-      {
-        method: 'GET', // *GET, POST, PUT, DELETE, etc.
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => console.log(data))
+    // navigate('/UserProfile')
   }
 
   async function handleLogout() {
@@ -66,6 +58,7 @@ function App() {
       })
     }
   }
+  console.log(currentUser)
 
   return (
     <div>
@@ -76,11 +69,7 @@ function App() {
           <Route
             path="/"
             element={
-              <Home
-                loginSignup={handleLoginSignup}
-                isLoggedIn={isLoggedIn}
-                handleUserImage={handleUserImage}
-              />
+              <Home loginSignup={handleLoginSignup} isLoggedIn={isLoggedIn} />
             }
           />
           <Route
@@ -100,7 +89,10 @@ function App() {
             path="/UserProfile"
             element={
               isLoggedIn ? (
-                <UserProfile currentUser={currentUser.id} />
+                <UserProfile
+                  currentUser={currentUser.id}
+                  userImage={currentUser.profile_pic}
+                />
               ) : (
                 <NotLoggedInAlert />
               )
