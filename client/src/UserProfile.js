@@ -1,29 +1,56 @@
 import React, { useState } from 'react'
-
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Tooltip from 'react-bootstrap/Tooltip'
 import { useEffect } from 'react'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
-import { useNavigate } from 'react-router-dom'
+import ShareCreationForm from './ShareCreationForm'
 
-function UserProfile({ currentUser, isLoggedIn, userImage }) {
+function UserProfile({ currentUser, postShare }) {
   const [userInspirations, setUserInspirations] = useState([])
+  const [show, setShow] = useState(false)
+  const [musicLink, setMusicLink] = useState('')
+  const [aboutSong, setAboutSong] = useState('')
+  const [inspoTitle, setInspoTitle] = useState('')
 
-  const image_url =
-    'https://res.cloudinary.com/shooksounds/image/upload/v1658846648/Song%20Sifter/SongSifterLyric_dpnd6k.png'
+  const renderTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      Share music you've created from this inspiration
+    </Tooltip>
+  )
 
-  const navigate = useNavigate()
+  function handleMusicLink(e) {
+    setMusicLink(e.target.value)
+  }
+  function handleAboutSong(e) {
+    setAboutSong(e.target.value)
+  }
+
+  const handleClose = () => setShow(false)
+  const handleShow = (e) => {
+    setShow(true)
+    const id = parseInt(e.target.value)
+    const inspiration = userInspirations.find((inspo) => inspo.id === id)
+    setInspoTitle(inspiration.title)
+  }
+
+  function handleShare() {
+    const musicShare = {
+      title: inspoTitle,
+      music_link: musicLink,
+      user_id: currentUser.id,
+      about: aboutSong,
+    }
+    postShare(musicShare)
+  }
 
   useEffect(() => {
-    fetch(`/user_inspirations?user_id=${currentUser}`)
+    fetch(`/user_inspirations?user_id=${currentUser.id}`)
       .then((response) => response.json())
       .then((data) => {
         setUserInspirations(data)
       })
   }, [])
-
-  const handleClick = () => {
-    navigate('/')
-  }
 
   function handleDeleteConfirmation(e) {
     if (window.confirm('are you sure you want to delete?'))
@@ -39,7 +66,7 @@ function UserProfile({ currentUser, isLoggedIn, userImage }) {
 
     if (response.ok) {
       console.log('deleted')
-      await fetch(`/user_inspirations?user_id=${currentUser}`)
+      await fetch(`/user_inspirations?user_id=${currentUser.id}`)
         .then((response) => response.json())
         .then((data) => {
           setUserInspirations(data)
@@ -50,48 +77,71 @@ function UserProfile({ currentUser, isLoggedIn, userImage }) {
   }
 
   return (
-    <div>
-      <div id="profile">
-        <img className="avatar" src={`${userImage}`} alt="user avatar" />
-        <Table striped bordered hover className="table">
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Chords</th>
-              <th>Lyrics</th>
-              <th>Enigma</th>
-              <th>Delete/Share</th>
-            </tr>
-          </thead>
-          <tbody>
-            {userInspirations.map((inspiration) => (
-              <tr>
-                <td>{inspiration.title}</td>
-                <td>{inspiration.chord_return}</td>
-                <td>{inspiration.lyric_return}</td>
-                <td>{inspiration.enigma_return}</td>
-                <td>
-                  <Button
-                    value={inspiration.id}
-                    style={{ marginTop: '5px', marginLeft: '15px' }}
-                    onClick={handleDeleteConfirmation}
-                  >
-                    Delete
-                  </Button>
+    <>
+      <div className="container-1" style={{ backgroundColor: '#EAF4D3' }}>
+        <div className="box-2" style={{ backgroundColor: '#2274A5' }}>
+          <img
+            className="avatar"
+            src={`${currentUser.profile_pic}`}
+            alt="user avatar"
+          />
+          <p>Username: {currentUser.username}</p>
+        </div>
 
-                  <Button
-                    value={inspiration.id}
-                    style={{ marginTop: '15px', marginLeft: '15px' }}
-                  >
-                    Share
-                  </Button>
-                </td>
+        <div className="box-1">
+          <Table striped bordered hover className="table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Chords</th>
+                <th>Lyrics</th>
+                <th>Enigma</th>
+                <th>Delete/Share</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
+            </thead>
+            <tbody>
+              {userInspirations.map((inspiration) => (
+                <tr>
+                  <td>{inspiration.title}</td>
+                  <td>{inspiration.chord_return}</td>
+                  <td>{inspiration.lyric_return}</td>
+                  <td>{inspiration.enigma_return}</td>
+                  <td>
+                    <Button
+                      value={inspiration.id}
+                      style={{ marginTop: '5px', marginLeft: '15px' }}
+                      onClick={handleDeleteConfirmation}
+                    >
+                      Delete
+                    </Button>
+                    <OverlayTrigger
+                      placement="left"
+                      delay={{ show: 250, hide: 200 }}
+                      overlay={renderTooltip}
+                    >
+                      <Button
+                        value={inspiration.id}
+                        style={{ marginTop: '15px', marginLeft: '15px' }}
+                        onClick={handleShow}
+                      >
+                        Share
+                      </Button>
+                    </OverlayTrigger>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </div>
       </div>
-    </div>
+      <ShareCreationForm
+        showModal={show}
+        handleClose={handleClose}
+        handleShare={handleShare}
+        handleMusicLink={handleMusicLink}
+        handleAboutSong={handleAboutSong}
+      />
+    </>
   )
 }
 export default UserProfile

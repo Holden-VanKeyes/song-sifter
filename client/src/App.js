@@ -41,8 +41,19 @@ function App() {
   function handleLoginSignup(user) {
     setCurrentUser(user)
     setIsLoggedIn(true)
+  }
 
-    // navigate('/UserProfile')
+  async function postShare(musicShare) {
+    await fetch('/creations', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(musicShare),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+    navigate('/ShareCreation')
   }
 
   async function handleLogout() {
@@ -89,10 +100,7 @@ function App() {
             path="/UserProfile"
             element={
               isLoggedIn ? (
-                <UserProfile
-                  currentUser={currentUser.id}
-                  userImage={currentUser.profile_pic}
-                />
+                <UserProfile currentUser={currentUser} postShare={postShare} />
               ) : (
                 <NotLoggedInAlert />
               )
