@@ -8,4 +8,13 @@ class User < ApplicationRecord
     has_secure_password
 
     validates :username, presence: true, uniqueness: :true
+
+
+    def self.show_pics(id)
+        
+        avatar = self.all.find(id)
+       avatar[:profile_pic]
+   
+    end
+    
 end

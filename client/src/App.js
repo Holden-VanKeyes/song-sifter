@@ -52,7 +52,9 @@ function App() {
       body: JSON.stringify(musicShare),
     })
       .then((response) => response.json())
-      .then((data) => console.log(data))
+      .then((data) => {
+        console.log(data)
+      })
     navigate('/ShareCreation')
   }
 
@@ -69,7 +71,7 @@ function App() {
       })
     }
   }
-  console.log(currentUser)
+  // console.log(currentUser)
 
   return (
     <div>

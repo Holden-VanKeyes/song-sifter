@@ -4,7 +4,11 @@ class CreationsController < ApplicationController
      creation = Creation.create!(creation_params)
      render json: creation
     end
+    
 
+    def index
+     render json: Creation.all
+    end
 
 
 
