@@ -13,11 +13,10 @@ class EnigmasController < ApplicationController
        end
 
 
-      #  def get_one_enigma
-      #   enigma = Enigma.find(params[:id])
-      #   render json: enigma
-      #   # render json: Enigma.find_by(id: params[:id]) || Enigma.random
-      #  end
+      def get_filtered_enigmas
+        enigmas = Enigma.all.where(category: params[:category])
+        render json: enigmas
+      end
 
        def get_random_enigma
        

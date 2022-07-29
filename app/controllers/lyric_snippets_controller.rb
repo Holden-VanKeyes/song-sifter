@@ -14,6 +14,11 @@ class LyricSnippetsController < ApplicationController
         render json: lyrics
        end
    
+
+       def get_filtered_lyrics
+        lyrics = LyricSnippet.all.where(category: params[:category])
+        render json: lyrics
+      end
    
        def get_random_lyrics
        

@@ -11,6 +11,10 @@ Rails.application.routes.draw do
   get '/random_lyrics', to: "lyric_snippets#get_random_lyrics"
   get '/random_chords', to: "chord_progressions#get_random_chords"
 
+  get '/filtered_enigmas', to: 'enigmas#get_filtered_enigmas'
+  get '/filtered_lyrics', to: 'lyric_snippets#get_filtered_lyrics'
+  get '/filtered_chords', to: 'chord_progressions#get_filtered_chords'
+
   get '/user_inspirations', to: "inspirations#get_user_inspirations"
 
   delete '/logout', to: "sessions#destroy"

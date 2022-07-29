@@ -5,113 +5,60 @@ import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import Modal from 'react-bootstrap/Modal'
 
-function CategorySelector() {
+function CategorySelector({
+  show,
+  selection,
+  handleClose,
+  showCategories,
+  handleSearch,
+}) {
+  const [filterSelect, setFilterSelect] = useState('')
+  // const [filteredCategory, setFilteredCategory] = useState('')
+  const [categoryType, setCategoryType] = useState('')
+
+  function handleSelection(e) {
+    setFilterSelect(e.target.value)
+    setCategoryType(e.target.title)
+  }
+
+  function handleFilter() {
+    // setFilteredCategory(filterSelect)
+    handleSearch(filterSelect, categoryType)
+  }
+
   return (
     <div className="container-2">
-      <Form>
-        <Container>
-          <div id="inspiration-box">
-            <Row>
-              <Col>
-                <Card className="card h-100" style={{ width: '18rem' }}>
-                  <Card.Img variant="top" src="" />
-
-                  <Card.Body>
-                    <Card.Title>Chords</Card.Title>
-                    <Card.Text>
-                      A suggested 4-chord progression based on mood selection
-                    </Card.Text>
-
-                    <Form.Select
-                      variant="primary"
-                      title="Chords"
-                      //   onChange={handleChordSelection}
-                      //   value={chordSelect}
-                    >
-                      <option disabled={true} value="">
-                        -- Chord Moods --
-                      </option>
-                      <option
-                        value="uplifting - ebulient - lighthearted"
-                        placeholder="TEST"
-                      >
-                        Uplifting - Ebulient - Lighthearted
-                      </option>
-                      <option value="brooding - dark - mysterious">
-                        Brooding - Dark - Mysterious
-                      </option>
-                      <option value="angular - odd - atmospheric">
-                        Angular - Odd - Atmospheric
-                      </option>
-                    </Form.Select>
-                  </Card.Body>
-                </Card>
-              </Col>
-              <Col>
-                <Card className="card h-100" style={{ width: '18rem' }}>
-                  <Card.Img variant="top" src="" />
-
-                  <Card.Body>
-                    <Card.Title>Enigmatic Expressions</Card.Title>
-                    <Card.Text>
-                      Ways to get you think outside of the box based musically
-                      speaking
-                    </Card.Text>
-                    <Form.Select
-                      variant="primary"
-                      title="Enigma"
-                      //   onChange={handleEnigmaSelection}
-                      //   value={enigmaSelect}
-                    >
-                      <option disabled={true} value="">
-                        -- Enigma Categories --
-                      </option>
-                      <option value="on production/arrangement">
-                        On production/arrangement
-                      </option>
-                      <option value="on melodic/harmonic/tonal elements">
-                        On melodic/harmonic/tonal elements
-                      </option>
-                      <option value="random">Random</option>
-                    </Form.Select>
-                  </Card.Body>
-                </Card>
-              </Col>
-              <Col>
-                <Card className="card h-100" style={{ width: '18rem' }}>
-                  <Card.Img variant="top" src="" />
-
-                  <Card.Body>
-                    <Card.Title>Lyrics</Card.Title>
-                    <Card.Text>
-                      Lyric snippets based on a style to help you get started
-                      writing
-                    </Card.Text>
-                    <Form.Select variant="primary" title="Lyric">
-                      <option disabled={true} value="">
-                        -- Lyric Styles --
-                      </option>
-                      <option value="observational - worldly - nomadic">
-                        Observational - Worldly - Nomadic
-                      </option>
-                      <option value="hopeful - elevated - serene">
-                        Hopeful - Elevated - Serene
-                      </option>
-                      <option value="boozy - despondent - lovelorn">
-                        Boozy - Despondent - Lovelorn
-                      </option>
-                      <option value="abstract - esoteric - uneven">
-                        Abstract - Esoteric - Uneven
-                      </option>
-                    </Form.Select>
-                  </Card.Body>
-                </Card>
-              </Col>
-            </Row>
-          </div>
-        </Container>
-      </Form>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>{selection}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form.Select
+            variant="primary"
+            // title="Chords"
+            onChange={handleSelection}
+            value={filterSelect}
+            title={showCategories.name}
+          >
+            <option value={showCategories.cat1}>{showCategories.cat1}</option>
+            <option value={showCategories.cat2}>{showCategories.cat2}</option>
+            <option value={showCategories.cat3}>{showCategories.cat3}</option>
+            {showCategories.cat4 === null ? null : (
+              <option value={showCategories.cat4}>{showCategories.cat4}</option>
+            )}
+          </Form.Select>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleFilter}>
+            Filter
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   )
 }

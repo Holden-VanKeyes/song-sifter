@@ -52,6 +52,17 @@ function UserProfile({ currentUser, postShare }) {
       })
   }, [])
 
+  function getCategories() {
+    //this code below gives array of objs with each cat type as key and string as value
+    //you'd need to associate this with the inspiration so when its shared its 'tagged'
+    //and can be filtered over
+
+    const test = userInspirations.map((ins) => ins.categories)
+
+    console.log(test)
+  }
+  getCategories()
+
   function handleDeleteConfirmation(e) {
     if (window.confirm('are you sure you want to delete?'))
       return handleDelete(e)

@@ -10,6 +10,11 @@ class ChordProgressionsController < ApplicationController
      render json: chords
     end
 
+    def get_filtered_chords
+        chords = ChordProgression.all.where(category: params[:category])
+        render json: chords
+      end
+
     def get_random_chords
         # byebug
         @chords = ChordProgression.where(category: params[:category])

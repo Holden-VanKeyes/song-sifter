@@ -1,5 +1,6 @@
 import './App.css'
 import NavHeader from './NavHeader'
+
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Routes, Route } from 'react-router-dom'
 import Home from './Home'
@@ -18,6 +19,9 @@ function App() {
     profile_pic: '',
   })
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [filteredSearch, setFilteredSearch] = useState('')
+  const [filteredType, setFilteredType] = useState('')
+
   const [userImage, setUserImage] = useState('')
 
   const navigate = useNavigate()
@@ -41,6 +45,11 @@ function App() {
   function handleLoginSignup(user) {
     setCurrentUser(user)
     setIsLoggedIn(true)
+  }
+
+  function handleSearch(category, name) {
+    setFilteredSearch(category)
+    setFilteredType(name)
   }
 
   async function postShare(musicShare) {
@@ -76,7 +85,11 @@ function App() {
   return (
     <div>
       <div className="img-container">
-        <NavHeader isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
+        <NavHeader
+          isLoggedIn={isLoggedIn}
+          handleLogout={handleLogout}
+          handleSearch={handleSearch}
+        />
 
         <Routes>
           <Route
@@ -110,7 +123,16 @@ function App() {
           />
           <Route
             path="/ShareCreation"
-            element={isLoggedIn ? <ShareCreation /> : <NotLoggedInAlert />}
+            element={
+              isLoggedIn ? (
+                <ShareCreation
+                  filteredSearch={filteredSearch}
+                  filteredType={filteredType}
+                />
+              ) : (
+                <NotLoggedInAlert />
+              )
+            }
           />
           <Route
             path="/UserAdditions"
