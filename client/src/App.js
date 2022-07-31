@@ -11,6 +11,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import NotLoggedInAlert from './NotLoggedInAlert'
 import UserAdditions from './UserAdditions'
+import FilterHelper from './FilterHelper'
 
 function App() {
   const [currentUser, setCurrentUser] = useState({
@@ -21,8 +22,8 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [filteredSearch, setFilteredSearch] = useState('')
   const [filteredType, setFilteredType] = useState('')
-
-  const [userImage, setUserImage] = useState('')
+  const [sharePageUpdate, setSharePageUpdate] = useState([])
+  const [refreshed, setRefreshed] = useState(false)
 
   const navigate = useNavigate()
 
@@ -47,10 +48,26 @@ function App() {
     setIsLoggedIn(true)
   }
 
+  function resetFunction() {
+    setRefreshed(true)
+  }
+
   function handleSearch(category, name) {
     setFilteredSearch(category)
     setFilteredType(name)
+    // setFilteredType('')
+    // console.log(mounted)
+    // setMounted(true)
+    // console.log(mounted)
   }
+
+  function updateSharePage(filteredSet) {
+    setFilteredType('')
+    setRefreshed(false)
+    setSharePageUpdate(filteredSet)
+    // console.log(filteredSet)
+  }
+  // console.log(sharePageUpdate)
 
   async function postShare(musicShare) {
     await fetch('/creations', {
@@ -84,11 +101,17 @@ function App() {
 
   return (
     <div>
+      <FilterHelper
+        filteredSearch={filteredSearch}
+        filteredType={filteredType}
+        updateSharePage={updateSharePage}
+      />
       <div className="img-container">
         <NavHeader
           isLoggedIn={isLoggedIn}
           handleLogout={handleLogout}
           handleSearch={handleSearch}
+          resetFunction={resetFunction}
         />
 
         <Routes>
@@ -128,6 +151,9 @@ function App() {
                 <ShareCreation
                   filteredSearch={filteredSearch}
                   filteredType={filteredType}
+                  sharePageUpdate={sharePageUpdate}
+                  refreshed={refreshed}
+                  resetFunction={resetFunction}
                 />
               ) : (
                 <NotLoggedInAlert />

@@ -11,7 +11,7 @@ function UserProfile({ currentUser, postShare }) {
   const [show, setShow] = useState(false)
   const [musicLink, setMusicLink] = useState('')
   const [aboutSong, setAboutSong] = useState('')
-  const [inspoTitle, setInspoTitle] = useState('')
+  const [sharedInspiration, setSharedInspiration] = useState('')
 
   const renderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
@@ -31,16 +31,17 @@ function UserProfile({ currentUser, postShare }) {
     setShow(true)
     const id = parseInt(e.target.value)
     const inspiration = userInspirations.find((inspo) => inspo.id === id)
-    setInspoTitle(inspiration.title)
+    setSharedInspiration(inspiration)
   }
 
   function handleShare() {
     const musicShare = {
-      title: inspoTitle,
+      title: sharedInspiration.title,
       music_link: musicLink,
       user_id: currentUser.id,
       about: aboutSong,
     }
+
     postShare(musicShare)
   }
 
@@ -61,7 +62,6 @@ function UserProfile({ currentUser, postShare }) {
 
     console.log(test)
   }
-  getCategories()
 
   function handleDeleteConfirmation(e) {
     if (window.confirm('are you sure you want to delete?'))
@@ -86,7 +86,7 @@ function UserProfile({ currentUser, postShare }) {
       console.log('not deleted')
     }
   }
-
+  console.log(userInspirations)
   return (
     <>
       <div className="container-1" style={{ backgroundColor: '#EAF4D3' }}>
@@ -111,8 +111,8 @@ function UserProfile({ currentUser, postShare }) {
               </tr>
             </thead>
             <tbody>
-              {userInspirations.map((inspiration) => (
-                <tr>
+              {userInspirations.map((inspiration, index) => (
+                <tr key={index}>
                   <td>{inspiration.title}</td>
                   <td>{inspiration.chord_return}</td>
                   <td>{inspiration.lyric_return}</td>

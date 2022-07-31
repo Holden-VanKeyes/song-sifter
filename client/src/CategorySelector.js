@@ -17,15 +17,27 @@ function CategorySelector({
   const [filterSelect, setFilterSelect] = useState('')
   // const [filteredCategory, setFilteredCategory] = useState('')
   const [categoryType, setCategoryType] = useState('')
+  const [filteredSelections, setFilteredSelections] = useState('')
 
   function handleSelection(e) {
     setFilterSelect(e.target.value)
     setCategoryType(e.target.title)
+
+    const selectionObj = {
+      type: e.target.title,
+      category: e.target.value,
+    }
+
+    setFilteredSelections(selectionObj)
   }
 
   function handleFilter() {
-    // setFilteredCategory(filterSelect)
-    handleSearch(filterSelect, categoryType)
+    const selectedType = categoryType
+    const selectedCategory = filterSelect
+    setFilterSelect('')
+    setCategoryType('')
+    handleSearch(selectedCategory, selectedType)
+    handleClose()
   }
 
   return (
@@ -42,6 +54,9 @@ function CategorySelector({
             value={filterSelect}
             title={showCategories.name}
           >
+            <option disabled={true} value="">
+              select category
+            </option>
             <option value={showCategories.cat1}>{showCategories.cat1}</option>
             <option value={showCategories.cat2}>{showCategories.cat2}</option>
             <option value={showCategories.cat3}>{showCategories.cat3}</option>

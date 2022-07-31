@@ -1,13 +1,13 @@
 import React from 'react'
 import { useState } from 'react'
-import { Dropdown, Nav, Navbar } from 'react-bootstrap'
+import { Nav, Navbar } from 'react-bootstrap'
 import { Link, useLocation } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import NavDropdown from 'react-bootstrap/NavDropdown'
-import Form from 'react-bootstrap/Form'
+
 import CategorySelector from './CategorySelector'
 
-function NavHeader({ isLoggedIn, handleLogout, handleSearch }) {
+function NavHeader({ isLoggedIn, handleLogout, handleSearch, resetFunction }) {
   const [selection, setSelection] = useState('')
   const [show, setShow] = useState(false)
   const [showCategories, setShowCategories] = useState([])
@@ -45,7 +45,10 @@ function NavHeader({ isLoggedIn, handleLogout, handleSearch }) {
   const handleDropdown = (e) => {
     setSelection(e)
     setShow(true)
-    if (e === 'Enigmas') {
+    if (e === 'All') {
+      handleClose()
+      resetFunction()
+    } else if (e === 'Enigmas') {
       setShowCategories(enigmaCategories)
     } else if (e === 'Lyrics') {
       setShowCategories(lyricCategories)
@@ -126,6 +129,7 @@ function NavHeader({ isLoggedIn, handleLogout, handleSearch }) {
                 color: '#99E1D9',
               }}
             >
+              <NavDropdown.Item eventKey="All">Show All</NavDropdown.Item>
               <NavDropdown.Item eventKey="Enigmas">Enigmas</NavDropdown.Item>
               <NavDropdown.Item eventKey="Lyrics">Lyrics</NavDropdown.Item>
               <NavDropdown.Item eventKey="Chords">Chords</NavDropdown.Item>

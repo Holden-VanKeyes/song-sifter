@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get '/filtered_enigmas', to: 'enigmas#get_filtered_enigmas'
   get '/filtered_lyrics', to: 'lyric_snippets#get_filtered_lyrics'
   get '/filtered_chords', to: 'chord_progressions#get_filtered_chords'
+  get '/filtered_creations', to: 'creations#get_filtered_creations'
 
   get '/user_inspirations', to: "inspirations#get_user_inspirations"
 
