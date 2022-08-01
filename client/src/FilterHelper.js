@@ -1,55 +1,34 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 
-function FilterHelper({ filteredSearch, filteredType, updateSharePage }) {
-  const [showShared, setShowShared] = useState([])
-  useEffect(() => {
-    fetch('/creations')
-      .then((response) => response.json())
-      .then((data) => setShowShared(data))
-    console.log('FilterHelper')
-  }, [])
+function FilterHelper({
+  filteredSearch,
+  filteredType,
+  updateSharePage,
+  showFilteredPage,
+}) {
+  //   const [showShared, setShowShared] = useState([])
+  //   useEffect(() => {
+  //     fetch('/creations')
+  //       .then((response) => response.json())
+  //       .then((data) => setShowShared(data))
+  //   }, [])
+  //   console.log(showFilteredPage)
 
-  console.log(filteredType)
-
-  const usersWhoShared = showShared.map((c) => c.user_id)
+  const usersWhoShared = showFilteredPage.map((c) => c.user_id)
   const usersWhoSharedIds = [...new Set(usersWhoShared)]
 
-  //   if (filteredType === '') {
-  //     return null
-  //   } else if (filteredType === 'lyrics') {
-  //     fetch(`/filtered_lyrics?category=${filteredSearch}`)
-  //       .then((response) => response.json())
-  //       .then((data) => {
-  //         handleGetIds(data)
-  //         // handleComparison(data)
-  //       })
-  //   } else {
-  //     if (filteredType === 'enigmas') {
-  //       fetch(`/filtered_enigmas?category=${filteredSearch}`)
-  //         .then((response) => response.json())
-  //         .then((data) => {
-  //           handleGetIds(data)
-  //           // handleComparison(data)
-  //         })
-  //     } else {
-  //       if (filteredType === 'chords') {
-  //         fetch(`/filtered_chords?category=${filteredSearch}`)
-  //           .then((response) => response.json())
-  //           .then((data) => {
-  //             handleGetIds(data)
-  //             // handleComparison(data)
-  //           })
-  //       }
-  //     }
-  //   }
+  const sharedCreationInspos = showFilteredPage
+    .flatMap((obj) => obj.inspirations)
+    .map((i) => i.id)
+  const sharedInsposNoDup = [...new Set(sharedCreationInspos)]
 
   if (filteredType === 'lyrics') {
     fetch(`/filtered_lyrics?category=${filteredSearch}`)
       .then((response) => response.json())
       .then((data) => {
         handleGetIds(data)
-        // handleComparison(data)
+        // console.log(data)
       })
   } else {
     if (filteredType === 'enigmas') {
@@ -57,7 +36,6 @@ function FilterHelper({ filteredSearch, filteredType, updateSharePage }) {
         .then((response) => response.json())
         .then((data) => {
           handleGetIds(data)
-          // handleComparison(data)
         })
     } else {
       if (filteredType === 'chords') {
@@ -65,7 +43,6 @@ function FilterHelper({ filteredSearch, filteredType, updateSharePage }) {
           .then((response) => response.json())
           .then((data) => {
             handleGetIds(data)
-            // handleComparison(data)
           })
       } else {
         if (filteredType === '') {
@@ -76,25 +53,45 @@ function FilterHelper({ filteredSearch, filteredType, updateSharePage }) {
   }
 
   function handleGetIds(data) {
-    const ids = data.flatMap((obj) => obj.inspirations).map((e) => e.user_id)
+    const ids = data.flatMap((obj) => obj.inspirations).map((e) => e.id)
     const uniqueIdArr = [...new Set(ids)]
+    console.log(uniqueIdArr)
     handleComparison(uniqueIdArr)
   }
 
   function handleComparison(uniqueIdArr) {
     const filteredArr = uniqueIdArr.filter((id) =>
-      usersWhoSharedIds.includes(id)
+      sharedInsposNoDup.includes(id)
     )
+    console.log(filteredArr)
 
-    const filteredPage = showShared.map((c) => {
-      if (filteredArr.includes(c.user_id)) {
+    const filteredPage = showFilteredPage
+      .flatMap((obj) => obj.inspirations)
+      .map((i) => {
+        if (filteredArr.includes(i.id)) {
+          return i.user_id
+        } else {
+          return null
+        }
+      })
+
+    console.log(filteredPage)
+    const filteredSet = [...new Set(filteredPage)].filter((obj) => obj !== null)
+    console.log(filteredSet)
+
+    const filteredUsers = showFilteredPage.map((c) => {
+      if (filteredSet.includes(c.user_id)) {
+        // console.log(c)
         return c
       } else {
         return null
       }
     })
-    const filteredSet = [...new Set(filteredPage)].filter((obj) => obj !== null)
-    updateSharePage(filteredSet)
+    console.log(filteredUsers)
+    const filteredCreationsNoNull = filteredUsers.filter(
+      (creation) => creation !== null
+    )
+    updateSharePage(filteredCreationsNoNull)
   }
 
   return <div></div>

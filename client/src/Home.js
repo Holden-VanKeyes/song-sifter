@@ -4,7 +4,6 @@ import SignUp from './SignUp'
 import Button from 'react-bootstrap/Button'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import { useState } from 'react'
-import Card from 'react-bootstrap/Card'
 
 import Offcanvas from 'react-bootstrap/Offcanvas'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'

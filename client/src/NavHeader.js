@@ -61,9 +61,6 @@ function NavHeader({ isLoggedIn, handleLogout, handleSearch, resetFunction }) {
     <div>
       <Navbar bg="bbcolors" variant="dark" fixed="top" className="navbar py-4">
         <Navbar.Brand className="nav-link">Song Sifter</Navbar.Brand>
-        {/* <Navbar.Form pullRight>
-        </Navbar.Form> */}
-        {/* <Button bsStyle="primary">Login</Button> */}
 
         <Nav>
           <Link
@@ -107,16 +104,7 @@ function NavHeader({ isLoggedIn, handleLogout, handleSearch, resetFunction }) {
           >
             Share
           </Link>
-          {/* <Link
-            to="/UserAdditions"
-            style={{
-              padding: '10px',
-              textDecoration: 'none',
-              color: '#99E1D9',
-            }}
-          >
-            AddOne
-          </Link> */}
+
           {location.pathname === '/ShareCreation' ? (
             <NavDropdown
               value={selection}

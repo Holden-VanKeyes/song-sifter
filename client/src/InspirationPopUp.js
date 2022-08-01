@@ -13,10 +13,6 @@ function InspirationPopUp({
 }) {
   return (
     <>
-      {/* <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button> */}
-
       <Modal show={showPopUp} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Your Unique Musical Inspiration</Modal.Title>

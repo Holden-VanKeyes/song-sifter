@@ -23,6 +23,7 @@ function App() {
   const [filteredSearch, setFilteredSearch] = useState('')
   const [filteredType, setFilteredType] = useState('')
   const [sharePageUpdate, setSharePageUpdate] = useState([])
+  const [showFilteredPage, setShowFilteredPage] = useState([])
   const [refreshed, setRefreshed] = useState(false)
 
   const navigate = useNavigate()
@@ -33,6 +34,11 @@ function App() {
     })
       .then((r) => r.json())
       .then((data) => {
+        fetch('/creations')
+          .then((response) => response.json())
+          .then((data) => {
+            setShowFilteredPage(data)
+          })
         if (data.username) {
           handleLoginSignup(data)
 
@@ -55,19 +61,14 @@ function App() {
   function handleSearch(category, name) {
     setFilteredSearch(category)
     setFilteredType(name)
-    // setFilteredType('')
-    // console.log(mounted)
-    // setMounted(true)
-    // console.log(mounted)
   }
 
   function updateSharePage(filteredSet) {
+    console.log(filteredSet)
     setFilteredType('')
     setRefreshed(false)
     setSharePageUpdate(filteredSet)
-    // console.log(filteredSet)
   }
-  // console.log(sharePageUpdate)
 
   async function postShare(musicShare) {
     await fetch('/creations', {
@@ -76,11 +77,16 @@ function App() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(musicShare),
-    })
+    }).then((response) => response.json())
+    // .then((data) => {
+    //   setShowFilteredPage(data)
+    // })
+    fetch('/creations')
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
+        setShowFilteredPage(data)
       })
+
     navigate('/ShareCreation')
   }
 
@@ -97,7 +103,6 @@ function App() {
       })
     }
   }
-  // console.log(currentUser)
 
   return (
     <div>
@@ -105,6 +110,7 @@ function App() {
         filteredSearch={filteredSearch}
         filteredType={filteredType}
         updateSharePage={updateSharePage}
+        showFilteredPage={showFilteredPage}
       />
       <div className="img-container">
         <NavHeader

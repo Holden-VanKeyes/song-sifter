@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
@@ -9,6 +9,7 @@ export default function ShareCreationForm({
   handleShare,
   handleMusicLink,
   handleAboutSong,
+  handleSongTitle,
 }) {
   return (
     <div className="container-3">
@@ -18,6 +19,15 @@ export default function ShareCreationForm({
         </Modal.Header>
         <Modal.Body>
           <Form>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Tile Of Your Musical Creation</Form.Label>
+              <Form.Control
+                type="link"
+                placeholder="Song Title"
+                autoFocus
+                onChange={handleSongTitle}
+              />
+            </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>
                 Paste your link {`(BandCamp, SoundCloud etc...)`}

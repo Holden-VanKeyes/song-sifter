@@ -35,7 +35,7 @@ class CreationsController < ApplicationController
         render json: filtered_creations
     end
 
-    def destroy
+      def destroy
         # creation = Creation.where(user_id: params[:user_id])
          
         creation = Creation.find(params[:id])

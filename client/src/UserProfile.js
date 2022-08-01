@@ -9,15 +9,28 @@ import ShareCreationForm from './ShareCreationForm'
 function UserProfile({ currentUser, postShare }) {
   const [userInspirations, setUserInspirations] = useState([])
   const [show, setShow] = useState(false)
+  const [songTitle, setsongTitle] = useState('')
   const [musicLink, setMusicLink] = useState('')
   const [aboutSong, setAboutSong] = useState('')
   const [sharedInspiration, setSharedInspiration] = useState('')
+
+  useEffect(() => {
+    fetch(`/user_inspirations?user_id=${currentUser.id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setUserInspirations(data)
+      })
+  }, [])
 
   const renderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
       Share music you've created from this inspiration
     </Tooltip>
   )
+
+  function handleSongTitle(e) {
+    setsongTitle(e.target.value)
+  }
 
   function handleMusicLink(e) {
     setMusicLink(e.target.value)
@@ -36,7 +49,7 @@ function UserProfile({ currentUser, postShare }) {
 
   function handleShare() {
     const musicShare = {
-      title: sharedInspiration.title,
+      title: songTitle,
       music_link: musicLink,
       user_id: currentUser.id,
       about: aboutSong,
@@ -45,31 +58,39 @@ function UserProfile({ currentUser, postShare }) {
     postShare(musicShare)
   }
 
-  useEffect(() => {
-    fetch(`/user_inspirations?user_id=${currentUser.id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setUserInspirations(data)
-      })
-  }, [])
-
-  function getCategories() {
-    //this code below gives array of objs with each cat type as key and string as value
-    //you'd need to associate this with the inspiration so when its shared its 'tagged'
-    //and can be filtered over
-
-    const test = userInspirations.map((ins) => ins.categories)
-
-    console.log(test)
-  }
-
   function handleDeleteConfirmation(e) {
-    if (window.confirm('are you sure you want to delete?'))
-      return handleDelete(e)
+    const user = parseInt(e.target.value)
+
+    if (user === currentUser.id) {
+      window.confirm('are you sure you want to delete?')
+      return handleDeleteUser(e)
+    } else if (window.confirm('are you sure you want to delete?'))
+      return handleDeleteInspo(e)
     else return null
   }
 
-  async function handleDelete(e) {
+  async function handleDeleteUser(e) {
+    console.log('user delete running')
+    const userId = e.target.value
+
+    const response = await fetch(`/users/${userId}`, {
+      method: 'DELETE',
+    })
+
+    if (response.ok) {
+      console.log('deleted')
+      // await fetch(`/user_inspirations?user_id=${currentUser.id}`)
+      //   .then((response) => response.json())
+      //   .then((data) => {
+      //     setUserInspirations(data)
+      //   })
+    } else {
+      console.log('not deleted')
+    }
+  }
+
+  async function handleDeleteInspo(e) {
+    console.log('inpos delete running')
     const inspoId = e.target.value
     const response = await fetch(`/inspirations/${inspoId}`, {
       method: 'DELETE',
@@ -86,17 +107,32 @@ function UserProfile({ currentUser, postShare }) {
       console.log('not deleted')
     }
   }
-  console.log(userInspirations)
+
   return (
     <>
       <div className="container-1" style={{ backgroundColor: '#EAF4D3' }}>
         <div className="box-2" style={{ backgroundColor: '#2274A5' }}>
           <img
             className="avatar"
-            src={`${currentUser.profile_pic}`}
+            src={currentUser.profile_pic}
             alt="user avatar"
           />
           <p>Username: {currentUser.username}</p>
+          <button
+            value={currentUser.id}
+            padding="5px"
+            style={{ backgroundColor: '#36F1CD', margin: '5px' }}
+            onClick={handleDeleteConfirmation}
+          >
+            Edit Profile
+          </button>
+          <button
+            value={currentUser.id}
+            style={{ backgroundColor: '#E0777D' }}
+            onClick={handleDeleteConfirmation}
+          >
+            Delete Account
+          </button>
         </div>
 
         <div className="box-1">
@@ -149,6 +185,7 @@ function UserProfile({ currentUser, postShare }) {
         showModal={show}
         handleClose={handleClose}
         handleShare={handleShare}
+        handleSongTitle={handleSongTitle}
         handleMusicLink={handleMusicLink}
         handleAboutSong={handleAboutSong}
       />

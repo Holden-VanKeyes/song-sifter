@@ -14,72 +14,38 @@ export default function ShareCreation({
   // const [refreshed, setRefreshed] = useState(false)
 
   useEffect(() => {
-    console.log(refreshed)
     resetFunction()
-    console.log(refreshed)
+
     fetch('/creations')
       .then((response) => response.json())
       .then((data) => setSharedCreations(data))
   }, [])
-  console.log(refreshed)
 
-  // const usersWhoShared = sharedCreations.map((c) => c.user_id)
-  // const usersWhoSharedIds = [...new Set(usersWhoShared)]
+  function handleDeleteConfirmation(e) {
+    if (window.confirm('are you sure you want to delete?'))
+      return handleDeleteShare(e)
+    else return null
+  }
 
-  // function filterFetch() {
-  //   console.log('I ran')
-  //   if (filteredType === '') {
-  //     return null
-  //   } else if (filteredType === 'lyrics') {
-  //     fetch(`/filtered_lyrics?category=${filteredSearch}`)
-  //       .then((response) => response.json())
-  //       .then((data) => {
-  //         handleGetIds(data)
-  //         // handleComparison(data)
-  //       })
-  //   } else {
-  //     if (filteredType === 'enigmas') {
-  //       fetch(`/filtered_enigmas?category=${filteredSearch}`)
-  //         .then((response) => response.json())
-  //         .then((data) => {
-  //           handleGetIds(data)
-  //           // handleComparison(data)
-  //         })
-  //     } else {
-  //       if (filteredType === 'chords') {
-  //         fetch(`/filtered_chords?category=${filteredSearch}`)
-  //           .then((response) => response.json())
-  //           .then((data) => {
-  //             handleGetIds(data)
-  //             // handleComparison(data)
-  //           })
-  //       }
-  //     }
-  //   }
-  // }
+  async function handleDeleteShare(e) {
+    const creation = e.target.value
+    const response = await fetch(`/creations/${creation}`, {
+      method: 'DELETE',
+    })
 
-  // function handleGetIds(data) {
-  //   console.log(data)
-  //   const ids = data.flatMap((obj) => obj.inspirations).map((e) => e.user_id)
-  //   const uniqueIdArr = [...new Set(ids)]
-  //   handleComparison(uniqueIdArr)
-  // }
+    if (response.ok) {
+      console.log('deleted')
+      resetFunction()
+      await fetch(`/creations`)
+        .then((response) => response.json())
+        .then((data) => {
+          setSharedCreations(data)
+        })
+    } else {
+      console.log('not deleted')
+    }
+  }
 
-  // function handleComparison(uniqueIdArr) {
-  //   const filteredArr = uniqueIdArr.filter((id) =>
-  //     usersWhoSharedIds.includes(id)
-  //   )
-
-  //   const filteredPage = sharedCreations.map((c) => {
-  //     if (filteredArr.includes(c.user_id)) {
-  //       return c
-  //     } else {
-  //       return null
-  //     }
-  //   })
-  //   const filteredSet = [...new Set(filteredPage)].filter((obj) => obj !== null)
-  //   // console.log(filteredSet)
-  // }
   if (refreshed) {
     return (
       <>
@@ -107,6 +73,14 @@ export default function ShareCreation({
                     <Card.Text style={{ textAlign: 'center' }}>
                       {creation.about}
                     </Card.Text>
+                    <Button
+                      value={creation.id}
+                      variant="info"
+                      size="sm"
+                      onClick={handleDeleteConfirmation}
+                    >
+                      Delete Share
+                    </Button>
                   </Card.Body>
                   <Card.Link
                     href={creation.music_link}
@@ -148,6 +122,14 @@ export default function ShareCreation({
                     <Card.Text style={{ textAlign: 'center' }}>
                       {creation.about}
                     </Card.Text>
+                    <Button
+                      value={creation.id}
+                      variant="info"
+                      size="sm"
+                      onClick={handleDeleteConfirmation}
+                    >
+                      Delete Share
+                    </Button>
                   </Card.Body>
                   <Card.Link
                     href={creation.music_link}

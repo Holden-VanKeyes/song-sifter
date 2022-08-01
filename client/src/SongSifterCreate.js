@@ -7,19 +7,17 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import InspirationPopUp from './InspirationPopUp'
 import { useNavigate } from 'react-router-dom'
-import UserProfile from './UserProfile'
 
 function SongSifterCreate({ currentUser }) {
   const [chordSelect, setChordSelect] = useState('')
   const [enigmaSelect, setEnigmaSelect] = useState('')
   const [lyricSelect, setLyricSelect] = useState('')
   const [show, setShow] = useState(false)
-  const [showUserPage, setShowUserPage] = useState(false)
+
   const [randomEnigma, setRandomEnigma] = useState('')
   const [randomLyric, setRandomLyric] = useState('')
   const [randomChords, setRandomChords] = useState('')
   const [inspirationName, setInspirationName] = useState('')
-  const [createdInspiration, setCreatedInspiration] = useState('')
 
   const navigate = useNavigate()
 
@@ -80,7 +78,7 @@ function SongSifterCreate({ currentUser }) {
       .then((data) => {
         console.log(data)
       })
-    setShowUserPage(true)
+
     navigate('/UserProfile')
     // setShow(false)
   }
@@ -216,17 +214,8 @@ function SongSifterCreate({ currentUser }) {
       >
         Create
       </Button>
-      {showUserPage ? (
-        <UserProfile newInspiration={createdInspiration} />
-      ) : null}
     </div>
   )
 }
 
 export default SongSifterCreate
-
-// {weaponList.map((weapon) => (
-//   <option key={weapon.id} value={weapon.name}>
-//     {weapon.name}
-//   </option>
-// ))}

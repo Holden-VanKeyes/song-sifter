@@ -2,13 +2,18 @@ import React from 'react'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 export default function Login({ loginSignup }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
-  const navigate = useNavigate()
+  function handleUsername(e) {
+    setUsername(e.target.value)
+  }
+
+  function handlePassword(e) {
+    setPassword(e.target.value)
+  }
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -32,21 +37,12 @@ export default function Login({ loginSignup }) {
     }
   }
 
-  function handleUsername(e) {
-    setUsername(e.target.value)
-  }
-
-  function handlePassword(e) {
-    setPassword(e.target.value)
-  }
-
   return (
     <div>
       <Form id="log-in" onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
           <Form.Label>Username</Form.Label>
           <Form.Control
-            // type="email"
             placeholder="Enter Username"
             onChange={handleUsername}
           />

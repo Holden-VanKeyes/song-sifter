@@ -21,13 +21,14 @@ class UsersController < ApplicationController
     end
 
     def update
-        byebug
+        # byebug
         user = User.find(params[:id])
         user.update(user_params)
         render json: user, status: :accepted
     end
  
     def destroy
+    #     byebug
      user = User.find[params[:id]]
      user.destroy
      head :no_content
