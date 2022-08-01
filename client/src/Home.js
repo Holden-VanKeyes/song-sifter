@@ -7,7 +7,7 @@ import { useState } from 'react'
 
 import Offcanvas from 'react-bootstrap/Offcanvas'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
-import UserAdditions from './UserAdditions'
+import SplashPage from './SplashPage'
 
 export default function Home({ loginSignup, isLoggedIn, handleUserImage }) {
   const [showForm, setShowForm] = useState(false)
@@ -79,6 +79,6 @@ export default function Home({ loginSignup, isLoggedIn, handleUserImage }) {
       </>
     )
   } else {
-    return <UserAdditions />
+    return <SplashPage />
   }
 }

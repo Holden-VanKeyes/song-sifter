@@ -5,13 +5,16 @@ import { useEffect } from 'react'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import ShareCreationForm from './ShareCreationForm'
+import AddYourOwnModal from './AddYourOwnModal'
 
-function UserProfile({ currentUser, postShare }) {
+function UserProfile({ currentUser, postShare, showModalPopUp }) {
   const [userInspirations, setUserInspirations] = useState([])
   const [show, setShow] = useState(false)
+
   const [songTitle, setsongTitle] = useState('')
   const [musicLink, setMusicLink] = useState('')
   const [aboutSong, setAboutSong] = useState('')
+
   const [sharedInspiration, setSharedInspiration] = useState('')
 
   useEffect(() => {
@@ -39,6 +42,12 @@ function UserProfile({ currentUser, postShare }) {
     setAboutSong(e.target.value)
   }
 
+  function handleEditProfile() {}
+
+  // function addChordLyricEnigma(e) {
+  //   setUserAddSelection(e.target.value)
+  // }
+
   const handleClose = () => setShow(false)
   const handleShow = (e) => {
     setShow(true)
@@ -63,17 +72,16 @@ function UserProfile({ currentUser, postShare }) {
 
     if (user === currentUser.id) {
       window.confirm('are you sure you want to delete?')
-      return handleDeleteUser(e)
+      return handleDeleteUser(user)
     } else if (window.confirm('are you sure you want to delete?'))
       return handleDeleteInspo(e)
     else return null
   }
 
-  async function handleDeleteUser(e) {
-    console.log('user delete running')
-    const userId = e.target.value
+  async function handleDeleteUser(user) {
+    console.log(typeof user)
 
-    const response = await fetch(`/users/${userId}`, {
+    const response = await fetch(`/users/${user}`, {
       method: 'DELETE',
     })
 
@@ -110,85 +118,116 @@ function UserProfile({ currentUser, postShare }) {
 
   return (
     <>
-      <div className="container-1" style={{ backgroundColor: '#EAF4D3' }}>
-        <div className="box-2" style={{ backgroundColor: '#2274A5' }}>
-          <img
-            className="avatar"
-            src={currentUser.profile_pic}
-            alt="user avatar"
-          />
-          <p>Username: {currentUser.username}</p>
-          <button
-            value={currentUser.id}
-            padding="5px"
-            style={{ backgroundColor: '#36F1CD', margin: '5px' }}
-            onClick={handleDeleteConfirmation}
-          >
-            Edit Profile
-          </button>
-          <button
-            value={currentUser.id}
-            style={{ backgroundColor: '#E0777D' }}
-            onClick={handleDeleteConfirmation}
-          >
-            Delete Account
-          </button>
-        </div>
+      <div>
+        <div className="container-1" style={{ backgroundColor: '#EAF4D3' }}>
+          <div className="box-2" style={{ backgroundColor: '#2274A5' }}>
+            <img
+              className="avatar"
+              src={currentUser.profile_pic}
+              alt="user avatar"
+            />
+            <p>Username: {currentUser.username}</p>
+            {/* I want to make this a <textarea></textarea> for bio instead of p tag*/}
+            <p>Bio: {currentUser.bio}</p>
+            <button
+              value={currentUser.id}
+              padding="5px"
+              style={{ backgroundColor: '#36F1CD', margin: '5px' }}
+              onClick={handleEditProfile}
+            >
+              Edit Profile
+            </button>
+            <button
+              value={currentUser.id}
+              style={{ backgroundColor: '#E0777D' }}
+              onClick={handleDeleteConfirmation}
+            >
+              Delete Account
+            </button>
+            <br></br>
+            <br></br>
+            <button
+              value="chords"
+              style={{ backgroundColor: '#E0777D' }}
+              onClick={showModalPopUp}
+            >
+              Add Chords
+            </button>
+            <br></br>
+            <br></br>
+            <button
+              value="lyrics"
+              style={{ backgroundColor: '#E0777D' }}
+              onClick={showModalPopUp}
+            >
+              Add Lyrics
+            </button>
+            <br></br>
+            <br></br>
+            <button
+              value="enigma"
+              style={{ backgroundColor: '#E0777D' }}
+              onClick={showModalPopUp}
+            >
+              Add Enigma
+            </button>
+          </div>
 
-        <div className="box-1">
-          <Table striped bordered hover className="table">
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Chords</th>
-                <th>Lyrics</th>
-                <th>Enigma</th>
-                <th>Delete/Share</th>
-              </tr>
-            </thead>
-            <tbody>
-              {userInspirations.map((inspiration, index) => (
-                <tr key={index}>
-                  <td>{inspiration.title}</td>
-                  <td>{inspiration.chord_return}</td>
-                  <td>{inspiration.lyric_return}</td>
-                  <td>{inspiration.enigma_return}</td>
-                  <td>
-                    <Button
-                      value={inspiration.id}
-                      style={{ marginTop: '5px', marginLeft: '15px' }}
-                      onClick={handleDeleteConfirmation}
-                    >
-                      Delete
-                    </Button>
-                    <OverlayTrigger
-                      placement="left"
-                      delay={{ show: 250, hide: 200 }}
-                      overlay={renderTooltip}
-                    >
+          <div className="box-1">
+            <Table striped bordered hover className="table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Chords</th>
+                  <th>Lyrics</th>
+                  <th>Enigma</th>
+                  <th>Delete/Share</th>
+                </tr>
+              </thead>
+              <tbody>
+                {userInspirations.map((inspiration, index) => (
+                  <tr key={index}>
+                    <td>{inspiration.title}</td>
+                    <td>{inspiration.chord_return}</td>
+                    <td>{inspiration.lyric_return}</td>
+                    <td>{inspiration.enigma_return}</td>
+                    <td>
                       <Button
                         value={inspiration.id}
-                        style={{ marginTop: '15px', marginLeft: '15px' }}
-                        onClick={handleShow}
+                        style={{ marginTop: '5px', marginLeft: '15px' }}
+                        onClick={handleDeleteConfirmation}
                       >
-                        Share
+                        Delete
                       </Button>
-                    </OverlayTrigger>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
+                      <OverlayTrigger
+                        placement="left"
+                        delay={{ show: 250, hide: 200 }}
+                        overlay={renderTooltip}
+                      >
+                        <Button
+                          value={inspiration.id}
+                          style={{ marginTop: '15px', marginLeft: '15px' }}
+                          onClick={handleShow}
+                        >
+                          Share
+                        </Button>
+                      </OverlayTrigger>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </div>
         </div>
+        <ShareCreationForm
+          showModal={show}
+          handleClose={handleClose}
+          handleShare={handleShare}
+          handleSongTitle={handleSongTitle}
+          handleMusicLink={handleMusicLink}
+          handleAboutSong={handleAboutSong}
+        />
       </div>
-      <ShareCreationForm
-        showModal={show}
-        handleClose={handleClose}
-        handleShare={handleShare}
-        handleSongTitle={handleSongTitle}
-        handleMusicLink={handleMusicLink}
-        handleAboutSong={handleAboutSong}
-      />
     </>
   )
 }

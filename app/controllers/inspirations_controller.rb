@@ -18,6 +18,11 @@ class InspirationsController < ApplicationController
     
     end
 
+    def filter_by_lyric_cat
+    # inspirations = Inspiration.where(: params[:user_id])
+    end
+
+
     def get_user_inspirations
     inspirations = Inspiration.where(user_id: params[:user_id])
     render json: inspirations

@@ -10,7 +10,7 @@ import ShareCreation from './ShareCreation'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import NotLoggedInAlert from './NotLoggedInAlert'
-import UserAdditions from './UserAdditions'
+import SplashPage from './SplashPage'
 import FilterHelper from './FilterHelper'
 
 function App() {
@@ -25,6 +25,8 @@ function App() {
   const [sharePageUpdate, setSharePageUpdate] = useState([])
   const [showFilteredPage, setShowFilteredPage] = useState([])
   const [refreshed, setRefreshed] = useState(false)
+  const [showAddYourOwnForm, setShowAddYourOwnForm] = useState(false)
+  const [userAddSelection, setUserAddSelection] = useState('')
 
   const navigate = useNavigate()
 
@@ -61,6 +63,14 @@ function App() {
   function handleSearch(category, name) {
     setFilteredSearch(category)
     setFilteredType(name)
+  }
+
+  function showModalPopUp(e) {
+    setShowAddYourOwnForm(true)
+    setUserAddSelection(e.target.value)
+  }
+  function handleCloseModal() {
+    setShowAddYourOwnForm(false)
   }
 
   function updateSharePage(filteredSet) {
@@ -118,6 +128,10 @@ function App() {
           handleLogout={handleLogout}
           handleSearch={handleSearch}
           resetFunction={resetFunction}
+          showAddYourOwnForm={showAddYourOwnForm}
+          userAddSelection={userAddSelection}
+          handleCloseModal={handleCloseModal}
+          currentUser={currentUser}
         />
 
         <Routes>
@@ -144,7 +158,12 @@ function App() {
             path="/UserProfile"
             element={
               isLoggedIn ? (
-                <UserProfile currentUser={currentUser} postShare={postShare} />
+                <UserProfile
+                  currentUser={currentUser}
+                  postShare={postShare}
+                  showModalPopUp={showModalPopUp}
+                  handleCloseModal={handleCloseModal}
+                />
               ) : (
                 <NotLoggedInAlert />
               )
@@ -167,8 +186,8 @@ function App() {
             }
           />
           <Route
-            path="/UserAdditions"
-            element={isLoggedIn ? <UserAdditions /> : <NotLoggedInAlert />}
+            path="/SplashPage"
+            element={isLoggedIn ? <SplashPage /> : <NotLoggedInAlert />}
           />
         </Routes>
       </div>

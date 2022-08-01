@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Carousel from 'react-bootstrap/Carousel'
 
-function UserAdditions() {
+function SplashPage() {
   const [index, setIndex] = useState(0)
 
   const handleSelect = (selectedIndex, e) => {
@@ -58,4 +58,4 @@ function UserAdditions() {
     </>
   )
 }
-export default UserAdditions
+export default SplashPage

@@ -18,12 +18,14 @@ function FilterHelper({
   const usersWhoShared = showFilteredPage.map((c) => c.user_id)
   const usersWhoSharedIds = [...new Set(usersWhoShared)]
 
+  //getting all IDs from all inspirations that have been shared
   const sharedCreationInspos = showFilteredPage
     .flatMap((obj) => obj.inspirations)
     .map((i) => i.id)
   const sharedInsposNoDup = [...new Set(sharedCreationInspos)]
 
   if (filteredType === 'lyrics') {
+    //should I be fetching Inpos.where(lyric_snippet.category === filteredSearch)??
     fetch(`/filtered_lyrics?category=${filteredSearch}`)
       .then((response) => response.json())
       .then((data) => {

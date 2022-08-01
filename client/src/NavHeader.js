@@ -6,8 +6,18 @@ import Button from 'react-bootstrap/Button'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 
 import CategorySelector from './CategorySelector'
+import AddYourOwnModal from './AddYourOwnModal'
 
-function NavHeader({ isLoggedIn, handleLogout, handleSearch, resetFunction }) {
+function NavHeader({
+  isLoggedIn,
+  handleLogout,
+  handleSearch,
+  resetFunction,
+  userAddSelection,
+  showAddYourOwnForm,
+  handleCloseModal,
+  currentUser,
+}) {
   const [selection, setSelection] = useState('')
   const [show, setShow] = useState(false)
   const [showCategories, setShowCategories] = useState([])
@@ -59,6 +69,15 @@ function NavHeader({ isLoggedIn, handleLogout, handleSearch, resetFunction }) {
 
   return (
     <div>
+      <AddYourOwnModal
+        chords={chordCategories}
+        lyrics={lyricCategories}
+        enigmas={enigmaCategories}
+        userAddSelection={userAddSelection}
+        showModal={showAddYourOwnForm}
+        handleCloseModal={handleCloseModal}
+        currentUser={currentUser}
+      />
       <Navbar bg="bbcolors" variant="dark" fixed="top" className="navbar py-4">
         <Navbar.Brand className="nav-link">Song Sifter</Navbar.Brand>
 
