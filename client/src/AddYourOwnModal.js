@@ -7,6 +7,8 @@ import Toast from 'react-bootstrap/Toast'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import { ToastContainer } from 'react-bootstrap'
+import Image from 'react-bootstrap/Image'
+import { images } from './constants'
 
 function AddYourOwnModal({
   showModal,
@@ -21,6 +23,7 @@ function AddYourOwnModal({
   const [addition, setAddition] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('')
   const [showToast, setShowToast] = useState(false)
+  const [imageDisplay, setImageDisplay] = useState('')
 
   const modalTitle =
     userAddSelection.charAt(0).toUpperCase() + userAddSelection.slice(1)
@@ -34,10 +37,13 @@ function AddYourOwnModal({
   function handleUserSelection() {
     if (userAddSelection === 'enigma') {
       setCategories(enigmas)
+      setImageDisplay(images.Enigma)
     } else if (userAddSelection === 'lyrics') {
       setCategories(lyrics)
+      setImageDisplay(images.Lyric)
     } else if (userAddSelection === 'chords') {
       setCategories(chords)
+      setImageDisplay(images.Chord)
     } else return null
   }
 
@@ -102,6 +108,7 @@ function AddYourOwnModal({
   return (
     <>
       <Modal show={showModal} onHide={handleCloseModal}>
+        <Image src={imageDisplay} />
         <Modal.Header closeButton>
           {userAddSelection === 'enigma' ? (
             <Modal.Title>Add To Our Library Of {modalTitle}s</Modal.Title>

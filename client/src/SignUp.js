@@ -3,10 +3,11 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import { useState } from 'react'
 
-export default function SignUp({ loginSignup }) {
+export default function SignUp({ loginSignup, handleLoginErrors }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [passwordConfirm, setPasswordConfirm] = useState('')
+  const [nameError, setNameError] = useState('')
 
   function handleUsername(e) {
     setUsername(e.target.value)
@@ -45,6 +46,8 @@ export default function SignUp({ loginSignup }) {
       console.log(user)
     } else {
       //set Errors state
+      setNameError('not unique')
+      handleLoginErrors(nameError)
       console.log(user.errors)
     }
   }

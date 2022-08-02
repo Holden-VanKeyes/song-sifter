@@ -4,6 +4,12 @@ import { Nav, Navbar } from 'react-bootstrap'
 import { Link, useLocation } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import NavDropdown from 'react-bootstrap/NavDropdown'
+import {
+  enigmaCategories,
+  lyricCategories,
+  chordCategories,
+  categoriesByName,
+} from './constants'
 
 import CategorySelector from './CategorySelector'
 import AddYourOwnModal from './AddYourOwnModal'
@@ -24,29 +30,6 @@ function NavHeader({
 
   const location = useLocation()
 
-  const enigmaCategories = {
-    name: 'enigmas',
-    cat1: 'on production/arrangement',
-    cat2: 'on melodic/harmonic/tonal elements',
-    cat3: 'random',
-    cat4: null,
-  }
-
-  const lyricCategories = {
-    name: 'lyrics',
-    cat1: 'observational - worldly - nomadic',
-    cat2: 'hopeful - elevated - serene',
-    cat3: 'boozy - despondent - lovelorn',
-    cat4: 'abstract - esoteric - uneven',
-  }
-  const chordCategories = {
-    name: 'chords',
-    cat1: 'uplifting - ebulient - lighthearted',
-    cat2: 'brooding - dark - mysterious',
-    cat3: 'angular - odd - atmospheric',
-    cat4: null,
-  }
-
   const handleClose = () => {
     setSelection('')
     setShow(false)
@@ -58,13 +41,9 @@ function NavHeader({
     if (e === 'All') {
       handleClose()
       resetFunction()
-    } else if (e === 'Enigmas') {
-      setShowCategories(enigmaCategories)
-    } else if (e === 'Lyrics') {
-      setShowCategories(lyricCategories)
-    } else if (e === 'Chords') {
-      setShowCategories(chordCategories)
-    } else return null
+    } else {
+      setShowCategories(categoriesByName[e])
+    }
   }
 
   return (
@@ -78,7 +57,7 @@ function NavHeader({
         handleCloseModal={handleCloseModal}
         currentUser={currentUser}
       />
-      <Navbar bg="bbcolors" variant="dark" fixed="top" className="navbar py-4">
+      <Navbar bg="bbcolors" variant="dark" fixed="top" className="navbar p-4">
         <Navbar.Brand className="nav-link">Song Sifter</Navbar.Brand>
 
         <Nav>
@@ -124,7 +103,8 @@ function NavHeader({
             Share
           </Link>
 
-          {location.pathname === '/ShareCreation' ? (
+          {location.pathname === '/ShareCreation' &&
+          currentUser.username !== '' ? (
             <NavDropdown
               value={selection}
               onSelect={handleDropdown}
@@ -144,7 +124,7 @@ function NavHeader({
           ) : null}
         </Nav>
         {isLoggedIn ? (
-          <div>
+          <div className="nav-user">
             <Nav>
               <Navbar.Collapse className="justify-content-end">
                 <Button

@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 
   get '/user_inspirations', to: "inspirations#get_user_inspirations"
 
+  get 'selected_user', to: 'users#get_selected_user'
+
   delete '/logout', to: "sessions#destroy"
   post '/login', to: "sessions#create"
   post '/signup', to: "users#create"

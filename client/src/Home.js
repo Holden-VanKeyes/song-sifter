@@ -8,12 +8,13 @@ import { useState } from 'react'
 import Offcanvas from 'react-bootstrap/Offcanvas'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 import SplashPage from './SplashPage'
+import LoginErrorMsg from './LoginErrorMsg'
 
 export default function Home({ loginSignup, isLoggedIn, handleUserImage }) {
   const [showForm, setShowForm] = useState(false)
-
+  const [showErrorMsg, setShowErrorMsg] = useState(false)
+  const [errorSelector, setErrorSelector] = useState(false)
   const [show, setShow] = useState(false)
-
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
 
@@ -23,6 +24,20 @@ export default function Home({ loginSignup, isLoggedIn, handleUserImage }) {
   function handleShowSignUp() {
     setShowForm(false)
   }
+  function handleLoginErrors(nameError) {
+    if (nameError === 'not unique') {
+      setErrorSelector(true)
+      setShowErrorMsg(true)
+    } else {
+      setErrorSelector(false)
+      setShowErrorMsg(true)
+    }
+  }
+
+  function closeError() {
+    setShowErrorMsg(false)
+  }
+
   if (!isLoggedIn) {
     return (
       <>
@@ -47,15 +62,23 @@ export default function Home({ loginSignup, isLoggedIn, handleUserImage }) {
         </div>
         <div id="access">
           {showForm ? (
-            <Login loginSignup={loginSignup} />
+            <Login
+              loginSignup={loginSignup}
+              handleLoginErrors={handleLoginErrors}
+            />
           ) : (
             <SignUp
               loginSignup={loginSignup}
               handleUserImage={handleUserImage}
+              handleLoginErrors={handleLoginErrors}
             />
           )}
         </div>
-
+        <LoginErrorMsg
+          showErrorMsg={showErrorMsg}
+          closeError={closeError}
+          errorSelector={errorSelector}
+        />
         <div>
           <Offcanvas show={show} onHide={handleClose}>
             <Offcanvas.Header closeButton>

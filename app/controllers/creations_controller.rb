@@ -35,13 +35,20 @@ class CreationsController < ApplicationController
         render json: filtered_creations
     end
 
-      def destroy
-        # creation = Creation.where(user_id: params[:user_id])
-         
-        creation = Creation.find(params[:id])
-        creation.destroy
-        head :no_content
+    def destroy
+        # puts current_user
+        if current_user
+            creation = Creation.find(params[:id])
+            creation.destroy
+            head :no_content
+            
+        else 
+            # puts 'not cleared'
+            render json: {error:"Not Authorized"}, status: :unauthorized
         end
+         
+        
+    end
 
 
     private

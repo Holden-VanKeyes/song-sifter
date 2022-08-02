@@ -174,6 +174,7 @@ function App() {
             element={
               isLoggedIn ? (
                 <ShareCreation
+                  currentUser={currentUser}
                   filteredSearch={filteredSearch}
                   filteredType={filteredType}
                   sharePageUpdate={sharePageUpdate}

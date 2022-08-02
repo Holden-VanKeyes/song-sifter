@@ -6,10 +6,12 @@ import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import ShareCreationForm from './ShareCreationForm'
 import AddYourOwnModal from './AddYourOwnModal'
+import EditProfileForm from './EditProfileForm'
 
 function UserProfile({ currentUser, postShare, showModalPopUp }) {
   const [userInspirations, setUserInspirations] = useState([])
   const [show, setShow] = useState(false)
+  const [showUserEditForm, setShowUserEditForm] = useState(false)
 
   const [songTitle, setsongTitle] = useState('')
   const [musicLink, setMusicLink] = useState('')
@@ -42,11 +44,10 @@ function UserProfile({ currentUser, postShare, showModalPopUp }) {
     setAboutSong(e.target.value)
   }
 
-  function handleEditProfile() {}
-
-  // function addChordLyricEnigma(e) {
-  //   setUserAddSelection(e.target.value)
-  // }
+  function handleEditProfile() {
+    setShowUserEditForm(true)
+  }
+  const handleCloseEditForm = () => setShowUserEditForm(false)
 
   const handleClose = () => setShow(false)
   const handleShow = (e) => {
@@ -118,6 +119,10 @@ function UserProfile({ currentUser, postShare, showModalPopUp }) {
 
   return (
     <>
+      <EditProfileForm
+        showUserEditForm={showUserEditForm}
+        handleCloseEditForm={handleCloseEditForm}
+      />
       <div>
         <div className="container-1" style={{ backgroundColor: '#EAF4D3' }}>
           <div className="box-2" style={{ backgroundColor: '#2274A5' }}>

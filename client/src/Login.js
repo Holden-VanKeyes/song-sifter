@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import { useState } from 'react'
 
-export default function Login({ loginSignup }) {
+export default function Login({ loginSignup, handleLoginErrors }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
@@ -33,6 +33,7 @@ export default function Login({ loginSignup }) {
       // navigate('/UserProfile')
     } else {
       //set Errors state
+      handleLoginErrors()
       console.log('errors:', user.error)
     }
   }

@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-    has_many :creations
-    has_many :inspirations
+    has_many :creations, dependent: :destroy
+    has_many :inspirations, dependent: :destroy
     has_many :enigmas, through: :inspirations
     has_many :lyric_snippets, through: :inspirations
     has_many :chord_progressions, through: :inspirations

@@ -9,7 +9,6 @@ function SplashPage() {
   }
   return (
     <>
-      <div></div>
       <div id="carousel">
         <Carousel activeIndex={index} onSelect={handleSelect} variant="dark">
           <Carousel.Item>

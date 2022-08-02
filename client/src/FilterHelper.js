@@ -15,8 +15,8 @@ function FilterHelper({
   //   }, [])
   //   console.log(showFilteredPage)
 
-  const usersWhoShared = showFilteredPage.map((c) => c.user_id)
-  const usersWhoSharedIds = [...new Set(usersWhoShared)]
+  //   const usersWhoShared = showFilteredPage.map((c) => c.user_id)
+  //   const usersWhoSharedIds = [...new Set(usersWhoShared)]
 
   //getting all IDs from all inspirations that have been shared
   const sharedCreationInspos = showFilteredPage

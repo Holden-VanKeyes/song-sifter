@@ -15,6 +15,11 @@ class UsersController < ApplicationController
         render json: {error:"No active session"}, status: :unauthorized
        end
     end
+     
+    def get_selected_user
+      user = User.find(params[:id])
+      render json: user
+    end
 
     def index
         render json: User.all
@@ -29,7 +34,7 @@ class UsersController < ApplicationController
  
     def destroy
     #     byebug
-     user = User.find[params[:id]]
+     user = User.find(params[:id])
      user.destroy
      head :no_content
     end

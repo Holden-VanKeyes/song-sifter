@@ -15,7 +15,9 @@ class SessionsController < ApplicationController
         if current_user
             session.clear
             head :no_content 
+            # puts 'cleared'
         else 
+            # puts 'not cleared'
             render json: {error:"No active session"}, status: :unauthorized
         end
     end

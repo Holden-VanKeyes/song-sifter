@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import { Row, Col, Card, Button } from 'react-bootstrap'
+import ArtistPopUp from './ArtistPopUp'
 
 export default function ShareCreation({
   filteredSearch,
@@ -8,8 +9,11 @@ export default function ShareCreation({
   refreshed,
   sharePageUpdate,
   resetFunction,
+  currentUser,
 }) {
   const [sharedCreations, setSharedCreations] = useState([])
+  const [showArtistProfile, setShowArtistProfile] = useState(false)
+  const [selectedUser, setSelectedUser] = useState(0)
   const [showFilteredPage, setShowFilteredPage] = useState([])
   // const [refreshed, setRefreshed] = useState(false)
 
@@ -20,6 +24,18 @@ export default function ShareCreation({
       .then((response) => response.json())
       .then((data) => setSharedCreations(data))
   }, [])
+
+  async function handleArtistPopUp(userId) {
+    await fetch(`/selected_user?id=${userId}`)
+      .then((response) => response.json())
+      .then((data) => setSelectedUser(data))
+
+    setShowArtistProfile(true)
+  }
+
+  function handleCloseProfile() {
+    setShowArtistProfile(false)
+  }
 
   function handleDeleteConfirmation(e) {
     if (window.confirm('are you sure you want to delete?'))
@@ -62,6 +78,7 @@ export default function ShareCreation({
                   }}
                 >
                   <Card.Img
+                    onClick={() => handleArtistPopUp(creation.user_id)}
                     variant="top"
                     src={creation.get_avatars}
                     style={{ width: '80%' }}
@@ -73,14 +90,16 @@ export default function ShareCreation({
                     <Card.Text style={{ textAlign: 'center' }}>
                       {creation.about}
                     </Card.Text>
-                    <Button
-                      value={creation.id}
-                      variant="info"
-                      size="sm"
-                      onClick={handleDeleteConfirmation}
-                    >
-                      Delete Share
-                    </Button>
+                    {creation.user_id === currentUser.id ? (
+                      <Button
+                        value={creation.id}
+                        variant="info"
+                        size="sm"
+                        onClick={handleDeleteConfirmation}
+                      >
+                        Delete Share
+                      </Button>
+                    ) : null}
                   </Card.Body>
                   <Card.Link
                     href={creation.music_link}
@@ -93,6 +112,11 @@ export default function ShareCreation({
             ))}
           </Row>
         </div>
+        <ArtistPopUp
+          showArtistProfile={showArtistProfile}
+          handleCloseProfile={handleCloseProfile}
+          selectedUser={selectedUser}
+        />
       </>
     )
   } else
@@ -111,6 +135,7 @@ export default function ShareCreation({
                   }}
                 >
                   <Card.Img
+                    onClick={() => handleArtistPopUp(creation.user_id)}
                     variant="top"
                     src={creation.get_avatars}
                     style={{ width: '80%' }}
@@ -122,14 +147,16 @@ export default function ShareCreation({
                     <Card.Text style={{ textAlign: 'center' }}>
                       {creation.about}
                     </Card.Text>
-                    <Button
-                      value={creation.id}
-                      variant="info"
-                      size="sm"
-                      onClick={handleDeleteConfirmation}
-                    >
-                      Delete Share
-                    </Button>
+                    {creation.user_id === currentUser.id ? (
+                      <Button
+                        value={creation.id}
+                        variant="info"
+                        size="sm"
+                        onClick={handleDeleteConfirmation}
+                      >
+                        Delete Share
+                      </Button>
+                    ) : null}
                   </Card.Body>
                   <Card.Link
                     href={creation.music_link}
@@ -142,6 +169,11 @@ export default function ShareCreation({
             ))}
           </Row>
         </div>
+        <ArtistPopUp
+          showArtistProfile={showArtistProfile}
+          handleCloseProfile={handleCloseProfile}
+          selectedUser={selectedUser}
+        />
       </>
     )
 }
