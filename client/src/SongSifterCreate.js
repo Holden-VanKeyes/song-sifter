@@ -32,8 +32,6 @@ function SongSifterCreate({ currentUser }) {
   }
 
   async function handleCreate() {
-    setShow(true)
-
     const [enigmaJson, lyricJson, chordJson] = await Promise.all([
       fetch(`/random_enigma?category=${enigmaSelect}`).then((res) =>
         res.json()
@@ -41,9 +39,11 @@ function SongSifterCreate({ currentUser }) {
       fetch(`/random_lyrics?category=${lyricSelect}`).then((res) => res.json()),
       fetch(`/random_chords?category=${chordSelect}`).then((res) => res.json()),
     ])
+
     setRandomEnigma(enigmaJson)
     setRandomLyric(lyricJson)
     setRandomChords(chordJson)
+    setShow(true)
   }
 
   const handleClose = () => {
@@ -82,6 +82,7 @@ function SongSifterCreate({ currentUser }) {
     navigate('/UserProfile')
     // setShow(false)
   }
+  console.log(randomEnigma)
 
   return (
     <div>
@@ -90,6 +91,7 @@ function SongSifterCreate({ currentUser }) {
         handleClose={handleClose}
         handleSave={handleSave}
         handleInspoName={handleInspoName}
+        // randomEnigma={randomEnigma === '' ? false : randomEnigma.enigma}
         randomChords={randomChords.chords}
         randomEnigma={randomEnigma.enigma}
         randomLyric={randomLyric.lyrics}
@@ -150,6 +152,7 @@ function SongSifterCreate({ currentUser }) {
                       title="Enigma"
                       onChange={handleEnigmaSelection}
                       value={enigmaSelect}
+                      required
                     >
                       <option disabled={true} value="">
                         -- Enigma Categories --
@@ -181,6 +184,7 @@ function SongSifterCreate({ currentUser }) {
                       title="Lyric"
                       onChange={handleLyricSelection}
                       value={lyricSelect}
+                      required
                     >
                       <option disabled={true} value="">
                         -- Lyric Styles --
@@ -205,15 +209,19 @@ function SongSifterCreate({ currentUser }) {
           </div>
         </Container>
       </Form>
-      <Button
-        variant="primary"
-        type="submit"
-        id="form-btn"
-        onClick={handleCreate}
-        // onClick={handleSave}
-      >
-        Create
-      </Button>
+      {chordSelect === '' ||
+      enigmaSelect === '' ||
+      lyricSelect === '' ? null : (
+        <Button
+          variant="primary"
+          type="submit"
+          id="form-btn"
+          onClick={handleCreate}
+          // onClick={handleSave}
+        >
+          Create
+        </Button>
+      )}
     </div>
   )
 }

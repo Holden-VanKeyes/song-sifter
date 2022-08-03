@@ -11,7 +11,7 @@ function ArtistPopUp({ showArtistProfile, handleCloseProfile, selectedUser }) {
           <Modal.Title>{selectedUser.username}</Modal.Title>
         </Modal.Header>
         <Modal.Body>{selectedUser.bio}</Modal.Body>
-        <Modal.Footer>Checking Please</Modal.Footer>
+        <Modal.Footer></Modal.Footer>
       </Modal>
     </div>
   )

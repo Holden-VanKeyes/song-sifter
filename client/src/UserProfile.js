@@ -12,6 +12,7 @@ function UserProfile({ currentUser, postShare, showModalPopUp }) {
   const [userInspirations, setUserInspirations] = useState([])
   const [show, setShow] = useState(false)
   const [showUserEditForm, setShowUserEditForm] = useState(false)
+  const [clicked, setClicked] = useState(false)
 
   const [songTitle, setsongTitle] = useState('')
   const [musicLink, setMusicLink] = useState('')
@@ -47,7 +48,10 @@ function UserProfile({ currentUser, postShare, showModalPopUp }) {
   function handleEditProfile() {
     setShowUserEditForm(true)
   }
-  const handleCloseEditForm = () => setShowUserEditForm(false)
+  const handleCloseEditForm = () => {
+    setClicked(!clicked)
+    setShowUserEditForm(false)
+  }
 
   const handleClose = () => setShow(false)
   const handleShow = (e) => {
@@ -120,8 +124,10 @@ function UserProfile({ currentUser, postShare, showModalPopUp }) {
   return (
     <>
       <EditProfileForm
+        clicked={clicked}
         showUserEditForm={showUserEditForm}
         handleCloseEditForm={handleCloseEditForm}
+        userId={currentUser.id}
       />
       <div>
         <div className="container-1" style={{ backgroundColor: '#EAF4D3' }}>
