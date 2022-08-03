@@ -217,9 +217,10 @@ function SongSifterCreate({ currentUser }) {
             enigmaSelect === '' ||
             lyricSelect === '' ? null : (
               <Button
+                style={{ marginTop: '10px' }}
                 variant="primary"
                 type="submit"
-                id="form-btn"
+                // id="form-btn"
                 onClick={handleCreate}
                 // onClick={handleSave}
               >
