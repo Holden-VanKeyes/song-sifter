@@ -1,6 +1,6 @@
 class CreationSerializer < ActiveModel::Serializer
-  attributes :id, :title, :music_link, :user_id, :about, :get_avatars, :inspirations
-  
+  attributes :id, :title, :music_link, :inspiration_id, :user_id, :about, :get_avatars, :inspirations
+
   def get_avatars
    
     id = object.user_id

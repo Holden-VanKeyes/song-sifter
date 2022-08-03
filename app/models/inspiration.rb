@@ -3,6 +3,7 @@ class Inspiration < ApplicationRecord
     belongs_to :chord_progression
     belongs_to :lyric_snippet
     belongs_to :enigma
+    has_many :creations
 
 
 #     def self.filter_by_cat 

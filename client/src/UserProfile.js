@@ -62,12 +62,15 @@ function UserProfile({
   const handleShow = (e) => {
     setShow(true)
     const id = parseInt(e.target.value)
+    // console.log(id)
     const inspiration = userInspirations.find((inspo) => inspo.id === id)
     setSharedInspiration(inspiration)
   }
+  // console.log(sharedInspiration)
 
   function handleShare() {
     const musicShare = {
+      inspiration_id: sharedInspiration.id,
       title: songTitle,
       music_link: musicLink,
       user_id: currentUser.id,

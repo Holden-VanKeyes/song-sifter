@@ -78,7 +78,7 @@ function App() {
   }
 
   function updateSharePage(filteredSet) {
-    console.log(filteredSet)
+    // console.log(filteredSet)
     setFilteredType('')
     setRefreshed(false)
     setSharePageUpdate(filteredSet)

@@ -54,7 +54,7 @@ class CreationsController < ApplicationController
     private
 
     def creation_params
-     params.permit(:music_link, :user_id, :title, :about)
+     params.permit(:music_link, :user_id, :title, :about, :inspiration_id)
     end
 end
 

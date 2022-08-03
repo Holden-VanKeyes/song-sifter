@@ -1,6 +1,6 @@
 class Creation < ApplicationRecord
     belongs_to :user
-    
+    belongs_to :inspiration
     has_many :inspirations, through: :user
 
 
