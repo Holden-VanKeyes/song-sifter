@@ -12,20 +12,12 @@ function CategorySelector({
   handleSearch,
 }) {
   const [filterSelect, setFilterSelect] = useState('')
-  // const [filteredCategory, setFilteredCategory] = useState('')
+
   const [categoryType, setCategoryType] = useState('')
-  const [filteredSelections, setFilteredSelections] = useState('')
 
   function handleSelection(e) {
     setFilterSelect(e.target.value)
     setCategoryType(e.target.title)
-
-    const selectionObj = {
-      type: e.target.title,
-      category: e.target.value,
-    }
-
-    setFilteredSelections(selectionObj)
   }
 
   function handleFilter() {

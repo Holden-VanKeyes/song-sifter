@@ -82,7 +82,7 @@ nav {
     transform: translate(-50%, 50%);
 }
 #form-btn{
-  position: fixed;
+
   top: 20%;
   left: 45%;
   transform: translate(-50%, 1200%);
@@ -94,7 +94,7 @@ nav {
  border:solid 5px;
  
  border-color: black;
- position: fixed;
+
  margin-top: 50px;
  padding-top: 50px;
  padding-bottom: 50px;
@@ -102,7 +102,7 @@ nav {
  padding-right: 30px;
     top: 50%;
     left: 45%;
-    transform: translate(-50%, -50%);
+    /* transform: translate(-50%, -50%); */
 }
 
 #profile{

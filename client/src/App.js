@@ -126,7 +126,17 @@ function App() {
         updateSharePage={updateSharePage}
         showFilteredPage={showFilteredPage}
       />
-      <div className="img-container">
+      <div
+        className="img-container"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '100vh',
+          width: '100vw',
+          paddingTop: '90px',
+        }}
+      >
         <NavHeader
           isLoggedIn={isLoggedIn}
           handleLogout={handleLogout}

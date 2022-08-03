@@ -34,4 +34,6 @@ export const images = {
     'https://res.cloudinary.com/shooksounds/image/upload/v1658846939/Song%20Sifter/SongSifterChordsmaller_f3qsel.jpg',
   Lyric:
     'https://res.cloudinary.com/shooksounds/image/upload/v1658846648/Song%20Sifter/SongSifterLyric_dpnd6k.png',
+
+  Logo: 'https://res.cloudinary.com/shooksounds/image/upload/v1658846985/Song%20Sifter/SongSifterNoBGNoText_fquz7n.png',
 }

@@ -18,7 +18,6 @@ function UserProfile({
   const [show, setShow] = useState(false)
   const [showUserEditForm, setShowUserEditForm] = useState(false)
   const [clicked, setClicked] = useState(false)
-  // const [updatedUser, setUpdatedUser] = useState([])
 
   const [songTitle, setsongTitle] = useState('')
   const [musicLink, setMusicLink] = useState('')

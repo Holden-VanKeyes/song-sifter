@@ -98,7 +98,14 @@ function SongSifterCreate({ currentUser }) {
       />
       <Form>
         <Container>
-          <div id="inspiration-box">
+          <div
+            id="inspiration-box"
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
             <Row>
               <Col>
                 <Card className="card h-100" style={{ width: '18rem' }}>
@@ -206,22 +213,22 @@ function SongSifterCreate({ currentUser }) {
                 </Card>
               </Col>
             </Row>
+            {chordSelect === '' ||
+            enigmaSelect === '' ||
+            lyricSelect === '' ? null : (
+              <Button
+                variant="primary"
+                type="submit"
+                id="form-btn"
+                onClick={handleCreate}
+                // onClick={handleSave}
+              >
+                Create
+              </Button>
+            )}
           </div>
         </Container>
       </Form>
-      {chordSelect === '' ||
-      enigmaSelect === '' ||
-      lyricSelect === '' ? null : (
-        <Button
-          variant="primary"
-          type="submit"
-          id="form-btn"
-          onClick={handleCreate}
-          // onClick={handleSave}
-        >
-          Create
-        </Button>
-      )}
     </div>
   )
 }
