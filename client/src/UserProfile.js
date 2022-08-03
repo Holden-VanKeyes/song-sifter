@@ -8,11 +8,17 @@ import ShareCreationForm from './ShareCreationForm'
 import AddYourOwnModal from './AddYourOwnModal'
 import EditProfileForm from './EditProfileForm'
 
-function UserProfile({ currentUser, postShare, showModalPopUp }) {
+function UserProfile({
+  currentUser,
+  postShare,
+  showModalPopUp,
+  updatedUserRefresh,
+}) {
   const [userInspirations, setUserInspirations] = useState([])
   const [show, setShow] = useState(false)
   const [showUserEditForm, setShowUserEditForm] = useState(false)
   const [clicked, setClicked] = useState(false)
+  // const [updatedUser, setUpdatedUser] = useState([])
 
   const [songTitle, setsongTitle] = useState('')
   const [musicLink, setMusicLink] = useState('')
@@ -128,6 +134,7 @@ function UserProfile({ currentUser, postShare, showModalPopUp }) {
         showUserEditForm={showUserEditForm}
         handleCloseEditForm={handleCloseEditForm}
         userId={currentUser.id}
+        updatedUserRefresh={updatedUserRefresh}
       />
       <div>
         <div className="container-1" style={{ backgroundColor: '#EAF4D3' }}>

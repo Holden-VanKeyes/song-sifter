@@ -73,6 +73,10 @@ function App() {
     setShowAddYourOwnForm(false)
   }
 
+  function updatedUserRefresh(data) {
+    setCurrentUser(data)
+  }
+
   function updateSharePage(filteredSet) {
     console.log(filteredSet)
     setFilteredType('')
@@ -163,6 +167,7 @@ function App() {
                   postShare={postShare}
                   showModalPopUp={showModalPopUp}
                   handleCloseModal={handleCloseModal}
+                  updatedUserRefresh={updatedUserRefresh}
                 />
               ) : (
                 <NotLoggedInAlert />

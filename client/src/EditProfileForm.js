@@ -9,6 +9,7 @@ function EditProfileForm({
   showUserEditForm,
   handleCloseEditForm,
   userId,
+  updatedUserRefresh,
   clicked,
 }) {
   const [newUserName, setNewUserName] = useState('')
@@ -33,8 +34,6 @@ function EditProfileForm({
     setCountry(e.target.value)
   }
 
-  //   const handleEditSubmit = useCallback((e) => {}, [])
-
   async function handleEditSubmit(e) {
     e.preventDefault()
 
@@ -55,13 +54,9 @@ function EditProfileForm({
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
+        updatedUserRefresh(data)
       })
   }
-
-  useEffect(() => {
-    console.log('i ran')
-  }, [clicked])
 
   return (
     <div>
