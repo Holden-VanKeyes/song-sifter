@@ -7,6 +7,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import InspirationPopUp from './InspirationPopUp'
 import { useNavigate } from 'react-router-dom'
+import { images } from './constants'
 
 function SongSifterCreate({ currentUser }) {
   const [chordSelect, setChordSelect] = useState('')
@@ -85,7 +86,20 @@ function SongSifterCreate({ currentUser }) {
   console.log(randomEnigma)
 
   return (
-    <div>
+    <div
+      className="create-page"
+      style={{
+        backgroundImage: `url(${images.Chord})`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: '100vw 100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100vh',
+        width: '100vw',
+        paddingTop: '90px',
+      }}
+    >
       <InspirationPopUp
         showPopUp={show}
         handleClose={handleClose}
@@ -97,7 +111,14 @@ function SongSifterCreate({ currentUser }) {
         randomLyric={randomLyric.lyrics}
       />
       <Form>
-        <Container>
+        <Container
+          id="create-box"
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
           <div
             id="inspiration-box"
             style={{
@@ -106,9 +127,15 @@ function SongSifterCreate({ currentUser }) {
               alignItems: 'center',
             }}
           >
-            <Row>
+            <Row className="inspo-cards">
               <Col>
-                <Card className="card h-100" style={{ width: '18rem' }}>
+                <Card
+                  className="card h-100"
+                  style={{
+                    width: '18rem',
+                    background: 'linear-gradient(#F8DDDD, #A1FCDF)',
+                  }}
+                >
                   <Card.Img variant="top" src="" />
 
                   <Card.Body>
@@ -144,7 +171,13 @@ function SongSifterCreate({ currentUser }) {
                 </Card>
               </Col>
               <Col>
-                <Card className="card h-100" style={{ width: '18rem' }}>
+                <Card
+                  className="card h-100"
+                  style={{
+                    width: '18rem',
+                    background: 'linear-gradient(#F8DDDD, #A1FCDF)',
+                  }}
+                >
                   <Card.Img variant="top" src="" />
 
                   <Card.Body>
@@ -176,7 +209,13 @@ function SongSifterCreate({ currentUser }) {
                 </Card>
               </Col>
               <Col>
-                <Card className="card h-100" style={{ width: '18rem' }}>
+                <Card
+                  className="card h-100"
+                  style={{
+                    width: '18rem',
+                    background: 'linear-gradient(#F8DDDD, #A1FCDF)',
+                  }}
+                >
                   <Card.Img variant="top" src="" />
 
                   <Card.Body>
@@ -213,21 +252,21 @@ function SongSifterCreate({ currentUser }) {
                 </Card>
               </Col>
             </Row>
-            {chordSelect === '' ||
-            enigmaSelect === '' ||
-            lyricSelect === '' ? null : (
-              <Button
-                style={{ marginTop: '10px' }}
-                variant="primary"
-                type="submit"
-                // id="form-btn"
-                onClick={handleCreate}
-                // onClick={handleSave}
-              >
-                Create
-              </Button>
-            )}
           </div>
+          {chordSelect === '' ||
+          enigmaSelect === '' ||
+          lyricSelect === '' ? null : (
+            <Button
+              style={{ marginTop: '10px' }}
+              variant="primary"
+              type="submit"
+              // id="form-btn"
+              onClick={handleCreate}
+              // onClick={handleSave}
+            >
+              Create
+            </Button>
+          )}
         </Container>
       </Form>
     </div>

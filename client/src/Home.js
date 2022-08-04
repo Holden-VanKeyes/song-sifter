@@ -102,6 +102,6 @@ export default function Home({ loginSignup, isLoggedIn, handleUserImage }) {
       </>
     )
   } else {
-    return <SplashPage />
+    return <SplashPage className="splash-page" />
   }
 }

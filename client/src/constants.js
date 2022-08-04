@@ -36,4 +36,7 @@ export const images = {
     'https://res.cloudinary.com/shooksounds/image/upload/v1658846648/Song%20Sifter/SongSifterLyric_dpnd6k.png',
 
   Logo: 'https://res.cloudinary.com/shooksounds/image/upload/v1658846985/Song%20Sifter/SongSifterNoBGNoText_fquz7n.png',
+
+  Stamp:
+    'https://res.cloudinary.com/shooksounds/image/upload/v1658846740/Song%20Sifter/SongSifterStamp_vqgmlg.png',
 }

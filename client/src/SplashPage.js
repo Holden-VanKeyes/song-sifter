@@ -1,60 +1,144 @@
 import React, { useState } from 'react'
 import Carousel from 'react-bootstrap/Carousel'
+import Image from 'react-bootstrap/Image'
+import { images } from './constants'
+import Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row'
 
 function SplashPage() {
-  const [index, setIndex] = useState(0)
+  const [lyricHover, setLyricHover] = useState(false)
+  const [enigmaHover, setEnigmaHover] = useState(false)
+  const [chordHover, setChordHover] = useState(false)
 
-  const handleSelect = (selectedIndex, e) => {
-    setIndex(selectedIndex)
+  const handleLyricHover = () => {
+    setLyricHover(true)
   }
+  const handleLyricMouseOut = () => {
+    setLyricHover(false)
+  }
+
+  const handleEnigmaHover = () => {
+    setEnigmaHover(true)
+  }
+  const handleEnigmaMouseOut = () => {
+    setEnigmaHover(false)
+  }
+  const handleChordHover = () => {
+    setChordHover(true)
+  }
+  const handleChordMouseOut = () => {
+    setChordHover(false)
+  }
+
   return (
     <>
-      <div id="carousel">
-        <Carousel activeIndex={index} onSelect={handleSelect} variant="dark">
-          <Carousel.Item>
-            <img
-              className="d-block w-75"
-              src="https://res.cloudinary.com/shooksounds/image/upload/v1658846648/Song%20Sifter/SongSifterLyric_dpnd6k.png"
-              alt="First slide"
-            />
-            <Carousel.Caption>
-              <h3>Lyric Snippets</h3>
-              <p>Words to jumpstart the writing process</p>
-            </Carousel.Caption>
-          </Carousel.Item>
-          <Carousel.Item>
-            <img
-              className="d-block w-75"
-              src="https://res.cloudinary.com/shooksounds/image/upload/v1658846974/Song%20Sifter/SongSifterEnigmasWNotes_gwghgz.png"
-              alt="Second slide"
-            />
+      <div
+        // className="d-block w-auto h-auto"
+        className="splash-page"
+        style={{
+          display: 'flex',
 
-            <Carousel.Caption>
-              <h3>Enigmas</h3>
-              <p>
-                Ruminations on production, recording, arrangment, and melodic
-                ideas
-              </p>
-            </Carousel.Caption>
-          </Carousel.Item>
-          <Carousel.Item>
-            <img
-              className="d-block w-75"
-              src="https://res.cloudinary.com/shooksounds/image/upload/v1658846939/Song%20Sifter/SongSifterChordsmaller_f3qsel.jpg"
-              alt="Third slide"
-            />
+          alignItems: 'center',
+          // justifyContent: 'space-between',
+          height: '100vh',
+          width: '100vw',
+          margin: 'auto',
+          paddingTop: '90px',
+          paddingLeft: '5px',
+          paddingRight: '5px',
+        }}
+      >
+        <Row
+          xs={3}
+          md={3}
+          style={{
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            // border: 'solid 5px',
+            // borderColor: 'black',
 
-            <Carousel.Caption>
-              <h3>Chords</h3>
-              <p>
-                Build a song around the suggested 4-chord progression based on
-                mood
-              </p>
-            </Carousel.Caption>
-          </Carousel.Item>
-        </Carousel>
+            // height: '100vh',
+            // width: '100vw',
+            margin: 'auto',
+            // marginBottom: '0',
+            // paddingTop: '90px',
+          }}
+        >
+          <Col>
+            <div className="splash-boxes">
+              <Image
+                onMouseOver={handleLyricHover}
+                onMouseOut={handleLyricMouseOut}
+                src={images.Lyric}
+                style={{
+                  height: 'auto',
+                  maxWidth: '100%',
+                  objectFit: 'contain',
+                  opacity: lyricHover ? '50%' : '100%',
+                }}
+              />
+            </div>
+          </Col>
+          <Col>
+            <div className="splash-boxes">
+              <Image
+                onMouseOver={handleEnigmaHover}
+                onMouseOut={handleEnigmaMouseOut}
+                src={images.Enigma}
+                style={{
+                  height: 'auto',
+                  maxWidth: '100%',
+                  objectFit: 'contain',
+                  opacity: enigmaHover ? '50%' : '100%',
+                }}
+              />
+            </div>
+          </Col>
+          <Col>
+            <div className="splash-boxes">
+              <Image
+                onMouseOver={handleChordHover}
+                onMouseOut={handleChordMouseOut}
+                src={images.Chord}
+                style={{
+                  height: 'auto',
+                  maxWidth: '100%',
+                  objectFit: 'contain',
+                  opacity: chordHover ? '50%' : '100%',
+                }}
+              />
+            </div>
+          </Col>
+        </Row>
+        {/* <Row
+          xs={1}
+          md={3}
+          style={{
+            justifyContent: 'center',
+            marginTop: '0px',
+          }}
+        >
+          <Col></Col>
+          <Col>
+            <Image
+              src={images.Stamp}
+              style={{
+                maxHeight: '100%',
+                maxWidth: '100%',
+              }}
+            />
+          </Col>
+          <Col></Col>
+        </Row> */}
       </div>
     </>
   )
 }
 export default SplashPage
+// Build a song around the suggested 4-chord progression based on
+//                 mood
+
+//                 Ruminations on production, recording, arrangment, and melodic
+//                 ideas
+
+//                 >Words to jumpstart the writing process</p>

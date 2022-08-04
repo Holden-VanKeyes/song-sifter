@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom'
 import NotLoggedInAlert from './NotLoggedInAlert'
 import SplashPage from './SplashPage'
 import FilterHelper from './FilterHelper'
+import { images } from './constants'
 
 function App() {
   const [currentUser, setCurrentUser] = useState({
@@ -129,12 +130,15 @@ function App() {
       <div
         className="img-container"
         style={{
+          // backgroundImage: `url(${images.Chord})`,
+          // backgroundRepeat: 'no-repeat',
+          // backgroundSize: '100vw 100vh',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           height: '100vh',
           width: '100vw',
-          paddingTop: '90px',
+          // paddingTop: '90px',
         }}
       >
         <NavHeader
@@ -203,7 +207,13 @@ function App() {
           />
           <Route
             path="/SplashPage"
-            element={isLoggedIn ? <SplashPage /> : <NotLoggedInAlert />}
+            element={
+              isLoggedIn ? (
+                <SplashPage className="splash-page" />
+              ) : (
+                <NotLoggedInAlert />
+              )
+            }
           />
         </Routes>
       </div>
