@@ -10,7 +10,12 @@ import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 import SplashPage from './SplashPage'
 import LoginErrorMsg from './LoginErrorMsg'
 
-export default function Home({ loginSignup, isLoggedIn, handleUserImage }) {
+export default function Home({
+  loginSignup,
+  isLoggedIn,
+  handleUserImage,
+  getStarted,
+}) {
   const [showForm, setShowForm] = useState(false)
   const [showErrorMsg, setShowErrorMsg] = useState(false)
   const [errorSelector, setErrorSelector] = useState(false)
@@ -38,7 +43,7 @@ export default function Home({ loginSignup, isLoggedIn, handleUserImage }) {
     setShowErrorMsg(false)
   }
 
-  if (!isLoggedIn) {
+  if (getStarted) {
     return (
       <>
         <div id="log-sign-btn">

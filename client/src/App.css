@@ -132,6 +132,8 @@ nav {
   flex-wrap: wrap;
 }
 
+
+
 .nav-user{
   margin-left: auto;
   
@@ -307,14 +309,10 @@ width: 80%
     transform: translate(-55%, -50%); */
 }
 
-#head-text{
-  position: relative;
-  color: black;
-}
 
-.center__text{
-  position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  .figure-caption {
+    position: absolute;
+    bottom: 2rem;
+    margin: 0 2rem;
+    font-size: larger;
   }

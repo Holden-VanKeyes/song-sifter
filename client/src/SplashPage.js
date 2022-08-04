@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
-import Carousel from 'react-bootstrap/Carousel'
+import Container from 'react-bootstrap/Container'
 import Image from 'react-bootstrap/Image'
 import { images } from './constants'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
+import Figure from 'react-bootstrap/Figure'
+import FigureImage from 'react-bootstrap/FigureImage'
+import FigureCaption from 'react-bootstrap/FigureCaption'
 
 function SplashPage() {
   const [lyricHover, setLyricHover] = useState(false)
@@ -65,49 +68,96 @@ function SplashPage() {
           }}
         >
           <Col>
-            <div className="splash-boxes">
-              <Image
+            <Figure
+              className="position-relative"
+              style={{ border: 'solid 5px', borderColor: 'black' }}
+            >
+              <FigureImage
+                alt="singing"
                 onMouseOver={handleLyricHover}
                 onMouseOut={handleLyricMouseOut}
                 src={images.Lyric}
                 style={{
-                  height: 'auto',
+                  margin: 'auto',
+                  maxHeight: '100%',
                   maxWidth: '100%',
-                  objectFit: 'contain',
+
                   opacity: lyricHover ? '50%' : '100%',
                 }}
               />
-            </div>
+              {lyricHover ? (
+                <FigureCaption
+                  className="figure-caption"
+                  style={{ fontSize: 'large', fontWeight: 'bolder' }}
+                >
+                  <h2 style={{ textDecoration: 'underline' }}>
+                    LYRIC SNIPPETS
+                  </h2>
+                  Lyrical ideas contributed by other artists snippets based on
+                  mood to help jumpstart your writing process
+                </FigureCaption>
+              ) : null}
+            </Figure>
           </Col>
           <Col>
-            <div className="splash-boxes">
-              <Image
+            <Figure
+              className="position-relative"
+              style={{ border: 'solid 5px', borderColor: 'black' }}
+            >
+              <FigureImage
                 onMouseOver={handleEnigmaHover}
                 onMouseOut={handleEnigmaMouseOut}
                 src={images.Enigma}
                 style={{
-                  height: 'auto',
+                  margin: 'auto',
+                  maxHeight: '100%',
                   maxWidth: '100%',
                   objectFit: 'contain',
                   opacity: enigmaHover ? '50%' : '100%',
                 }}
               />
-            </div>
+              {enigmaHover ? (
+                <FigureCaption
+                  className="figure-caption"
+                  style={{ fontSize: 'large', fontWeight: 'bolder' }}
+                >
+                  <h2 style={{ textDecoration: 'underline' }}>ENIGMAS</h2>
+                  Ruminations on production, recording, arrangment, and melodic
+                  ideas to help you think outside the musical box
+                </FigureCaption>
+              ) : null}
+            </Figure>
           </Col>
           <Col>
-            <div className="splash-boxes">
-              <Image
+            <Figure
+              className="position-relative"
+              style={{ border: 'solid 5px', borderColor: 'black' }}
+            >
+              <FigureImage
                 onMouseOver={handleChordHover}
                 onMouseOut={handleChordMouseOut}
                 src={images.Chord}
                 style={{
-                  height: 'auto',
+                  margin: 'auto',
+                  maxHeight: '100%',
                   maxWidth: '100%',
                   objectFit: 'contain',
                   opacity: chordHover ? '50%' : '100%',
                 }}
               />
-            </div>
+              {chordHover ? (
+                <FigureCaption
+                  className="figure-caption"
+                  style={{ fontSize: 'large', fontWeight: 'bolder' }}
+                >
+                  <h2 style={{ textDecoration: 'underline' }}>
+                    CHORD PROGRESSIONS
+                  </h2>
+                  Build a song around the suggested 4-chord progression based on
+                  category type
+                </FigureCaption>
+              ) : null}
+            </Figure>
           </Col>
         </Row>
         {/* <Row

@@ -28,6 +28,7 @@ function App() {
   const [refreshed, setRefreshed] = useState(false)
   const [showAddYourOwnForm, setShowAddYourOwnForm] = useState(false)
   const [userAddSelection, setUserAddSelection] = useState('')
+  const [getStarted, setGetStarted] = useState(false)
 
   const navigate = useNavigate()
 
@@ -52,7 +53,12 @@ function App() {
       })
   }, [])
 
+  function showLoginInfo() {
+    setGetStarted(true)
+  }
+
   function handleLoginSignup(user) {
+    setGetStarted(false)
     setCurrentUser(user)
     setIsLoggedIn(true)
   }
@@ -107,6 +113,7 @@ function App() {
 
   async function handleLogout() {
     navigate('/')
+    setGetStarted(false)
     const response = await fetch('/logout', {
       method: 'DELETE',
     })
@@ -150,13 +157,18 @@ function App() {
           userAddSelection={userAddSelection}
           handleCloseModal={handleCloseModal}
           currentUser={currentUser}
+          showLoginInfo={showLoginInfo}
         />
 
         <Routes>
           <Route
             path="/"
             element={
-              <Home loginSignup={handleLoginSignup} isLoggedIn={isLoggedIn} />
+              <Home
+                loginSignup={handleLoginSignup}
+                isLoggedIn={isLoggedIn}
+                getStarted={getStarted}
+              />
             }
           />
           <Route
