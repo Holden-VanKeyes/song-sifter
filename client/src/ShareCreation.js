@@ -91,9 +91,10 @@ export default function ShareCreation({
         <Figure
           style={{
             backgroundImage: `url(${images.Lyric})`,
-            backgroundRepeat: 'no-repeat',
+            backgroundRepeat: 'repeat',
             backgroundAttachment: 'fixed',
-            backgroundSize: '110vw 110vh',
+            backgroundPosition: 'center',
+            backgroundSize: '100vw 100vh',
 
             alignItems: 'center',
             justifyContent: 'center',
@@ -104,20 +105,20 @@ export default function ShareCreation({
         >
           <div
             className="share-container"
-            // style={{
-            //   backgroundImage: `url(${images.Lyric})`,
-            //   backgroundRepeat: 'no-repeat',
-            //   backgroundAttachment: 'fixed',
-            //   backgroundSize: '110vw 110vh',
-            //   display: 'flex',
-            //   flexWrap: 'wrap',
-            //   alignItems: 'center',
+            style={{
+              backgroundImage: `url(${images.Lyric})`,
+              backgroundRepeat: 'no-repeat',
+              backgroundAttachment: 'fixed',
+              backgroundSize: '100vw 100vh',
+              // display: 'flex',
+              // flexWrap: 'wrap',
+              // alignItems: 'center',
 
-            //   width: '100vw',
-            //   paddingTop: '90px',
-            //   margin: 'auto',
-            //   // marginLeft: '100px',
-            // }}
+              // width: '100vw',
+              // paddingTop: '90px',
+              // margin: 'auto',
+              // marginLeft: '100px',
+            }}
           >
             <Row
               xs={1}
@@ -200,25 +201,25 @@ export default function ShareCreation({
             justifyContent: 'center',
             height: '100vh',
             width: '100vw',
-            paddingTop: '90px',
+            paddingTop: '79px',
           }}
         >
           <div
             className="share-container"
-            // style={{
-            //   backgroundImage: `url(${images.Lyric})`,
-            //   backgroundRepeat: 'no-repeat',
-            //   backgroundAttachment: 'fixed',
-            //   backgroundSize: '110vw 110vh',
+            style={{
+              backgroundImage: `url(${images.Lyric})`,
+              backgroundRepeat: 'no-repeat',
+              backgroundAttachment: 'fixed',
+              backgroundSize: '100vw 100vh',
 
-            //   flexWrap: 'wrap',
-            //   alignItems: 'center',
-            //   justifyContent: 'space-between',
-            //   width: '100vw',
+              // flexWrap: 'wrap',
+              // alignItems: 'center',
+              // justifyContent: 'space-between',
+              // width: '100vw',
 
-            //   margin: 'auto',
-            //   // marginLeft: '100px',
-            // }}
+              // margin: 'auto',
+              // // marginLeft: '100px',
+            }}
           >
             <Row
               xs={2}
