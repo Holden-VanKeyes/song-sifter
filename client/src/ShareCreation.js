@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react'
 
 import { Row, Col, Card, Button } from 'react-bootstrap'
 import ArtistPopUp from './ArtistPopUp'
+import { images } from './constants'
+import Figure from 'react-bootstrap/Figure'
+import FigureImage from 'react-bootstrap/FigureImage'
 
 export default function ShareCreation({
   filteredSearch,
@@ -56,6 +59,7 @@ export default function ShareCreation({
     setShowArtistProfile(false)
   }
 
+  const imageArr = [images.Lyric, images.Chord, images.Enigma]
   function handleDeleteConfirmation(e) {
     if (window.confirm('are you sure you want to delete?'))
       return handleDeleteShare(e)
@@ -87,6 +91,10 @@ export default function ShareCreation({
         <div
           className="share-container"
           style={{
+            backgroundImage: `url(${images.Lyric})`,
+            backgroundRepeat: 'no-repeat',
+            backgroundAttachment: 'fixed',
+            backgroundSize: '110vw 110vh',
             display: 'flex',
             flexWrap: 'wrap',
             alignItems: 'center',
@@ -114,7 +122,7 @@ export default function ShareCreation({
                   border="info"
                   className="card h-100"
                   style={{
-                    backgroundColor: '',
+                    backgroundColor: 'rgba(255, 255, 255, 0.4)',
                     width: '18rem',
                     paddingTop: '5px',
                     paddingBottom: '5px',
@@ -166,84 +174,103 @@ export default function ShareCreation({
   } else
     return (
       <>
-        <div
-          className="share-container"
+        <Figure
           style={{
-            display: 'flex',
-            flexWrap: 'wrap',
+            backgroundImage: `url(${images.Lyric})`,
+            backgroundRepeat: 'no-repeat',
+            backgroundAttachment: 'fixed',
+            backgroundSize: '110vw 110vh',
+
             alignItems: 'center',
-            justifyContent: 'space-between',
+            justifyContent: 'center',
+            height: '100vh',
             width: '100vw',
             paddingTop: '90px',
-            margin: 'auto',
-            // marginLeft: '100px',
           }}
         >
-          <Row
-            xs={2}
-            md={4}
-            className="g-4"
-            id="avatar-box"
-            style={{
-              alignItems: 'center',
-              margin: 'auto',
-              paddingTop: '20px',
-            }}
+          <div
+            className="share-container"
+            // style={{
+            //   backgroundImage: `url(${images.Lyric})`,
+            //   backgroundRepeat: 'no-repeat',
+            //   backgroundAttachment: 'fixed',
+            //   backgroundSize: '110vw 110vh',
+
+            //   flexWrap: 'wrap',
+            //   alignItems: 'center',
+            //   justifyContent: 'space-between',
+            //   width: '100vw',
+
+            //   margin: 'auto',
+            //   // marginLeft: '100px',
+            // }}
           >
-            {sharePageUpdate.map((creation) => (
-              <Col
-                key={creation.id}
-                style={{
-                  alignItems: 'center',
-                  margin: 'auto',
-                  // justifyContent: 'space-evenly',
-                }}
-              >
-                <Card
-                  className="card h-100"
+            <Row
+              xs={2}
+              md={4}
+              className="g-4"
+              id="avatar-box"
+              style={{
+                alignItems: 'center',
+                margin: 'auto',
+                paddingTop: '20px',
+              }}
+            >
+              {sharePageUpdate.map((creation) => (
+                <Col
+                  key={creation.id}
                   style={{
-                    // backgroundColor:
-                    width: '18rem',
-                    paddingTop: '5px',
-                    paddingBottom: '5px',
-                    alignContent: 'center',
+                    alignItems: 'center',
+                    margin: 'auto',
+                    // justifyContent: 'space-evenly',
                   }}
                 >
-                  <Card.Img
-                    onClick={() => handleArtistPopUp(creation.user_id)}
-                    variant="top"
-                    src={creation.get_avatars}
-                    style={{ width: '80%' }}
-                  />
-                  <Card.Body>
-                    <Card.Title style={{ textAlign: 'center' }}>
-                      {creation.title}
-                    </Card.Title>
-                    <Card.Text style={{ textAlign: 'center' }}>
-                      {creation.about}
-                    </Card.Text>
-                    {creation.user_id === currentUser.id ? (
-                      <Button
-                        value={creation.id}
-                        variant="info"
-                        size="sm"
-                        onClick={handleDeleteConfirmation}
-                      >
-                        Delete Share
-                      </Button>
-                    ) : null}
-                  </Card.Body>
-                  <Card.Link
-                    href={creation.music_link}
-                    style={{ textAlign: 'center' }}
+                  <Card
+                    className="card h-100 "
+                    style={{
+                      backgroundColor: 'rgba(255, 255, 255, 0.4)',
+                      width: '18rem',
+                      paddingTop: '5px',
+                      paddingBottom: '5px',
+                      alignContent: 'center',
+                    }}
                   >
-                    Music Link
-                  </Card.Link>
-                </Card>
-              </Col>
-            ))}
-          </Row>
-        </div>
+                    <Card.Img
+                      onClick={() => handleArtistPopUp(creation.user_id)}
+                      variant="top"
+                      src={creation.get_avatars}
+                      style={{ width: '80%' }}
+                    />
+                    <Card.Body>
+                      <Card.Title style={{ textAlign: 'center' }}>
+                        {creation.title}
+                      </Card.Title>
+                      <Card.Text style={{ textAlign: 'center' }}>
+                        {creation.about}
+                      </Card.Text>
+                      {creation.user_id === currentUser.id ? (
+                        <Button
+                          value={creation.id}
+                          variant="info"
+                          size="sm"
+                          onClick={handleDeleteConfirmation}
+                        >
+                          Delete Share
+                        </Button>
+                      ) : null}
+                    </Card.Body>
+                    <Card.Link
+                      href={creation.music_link}
+                      style={{ textAlign: 'center' }}
+                    >
+                      Music Link
+                    </Card.Link>
+                  </Card>
+                </Col>
+              ))}
+            </Row>
+          </div>
+        </Figure>
         <ArtistPopUp
           showArtistProfile={showArtistProfile}
           handleCloseProfile={handleCloseProfile}

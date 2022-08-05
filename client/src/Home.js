@@ -9,7 +9,6 @@ import Offcanvas from 'react-bootstrap/Offcanvas'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 import SplashPage from './SplashPage'
 import LoginErrorMsg from './LoginErrorMsg'
-import TestColumn from './TestColumn'
 
 export default function Home({
   loginSignup,
@@ -43,7 +42,7 @@ export default function Home({
   function closeError() {
     setShowErrorMsg(false)
   }
-
+  console.log(getStarted)
   if (getStarted) {
     return (
       <>
@@ -66,7 +65,7 @@ export default function Home({
             </ButtonGroup>
           </ButtonToolbar>
         </div>
-        <div id="access">
+        <div>
           {showForm ? (
             <Login
               loginSignup={loginSignup}

@@ -185,10 +185,3 @@ function SplashPage() {
   )
 }
 export default SplashPage
-// Build a song around the suggested 4-chord progression based on
-//                 mood
-
-//                 Ruminations on production, recording, arrangment, and melodic
-//                 ideas
-
-//                 >Words to jumpstart the writing process</p>

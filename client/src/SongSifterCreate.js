@@ -32,7 +32,8 @@ function SongSifterCreate({ currentUser }) {
     setLyricSelect(e.target.value)
   }
 
-  async function handleCreate() {
+  async function handleCreate(e) {
+    e.preventDefault()
     const [enigmaJson, lyricJson, chordJson] = await Promise.all([
       fetch(`/random_enigma?category=${enigmaSelect}`).then((res) =>
         res.json()
@@ -45,6 +46,7 @@ function SongSifterCreate({ currentUser }) {
     setRandomLyric(lyricJson)
     setRandomChords(chordJson)
     setShow(true)
+    // console.log(show)
   }
 
   const handleClose = () => {
@@ -110,7 +112,13 @@ function SongSifterCreate({ currentUser }) {
         randomEnigma={randomEnigma.enigma}
         randomLyric={randomLyric.lyrics}
       />
-      <Form>
+      <Form
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
         {/* <Container
           style={{
             display: 'flex',
@@ -256,12 +264,11 @@ function SongSifterCreate({ currentUser }) {
         enigmaSelect === '' ||
         lyricSelect === '' ? null : (
           <Button
-            style={{ marginTop: '10px' }}
+            style={{ margin: 'auto' }}
             variant="primary"
             type="submit"
             // id="form-btn"
             onClick={handleCreate}
-            // onClick={handleSave}
           >
             Create
           </Button>

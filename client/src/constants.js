@@ -39,4 +39,7 @@ export const images = {
 
   Stamp:
     'https://res.cloudinary.com/shooksounds/image/upload/v1658846740/Song%20Sifter/SongSifterStamp_vqgmlg.png',
+
+  Banner:
+    'https://res.cloudinary.com/shooksounds/image/upload/v1659670416/Song%20Sifter/SongSifterBannerr_tipurx.png',
 }

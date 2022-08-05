@@ -163,23 +163,34 @@ function NavHeader({
       <div>
         <Navbar bg="bbcolors" variant="dark" fixed="top" className="navbar p-4">
           <Navbar.Brand className="nav-link">Song Sifter</Navbar.Brand>
-
-          <Button
-            onClick={showLoginInfo}
-            size="sm"
-            bg="3E885B"
-            style={{
-              padding: '10px',
-              textDecoration: 'none',
-              color: 'white',
-              borderRadius: '16px',
-              marginLeft: '50px',
-              backgroundColor: '#17BEBB',
-              flexWrap: 'wrap',
-            }}
-          >
-            Get Started
-          </Button>
+          <Nav>
+            <Link
+              to="/SplashPage"
+              style={{
+                padding: '10px',
+                textDecoration: 'none',
+                color: '#99E1D9',
+              }}
+            >
+              About
+            </Link>
+            <Button
+              onClick={showLoginInfo}
+              size="sm"
+              bg="3E885B"
+              style={{
+                padding: '10px',
+                textDecoration: 'none',
+                color: 'white',
+                borderRadius: '16px',
+                marginLeft: '50px',
+                backgroundColor: '#17BEBB',
+                flexWrap: 'wrap',
+              }}
+            >
+              Get Started
+            </Button>
+          </Nav>
         </Navbar>
       </div>
     )

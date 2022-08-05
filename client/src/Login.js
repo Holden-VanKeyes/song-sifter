@@ -2,6 +2,10 @@ import React from 'react'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import { useState } from 'react'
+import { images } from './constants'
+import Col from 'react-bootstrap/Col'
+
+import Row from 'react-bootstrap/Row'
 
 export default function Login({ loginSignup, handleLoginErrors }) {
   const [username, setUsername] = useState('')
@@ -39,30 +43,45 @@ export default function Login({ loginSignup, handleLoginErrors }) {
   }
 
   return (
-    <div>
-      <Form id="log-in" onSubmit={handleSubmit}>
-        <Form.Group className="mb-3">
-          <Form.Label>Username</Form.Label>
-          <Form.Control
-            placeholder="Enter Username"
-            onChange={handleUsername}
-          />
-          <Form.Text className="text-muted"></Form.Text>
-        </Form.Group>
+    <>
+      <div
+        style={{
+          backgroundImage: `url(${images.Banner})`,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: '100vw 100vh',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '100vh',
+          width: '100vw',
+          // paddingTop: '100px',
+          // marginBottom: '300px',
+        }}
+      >
+        <Form onSubmit={handleSubmit} style={{ paddingBottom: '400px' }}>
+          <Row>
+            <Col>
+              <Form.Control
+                placeholder="Enter Username"
+                onChange={handleUsername}
+              />
+              <Form.Text className="text-muted"></Form.Text>
+            </Col>
 
-        <Form.Group className="mb-3">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            onChange={handlePassword}
-          />
-        </Form.Group>
+            <Col>
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                onChange={handlePassword}
+              />
+            </Col>
+          </Row>
 
-        <Button variant="primary" type="submit">
-          Log In
-        </Button>
-      </Form>
-    </div>
+          <Button variant="primary" type="submit" style={{ margin: '10px' }}>
+            Log In
+          </Button>
+        </Form>
+      </div>
+    </>
   )
 }
