@@ -207,10 +207,10 @@ export default function ShareCreation({
           <div
             className="share-container"
             style={{
-              backgroundImage: `url(${images.Lyric})`,
+              // backgroundImage: `url(${images.Lyric})`,
               backgroundRepeat: 'no-repeat',
               backgroundAttachment: 'fixed',
-              backgroundSize: '100vw 100vh',
+              backgroundSize: 'cover',
 
               // flexWrap: 'wrap',
               // alignItems: 'center',
