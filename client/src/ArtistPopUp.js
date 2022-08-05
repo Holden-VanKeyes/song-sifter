@@ -3,6 +3,7 @@ import Modal from 'react-bootstrap/Modal'
 import Image from 'react-bootstrap/Image'
 
 function ArtistPopUp({ showArtistProfile, handleCloseProfile, selectedUser }) {
+  console.log(selectedUser)
   return (
     <div>
       <Modal show={showArtistProfile} onHide={handleCloseProfile}>

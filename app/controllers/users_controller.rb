@@ -49,7 +49,7 @@ class UsersController < ApplicationController
     end
 
     def update_profile_params
-      params.permit(:username, :bio, :city, :state, :country)
+      params.permit( :bio, :city, :state, :country)
     end
 
     def user_not_found

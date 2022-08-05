@@ -44,7 +44,7 @@ function EditProfileForm({
       state: state,
       country: country,
     }
-
+    console.log(userEdits)
     await fetch(`/users/${userId}`, {
       method: 'PATCH',
       headers: {
@@ -55,6 +55,7 @@ function EditProfileForm({
       .then((response) => response.json())
       .then((data) => {
         updatedUserRefresh(data)
+        // console.log(data)
       })
   }
 
