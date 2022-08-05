@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+
 import Tooltip from 'react-bootstrap/Tooltip'
 import { useEffect } from 'react'
 import Table from 'react-bootstrap/Table'
@@ -139,7 +140,13 @@ function UserProfile({
         updatedUserRefresh={updatedUserRefresh}
       />
       <div>
-        <div className="container-1" style={{ backgroundColor: '#EAF4D3' }}>
+        <div
+          className="container-1"
+          style={{
+            background: 'linear-gradient(#99EBE1, #37AEBE)',
+            fontWeight: '500',
+          }}
+        >
           <div className="box-2" style={{ backgroundColor: '#2274A5' }}>
             <img
               className="avatar"
@@ -211,6 +218,13 @@ function UserProfile({
                     <td>{inspiration.chord_return}</td>
                     <td>{inspiration.lyric_return}</td>
                     <td>{inspiration.enigma_return}</td>
+                    {/* <OverlayTrigger
+                      // className="position-fixed"
+                      style={{ marginTop: '200px' }}
+                      placement="left"
+                      delay={{ show: 250, hide: 200 }}
+                      overlay={renderTooltip}
+                    > */}
                     <td>
                       <Button
                         value={inspiration.id}
@@ -219,20 +233,16 @@ function UserProfile({
                       >
                         Delete
                       </Button>
-                      <OverlayTrigger
-                        placement="left"
-                        delay={{ show: 250, hide: 200 }}
-                        overlay={renderTooltip}
+
+                      <Button
+                        value={inspiration.id}
+                        style={{ marginTop: '15px', marginLeft: '15px' }}
+                        onClick={handleShow}
                       >
-                        <Button
-                          value={inspiration.id}
-                          style={{ marginTop: '15px', marginLeft: '15px' }}
-                          onClick={handleShow}
-                        >
-                          Share
-                        </Button>
-                      </OverlayTrigger>
+                        Share
+                      </Button>
                     </td>
+                    {/* </OverlayTrigger> */}
                   </tr>
                 ))}
               </tbody>

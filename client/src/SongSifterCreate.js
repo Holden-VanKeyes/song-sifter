@@ -111,163 +111,162 @@ function SongSifterCreate({ currentUser }) {
         randomLyric={randomLyric.lyrics}
       />
       <Form>
-        <Container
-          id="create-box"
+        {/* <Container
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        > */}
+        <div
+          id="inspiration-box"
           style={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
         >
-          <div
-            id="inspiration-box"
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
+          <Row className="inspo-cards">
+            <Col>
+              <Card
+                className="card h-100"
+                style={{
+                  width: '18rem',
+                  background: 'linear-gradient(#F8DDDD, #A1FCDF)',
+                }}
+              >
+                <Card.Img variant="top" src="" />
+
+                <Card.Body>
+                  <Card.Title>Chords</Card.Title>
+                  <Card.Text>
+                    A suggested 4-chord progression based on mood selection
+                  </Card.Text>
+
+                  <Form.Select
+                    variant="primary"
+                    // id="dropdown-basic-button"
+                    title="Chords"
+                    onChange={handleChordSelection}
+                    value={chordSelect}
+                  >
+                    <option disabled={true} value="">
+                      -- Chord Moods --
+                    </option>
+                    <option
+                      value="uplifting - ebulient - lighthearted"
+                      placeholder="TEST"
+                    >
+                      Uplifting - Ebulient - Lighthearted
+                    </option>
+                    <option value="brooding - dark - mysterious">
+                      Brooding - Dark - Mysterious
+                    </option>
+                    <option value="angular - odd - atmospheric">
+                      Angular - Odd - Atmospheric
+                    </option>
+                  </Form.Select>
+                </Card.Body>
+              </Card>
+            </Col>
+            <Col>
+              <Card
+                className="card h-100"
+                style={{
+                  width: '18rem',
+                  background: 'linear-gradient(#F8DDDD, #A1FCDF)',
+                }}
+              >
+                <Card.Img variant="top" src="" />
+
+                <Card.Body>
+                  <Card.Title>Enigmatic Expressions</Card.Title>
+                  <Card.Text>
+                    Ways to get you think outside of the box based musically
+                    speaking
+                  </Card.Text>
+                  <Form.Select
+                    variant="primary"
+                    // id="dropdown-basic-button"
+                    title="Enigma"
+                    onChange={handleEnigmaSelection}
+                    value={enigmaSelect}
+                    required
+                  >
+                    <option disabled={true} value="">
+                      -- Enigma Categories --
+                    </option>
+                    <option value="on production/arrangement">
+                      On production/arrangement
+                    </option>
+                    <option value="on melodic/harmonic/tonal elements">
+                      On melodic/harmonic/tonal elements
+                    </option>
+                    <option value="random">Random</option>
+                  </Form.Select>
+                </Card.Body>
+              </Card>
+            </Col>
+            <Col>
+              <Card
+                className="card h-100"
+                style={{
+                  width: '18rem',
+                  background: 'linear-gradient(#F8DDDD, #A1FCDF)',
+                }}
+              >
+                <Card.Img variant="top" src="" />
+
+                <Card.Body>
+                  <Card.Title>Lyrics</Card.Title>
+                  <Card.Text>
+                    Lyric snippets based on a style to help you get started
+                    writing
+                  </Card.Text>
+                  <Form.Select
+                    variant="primary"
+                    // id="dropdown-basic-button"
+                    title="Lyric"
+                    onChange={handleLyricSelection}
+                    value={lyricSelect}
+                    required
+                  >
+                    <option disabled={true} value="">
+                      -- Lyric Styles --
+                    </option>
+                    <option value="observational - worldly - nomadic">
+                      Observational - Worldly - Nomadic
+                    </option>
+                    <option value="hopeful - elevated - serene">
+                      Hopeful - Elevated - Serene
+                    </option>
+                    <option value="boozy - despondent - lovelorn">
+                      Boozy - Despondent - Lovelorn
+                    </option>
+                    <option value="abstract - esoteric - uneven">
+                      Abstract - Esoteric - Uneven
+                    </option>
+                  </Form.Select>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+        </div>
+        {chordSelect === '' ||
+        enigmaSelect === '' ||
+        lyricSelect === '' ? null : (
+          <Button
+            style={{ marginTop: '10px' }}
+            variant="primary"
+            type="submit"
+            // id="form-btn"
+            onClick={handleCreate}
+            // onClick={handleSave}
           >
-            <Row className="inspo-cards">
-              <Col>
-                <Card
-                  className="card h-100"
-                  style={{
-                    width: '18rem',
-                    background: 'linear-gradient(#F8DDDD, #A1FCDF)',
-                  }}
-                >
-                  <Card.Img variant="top" src="" />
-
-                  <Card.Body>
-                    <Card.Title>Chords</Card.Title>
-                    <Card.Text>
-                      A suggested 4-chord progression based on mood selection
-                    </Card.Text>
-
-                    <Form.Select
-                      variant="primary"
-                      // id="dropdown-basic-button"
-                      title="Chords"
-                      onChange={handleChordSelection}
-                      value={chordSelect}
-                    >
-                      <option disabled={true} value="">
-                        -- Chord Moods --
-                      </option>
-                      <option
-                        value="uplifting - ebulient - lighthearted"
-                        placeholder="TEST"
-                      >
-                        Uplifting - Ebulient - Lighthearted
-                      </option>
-                      <option value="brooding - dark - mysterious">
-                        Brooding - Dark - Mysterious
-                      </option>
-                      <option value="angular - odd - atmospheric">
-                        Angular - Odd - Atmospheric
-                      </option>
-                    </Form.Select>
-                  </Card.Body>
-                </Card>
-              </Col>
-              <Col>
-                <Card
-                  className="card h-100"
-                  style={{
-                    width: '18rem',
-                    background: 'linear-gradient(#F8DDDD, #A1FCDF)',
-                  }}
-                >
-                  <Card.Img variant="top" src="" />
-
-                  <Card.Body>
-                    <Card.Title>Enigmatic Expressions</Card.Title>
-                    <Card.Text>
-                      Ways to get you think outside of the box based musically
-                      speaking
-                    </Card.Text>
-                    <Form.Select
-                      variant="primary"
-                      // id="dropdown-basic-button"
-                      title="Enigma"
-                      onChange={handleEnigmaSelection}
-                      value={enigmaSelect}
-                      required
-                    >
-                      <option disabled={true} value="">
-                        -- Enigma Categories --
-                      </option>
-                      <option value="on production/arrangement">
-                        On production/arrangement
-                      </option>
-                      <option value="on melodic/harmonic/tonal elements">
-                        On melodic/harmonic/tonal elements
-                      </option>
-                      <option value="random">Random</option>
-                    </Form.Select>
-                  </Card.Body>
-                </Card>
-              </Col>
-              <Col>
-                <Card
-                  className="card h-100"
-                  style={{
-                    width: '18rem',
-                    background: 'linear-gradient(#F8DDDD, #A1FCDF)',
-                  }}
-                >
-                  <Card.Img variant="top" src="" />
-
-                  <Card.Body>
-                    <Card.Title>Lyrics</Card.Title>
-                    <Card.Text>
-                      Lyric snippets based on a style to help you get started
-                      writing
-                    </Card.Text>
-                    <Form.Select
-                      variant="primary"
-                      // id="dropdown-basic-button"
-                      title="Lyric"
-                      onChange={handleLyricSelection}
-                      value={lyricSelect}
-                      required
-                    >
-                      <option disabled={true} value="">
-                        -- Lyric Styles --
-                      </option>
-                      <option value="observational - worldly - nomadic">
-                        Observational - Worldly - Nomadic
-                      </option>
-                      <option value="hopeful - elevated - serene">
-                        Hopeful - Elevated - Serene
-                      </option>
-                      <option value="boozy - despondent - lovelorn">
-                        Boozy - Despondent - Lovelorn
-                      </option>
-                      <option value="abstract - esoteric - uneven">
-                        Abstract - Esoteric - Uneven
-                      </option>
-                    </Form.Select>
-                  </Card.Body>
-                </Card>
-              </Col>
-            </Row>
-          </div>
-          {chordSelect === '' ||
-          enigmaSelect === '' ||
-          lyricSelect === '' ? null : (
-            <Button
-              style={{ marginTop: '10px' }}
-              variant="primary"
-              type="submit"
-              // id="form-btn"
-              onClick={handleCreate}
-              // onClick={handleSave}
-            >
-              Create
-            </Button>
-          )}
-        </Container>
+            Create
+          </Button>
+        )}
+        {/* </Container> */}
       </Form>
     </div>
   )

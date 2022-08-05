@@ -192,27 +192,7 @@ nav {
      transform: translate(-50%, -50%);
 }
 
-#carousel{
- 
-  /* background-color: #32936F;
-  border-color: black;
-  
-  margin-top: 50px;
- 
-  padding-top: 50px;
-  padding-bottom: 50px;
-  padding-left: 20px;
-  padding-right: 50px; */
-     /* top: 50%;
 
-     left: 50%;
-     
-     transform: translate(-50%, -50%); */
-}
-
-.carousel-inner img {
-  /* margin: auto; */
-}
 
 
 
@@ -252,16 +232,16 @@ width: 80%
   display: flex;
 }
 
-.share-container{
+/* .share-container{
   display: flex;
   flex-wrap: wrap;
-  margin-top: 100px;
+  margin-top: 200px;
   margin-left: 110px;
   
   
   
-  justify-content: space-evenly;
-}
+  justify-content: space-around;
+} */
 
 .right-nav{
   display: flex;
@@ -269,13 +249,7 @@ width: 80%
   flex-wrap: wrap;
 }
 
-#create-box{
-  /* background-color: aqua; */
-  /* border-style: groove;
- border:solid 5px;
- 
- border-color: black; */
-}
+
  
 .inspo-cards{
   padding-top: 50px;
@@ -316,3 +290,42 @@ width: 80%
     margin: 0 2rem;
     font-size: larger;
   }
+
+
+
+  /*
+  stuff from French 
+   */
+
+   .container {
+    background: lightgrey;
+    padding: 30px;
+    /* stuff that matters */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.creation-grid {
+    border: 1px solid black;
+    padding: 10px;
+    max-width: 960px;
+    /* stuff that matters */
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-column-gap: 1rem;
+    grid-row-gap: 1rem;
+    width: 100%;
+}
+.creation-item {
+    padding: 10px;
+    border: 1px solid blue;
+    /* stuff that matters */
+    /* 
+     12 / 3 cols = span of 4. change to any multiple of the 12 defined above 
+     in the grid-template-columns, or change the 12 to define how many cols
+     you want in your grid and then define your span here appropriately.
+     If you were just doing 3 columns and never needed to break from that,
+     you could set the repeat to 3 and the span to 1 and it would look the same
+    */
+    grid-column: span 3; 
+}

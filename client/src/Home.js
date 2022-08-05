@@ -9,6 +9,7 @@ import Offcanvas from 'react-bootstrap/Offcanvas'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 import SplashPage from './SplashPage'
 import LoginErrorMsg from './LoginErrorMsg'
+import TestColumn from './TestColumn'
 
 export default function Home({
   loginSignup,
@@ -107,6 +108,11 @@ export default function Home({
       </>
     )
   } else {
-    return <SplashPage className="splash-page" />
+    return (
+      <>
+        {/* <TestColumn /> */}
+        <SplashPage className="splash-page" />
+      </>
+    )
   }
 }

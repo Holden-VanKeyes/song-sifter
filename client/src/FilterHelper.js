@@ -71,9 +71,6 @@ function FilterHelper({
       sharedInsposNoDup.includes(id)
     )
 
-    console.log(filteredArr)
-    console.log(showFilteredPage)
-
     // const filteredPage = showFilteredPage
     //   .flatMap((obj) => obj.inspirations)
     //   .map((i) => {
@@ -86,7 +83,6 @@ function FilterHelper({
     const filteredPage = showFilteredPage.filter((obj) =>
       filteredArr.includes(obj.inspiration_id)
     )
-    console.log(filteredPage)
 
     // console.log(filteredPage)
     // const filteredSet = [...new Set(filteredPage)].filter((obj) => obj !== null)

@@ -14,7 +14,8 @@ export default function ShareCreation({
   const [sharedCreations, setSharedCreations] = useState([])
   const [showArtistProfile, setShowArtistProfile] = useState(false)
   const [selectedUser, setSelectedUser] = useState(0)
-  const [showFilteredPage, setShowFilteredPage] = useState([])
+  const [randomColor, setRandomColor] = useState([])
+  // const [showFilteredPage, setShowFilteredPage] = useState([])
   // const [refreshed, setRefreshed] = useState(false)
 
   useEffect(() => {
@@ -22,7 +23,10 @@ export default function ShareCreation({
 
     fetch('/creations')
       .then((response) => response.json())
-      .then((data) => setSharedCreations(data))
+      .then((data) => {
+        setSharedCreations(data)
+        const newArr = [...data]
+      })
   }, [])
 
   async function handleArtistPopUp(userId) {
@@ -32,6 +36,21 @@ export default function ShareCreation({
 
     setShowArtistProfile(true)
   }
+
+  // function colorGenerator() {
+  //   for (let i = 0; i < 20; i++) {
+  //     const color = '#' + Math.floor(Math.random() * 16777215).toString(16)
+  //     setCardColor(color)
+  //   }
+  // }
+
+  // const colorArr = []
+  // const setCardColor = (color) => {
+  //   colorArr.push(color)
+
+  //   console.log(colorArr)
+  // }
+  // colorGenerator()
 
   function handleCloseProfile() {
     setShowArtistProfile(false)
@@ -65,13 +84,37 @@ export default function ShareCreation({
   if (refreshed) {
     return (
       <>
-        <div className="share-container">
-          <Row xs={1} md={4} className="g-4" id="avatar-box">
+        <div
+          className="share-container"
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            alignItems: 'center',
+
+            width: '100vw',
+            paddingTop: '90px',
+            margin: 'auto',
+            // marginLeft: '100px',
+          }}
+        >
+          <Row
+            xs={1}
+            md={4}
+            className="g-4"
+            id="avatar-box"
+            style={{
+              alignItems: 'center',
+              margin: 'auto',
+              paddingTop: '20px',
+            }}
+          >
             {sharedCreations.map((creation) => (
               <Col key={creation.id}>
                 <Card
+                  border="info"
                   className="card h-100"
                   style={{
+                    backgroundColor: '',
                     width: '18rem',
                     paddingTop: '5px',
                     paddingBottom: '5px',
@@ -117,21 +160,53 @@ export default function ShareCreation({
           handleCloseProfile={handleCloseProfile}
           selectedUser={selectedUser}
         />
+        {/* everything below this next div is testing new grid */}
       </>
     )
   } else
     return (
       <>
-        <div className="share-container">
-          <Row xs={1} md={4} className="g-4" id="avatar-box">
+        <div
+          className="share-container"
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            width: '100vw',
+            paddingTop: '90px',
+            margin: 'auto',
+            // marginLeft: '100px',
+          }}
+        >
+          <Row
+            xs={2}
+            md={4}
+            className="g-4"
+            id="avatar-box"
+            style={{
+              alignItems: 'center',
+              margin: 'auto',
+              paddingTop: '20px',
+            }}
+          >
             {sharePageUpdate.map((creation) => (
-              <Col key={creation.id}>
+              <Col
+                key={creation.id}
+                style={{
+                  alignItems: 'center',
+                  margin: 'auto',
+                  // justifyContent: 'space-evenly',
+                }}
+              >
                 <Card
                   className="card h-100"
                   style={{
+                    // backgroundColor:
                     width: '18rem',
                     paddingTop: '5px',
                     paddingBottom: '5px',
+                    alignContent: 'center',
                   }}
                 >
                   <Card.Img
