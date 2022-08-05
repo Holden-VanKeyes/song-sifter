@@ -88,81 +88,96 @@ export default function ShareCreation({
   if (refreshed) {
     return (
       <>
-        <div
-          className="share-container"
+        <Figure
           style={{
             backgroundImage: `url(${images.Lyric})`,
             backgroundRepeat: 'no-repeat',
             backgroundAttachment: 'fixed',
             backgroundSize: '110vw 110vh',
-            display: 'flex',
-            flexWrap: 'wrap',
-            alignItems: 'center',
 
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100vh',
             width: '100vw',
             paddingTop: '90px',
-            margin: 'auto',
-            // marginLeft: '100px',
           }}
         >
-          <Row
-            xs={1}
-            md={4}
-            className="g-4"
-            id="avatar-box"
-            style={{
-              alignItems: 'center',
-              margin: 'auto',
-              paddingTop: '20px',
-            }}
+          <div
+            className="share-container"
+            // style={{
+            //   backgroundImage: `url(${images.Lyric})`,
+            //   backgroundRepeat: 'no-repeat',
+            //   backgroundAttachment: 'fixed',
+            //   backgroundSize: '110vw 110vh',
+            //   display: 'flex',
+            //   flexWrap: 'wrap',
+            //   alignItems: 'center',
+
+            //   width: '100vw',
+            //   paddingTop: '90px',
+            //   margin: 'auto',
+            //   // marginLeft: '100px',
+            // }}
           >
-            {sharedCreations.map((creation) => (
-              <Col key={creation.id}>
-                <Card
-                  border="info"
-                  className="card h-100"
-                  style={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.4)',
-                    width: '18rem',
-                    paddingTop: '5px',
-                    paddingBottom: '5px',
-                  }}
-                >
-                  <Card.Img
-                    onClick={() => handleArtistPopUp(creation.user_id)}
-                    variant="top"
-                    src={creation.get_avatars}
-                    style={{ width: '80%' }}
-                  />
-                  <Card.Body>
-                    <Card.Title style={{ textAlign: 'center' }}>
-                      {creation.title}
-                    </Card.Title>
-                    <Card.Text style={{ textAlign: 'center' }}>
-                      {creation.about}
-                    </Card.Text>
-                    {creation.user_id === currentUser.id ? (
-                      <Button
-                        value={creation.id}
-                        variant="info"
-                        size="sm"
-                        onClick={handleDeleteConfirmation}
-                      >
-                        Delete Share
-                      </Button>
-                    ) : null}
-                  </Card.Body>
-                  <Card.Link
-                    href={creation.music_link}
-                    style={{ textAlign: 'center' }}
+            <Row
+              xs={1}
+              md={4}
+              className="g-4"
+              id="avatar-box"
+              style={{
+                alignItems: 'center',
+                margin: 'auto',
+                paddingTop: '20px',
+              }}
+            >
+              {sharedCreations.map((creation) => (
+                <Col key={creation.id}>
+                  <Card
+                    border="info"
+                    className="card h-100"
+                    style={{
+                      backgroundColor: 'rgba(255, 255, 255, 0.4)',
+                      width: '18rem',
+                      paddingTop: '5px',
+                      paddingBottom: '5px',
+                    }}
                   >
-                    Music Link
-                  </Card.Link>
-                </Card>
-              </Col>
-            ))}
-          </Row>
-        </div>
+                    <Card.Img
+                      onClick={() => handleArtistPopUp(creation.user_id)}
+                      variant="top"
+                      src={creation.get_avatars}
+                      style={{ width: '80%' }}
+                    />
+                    <Card.Body>
+                      <Card.Title style={{ textAlign: 'center' }}>
+                        {creation.title}
+                      </Card.Title>
+                      <Card.Text style={{ textAlign: 'center' }}>
+                        {creation.about}
+                      </Card.Text>
+                      {creation.user_id === currentUser.id ? (
+                        <Button
+                          value={creation.id}
+                          variant="info"
+                          size="sm"
+                          onClick={handleDeleteConfirmation}
+                        >
+                          Delete Share
+                        </Button>
+                      ) : null}
+                    </Card.Body>
+                    <Card.Link
+                      href={creation.music_link}
+                      style={{ textAlign: 'center' }}
+                    >
+                      Music Link
+                    </Card.Link>
+                  </Card>
+                </Col>
+              ))}
+            </Row>
+          </div>
+        </Figure>
         <ArtistPopUp
           showArtistProfile={showArtistProfile}
           handleCloseProfile={handleCloseProfile}

@@ -7,11 +7,13 @@ import Row from 'react-bootstrap/Row'
 import Figure from 'react-bootstrap/Figure'
 import FigureImage from 'react-bootstrap/FigureImage'
 import FigureCaption from 'react-bootstrap/FigureCaption'
+import Offcanvas from 'react-bootstrap/Offcanvas'
 
 function SplashPage() {
   const [lyricHover, setLyricHover] = useState(false)
   const [enigmaHover, setEnigmaHover] = useState(false)
   const [chordHover, setChordHover] = useState(false)
+  const [showAbout, setShowAbout] = useState(false)
 
   const handleLyricHover = () => {
     setLyricHover(true)
@@ -33,6 +35,13 @@ function SplashPage() {
     setChordHover(false)
   }
 
+  const handleShowAbout = () => {
+    setShowAbout(true)
+  }
+  const closeAbout = () => {
+    setShowAbout(false)
+  }
+
   return (
     <>
       <div
@@ -40,6 +49,8 @@ function SplashPage() {
         className="splash-page"
         style={{
           display: 'flex',
+          background:
+            'linear-gradient(to right, rgba(55, 174, 190, 0.30), rgba(55, 174, 190, 0.80))',
 
           alignItems: 'center',
           // justifyContent: 'space-between',
@@ -76,6 +87,7 @@ function SplashPage() {
                 alt="singing"
                 onMouseOver={handleLyricHover}
                 onMouseOut={handleLyricMouseOut}
+                onClick={handleShowAbout}
                 src={images.Lyric}
                 style={{
                   margin: 'auto',
@@ -107,6 +119,7 @@ function SplashPage() {
               <FigureImage
                 onMouseOver={handleEnigmaHover}
                 onMouseOut={handleEnigmaMouseOut}
+                onClick={handleShowAbout}
                 src={images.Enigma}
                 style={{
                   margin: 'auto',
@@ -136,6 +149,7 @@ function SplashPage() {
               <FigureImage
                 onMouseOver={handleChordHover}
                 onMouseOut={handleChordMouseOut}
+                onClick={handleShowAbout}
                 src={images.Chord}
                 style={{
                   margin: 'auto',
@@ -160,6 +174,24 @@ function SplashPage() {
             </Figure>
           </Col>
         </Row>
+        <Offcanvas show={showAbout} onHide={closeAbout}>
+          <Offcanvas.Header closeButton>
+            <Offcanvas.Title>Song Sifter</Offcanvas.Title>
+          </Offcanvas.Header>
+          <Offcanvas.Body>
+            Song Sifter was created for musicians, producers, songwriters in
+            need of a little creative spark! Hit up the create section to
+            generate the following song-starters based on mood/style: A 4-chord
+            progression, a lyric snippet, and an enigmatic expression. Insead of
+            cycling through to find the perfect fit, we suggest you spend some
+            time with the first recommendation as it may help you escape your
+            songwriting crutches. You can also send us your own
+            lyrics/chords/enigmas to add to our library of inspirations, and if
+            you create something musical from your customized inspiration, we
+            encourage you to share with the community via the Share page. Log in
+            or Sign up to explore more!
+          </Offcanvas.Body>
+        </Offcanvas>
         {/* <Row
           xs={1}
           md={3}

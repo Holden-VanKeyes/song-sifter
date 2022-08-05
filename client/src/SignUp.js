@@ -28,7 +28,7 @@ export default function SignUp({ loginSignup, handleLoginErrors }) {
   async function handleSubmit(e) {
     e.preventDefault()
 
-    await fetch(`https://avatars.dicebear.com/api/bottts/${username}.svg`)
+    await fetch(`https://avatars.dicebear.com/api/personas/${username}.svg`)
       .then((response) => response.url)
       .then((data) => handleSetUser(data))
   }
