@@ -19,5 +19,3 @@ function ArtistPopUp({ showArtistProfile, handleCloseProfile, selectedUser }) {
 }
 
 export default ArtistPopUp
-
-// `/users/${user}`

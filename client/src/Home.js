@@ -42,7 +42,7 @@ export default function Home({
   function closeError() {
     setShowErrorMsg(false)
   }
-  console.log(getStarted)
+
   if (getStarted) {
     return (
       <>

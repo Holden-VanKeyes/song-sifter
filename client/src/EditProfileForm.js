@@ -10,7 +10,6 @@ function EditProfileForm({
   handleCloseEditForm,
   userId,
   updatedUserRefresh,
-  clicked,
 }) {
   const [newUserName, setNewUserName] = useState('')
   const [newBio, setNewBio] = useState('')
@@ -44,7 +43,7 @@ function EditProfileForm({
       state: state,
       country: country,
     }
-    console.log(userEdits)
+
     await fetch(`/users/${userId}`, {
       method: 'PATCH',
       headers: {
@@ -55,14 +54,12 @@ function EditProfileForm({
       .then((response) => response.json())
       .then((data) => {
         updatedUserRefresh(data)
-        // console.log(data)
       })
   }
 
   return (
     <div>
       <Modal show={showUserEditForm} onHide={handleCloseEditForm}>
-        {/* <Image src='' roundedCircle /> */}
         <Modal.Header closeButton>
           <Modal.Title>Edit Your Profile</Modal.Title>
         </Modal.Header>

@@ -4,11 +4,8 @@ import { Row, Col, Card, Button } from 'react-bootstrap'
 import ArtistPopUp from './ArtistPopUp'
 import { images } from './constants'
 import Figure from 'react-bootstrap/Figure'
-import FigureImage from 'react-bootstrap/FigureImage'
 
 export default function ShareCreation({
-  filteredSearch,
-  filteredType,
   refreshed,
   sharePageUpdate,
   resetFunction,
@@ -17,9 +14,6 @@ export default function ShareCreation({
   const [sharedCreations, setSharedCreations] = useState([])
   const [showArtistProfile, setShowArtistProfile] = useState(false)
   const [selectedUser, setSelectedUser] = useState(0)
-  const [randomColor, setRandomColor] = useState([])
-  // const [showFilteredPage, setShowFilteredPage] = useState([])
-  // const [refreshed, setRefreshed] = useState(false)
 
   useEffect(() => {
     resetFunction()
@@ -28,7 +22,6 @@ export default function ShareCreation({
       .then((response) => response.json())
       .then((data) => {
         setSharedCreations(data)
-        const newArr = [...data]
       })
   }, [])
 
@@ -59,7 +52,6 @@ export default function ShareCreation({
     setShowArtistProfile(false)
   }
 
-  const imageArr = [images.Lyric, images.Chord, images.Enigma]
   function handleDeleteConfirmation(e) {
     if (window.confirm('are you sure you want to delete?'))
       return handleDeleteShare(e)
@@ -110,14 +102,6 @@ export default function ShareCreation({
               backgroundRepeat: 'no-repeat',
               backgroundAttachment: 'fixed',
               backgroundSize: '100vw 100vh',
-              // display: 'flex',
-              // flexWrap: 'wrap',
-              // alignItems: 'center',
-
-              // width: '100vw',
-              // paddingTop: '90px',
-              // margin: 'auto',
-              // marginLeft: '100px',
             }}
           >
             <Row
@@ -184,7 +168,6 @@ export default function ShareCreation({
           handleCloseProfile={handleCloseProfile}
           selectedUser={selectedUser}
         />
-        {/* everything below this next div is testing new grid */}
       </>
     )
   } else
@@ -207,18 +190,9 @@ export default function ShareCreation({
           <div
             className="share-container"
             style={{
-              // backgroundImage: `url(${images.Lyric})`,
               backgroundRepeat: 'no-repeat',
               backgroundAttachment: 'fixed',
               backgroundSize: 'cover',
-
-              // flexWrap: 'wrap',
-              // alignItems: 'center',
-              // justifyContent: 'space-between',
-              // width: '100vw',
-
-              // margin: 'auto',
-              // // marginLeft: '100px',
             }}
           >
             <Row
@@ -238,7 +212,6 @@ export default function ShareCreation({
                   style={{
                     alignItems: 'center',
                     margin: 'auto',
-                    // justifyContent: 'space-evenly',
                   }}
                 >
                   <Card

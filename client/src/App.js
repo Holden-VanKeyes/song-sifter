@@ -12,7 +12,6 @@ import { useNavigate } from 'react-router-dom'
 import NotLoggedInAlert from './NotLoggedInAlert'
 import SplashPage from './SplashPage'
 import FilterHelper from './FilterHelper'
-import { images } from './constants'
 
 function App() {
   const [currentUser, setCurrentUser] = useState({
@@ -45,8 +44,6 @@ function App() {
           })
         if (data.username) {
           handleLoginSignup(data)
-
-          // navigate('home')
         } else {
           return null
         }
@@ -57,13 +54,12 @@ function App() {
     setGetStarted(true)
     navigate('/')
   }
-  console.log(getStarted)
+
   function handleLoginSignup(user) {
     setGetStarted(false)
     setCurrentUser(user)
     setIsLoggedIn(true)
   }
-  console.log(getStarted)
 
   function resetFunction() {
     setRefreshed(true)
@@ -87,7 +83,6 @@ function App() {
   }
 
   function updateSharePage(filteredSet) {
-    // console.log(filteredSet)
     setFilteredType('')
     setRefreshed(false)
     setSharePageUpdate(filteredSet)
@@ -139,7 +134,6 @@ function App() {
       <div
         className="img-container"
         style={{
-          // backgroundImage: `url(${images.Chord})`,
           backgroundRepeat: 'no-repeat',
           backgroundSize: '100vw 100vh',
           display: 'flex',
@@ -147,7 +141,6 @@ function App() {
           justifyContent: 'center',
           height: '100vh',
           width: '100vw',
-          // paddingTop: '90px',
         }}
       >
         <NavHeader

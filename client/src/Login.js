@@ -54,8 +54,6 @@ export default function Login({ loginSignup, handleLoginErrors }) {
           justifyContent: 'center',
           height: '100vh',
           width: '100vw',
-          // paddingTop: '100px',
-          // marginBottom: '300px',
         }}
       >
         <Form onSubmit={handleSubmit} style={{ paddingBottom: '400px' }}>

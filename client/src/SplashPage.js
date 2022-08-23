@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import Container from 'react-bootstrap/Container'
-import Image from 'react-bootstrap/Image'
+
 import { images } from './constants'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
@@ -45,7 +44,6 @@ function SplashPage() {
   return (
     <>
       <div
-        // className="d-block w-auto h-auto"
         className="splash-page"
         style={{
           display: 'flex',
@@ -53,7 +51,7 @@ function SplashPage() {
             'linear-gradient(to right, rgba(55, 174, 190, 0.30), rgba(55, 174, 190, 0.80))',
 
           alignItems: 'center',
-          // justifyContent: 'space-between',
+
           height: '100vh',
           width: '100vw',
           margin: 'auto',
@@ -68,14 +66,8 @@ function SplashPage() {
           style={{
             alignItems: 'center',
             justifyContent: 'space-between',
-            // border: 'solid 5px',
-            // borderColor: 'black',
 
-            // height: '100vh',
-            // width: '100vw',
             margin: 'auto',
-            // marginBottom: '0',
-            // paddingTop: '90px',
           }}
         >
           <Col>
@@ -192,26 +184,6 @@ function SplashPage() {
             or Sign up to explore more!
           </Offcanvas.Body>
         </Offcanvas>
-        {/* <Row
-          xs={1}
-          md={3}
-          style={{
-            justifyContent: 'center',
-            marginTop: '0px',
-          }}
-        >
-          <Col></Col>
-          <Col>
-            <Image
-              src={images.Stamp}
-              style={{
-                maxHeight: '100%',
-                maxWidth: '100%',
-              }}
-            />
-          </Col>
-          <Col></Col>
-        </Row> */}
       </div>
     </>
   )

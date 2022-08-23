@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 
 import Tooltip from 'react-bootstrap/Tooltip'
 import { useEffect } from 'react'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import ShareCreationForm from './ShareCreationForm'
-import AddYourOwnModal from './AddYourOwnModal'
+
 import EditProfileForm from './EditProfileForm'
 
 function UserProfile({
@@ -63,11 +62,10 @@ function UserProfile({
   const handleShow = (e) => {
     setShow(true)
     const id = parseInt(e.target.value)
-    // console.log(id)
+
     const inspiration = userInspirations.find((inspo) => inspo.id === id)
     setSharedInspiration(inspiration)
   }
-  // console.log(sharedInspiration)
 
   function handleShare() {
     const musicShare = {
@@ -101,11 +99,6 @@ function UserProfile({
 
     if (response.ok) {
       console.log('deleted')
-      // await fetch(`/user_inspirations?user_id=${currentUser.id}`)
-      //   .then((response) => response.json())
-      //   .then((data) => {
-      //     setUserInspirations(data)
-      //   })
     } else {
       console.log('not deleted')
     }
@@ -218,13 +211,7 @@ function UserProfile({
                     <td>{inspiration.chord_return}</td>
                     <td>{inspiration.lyric_return}</td>
                     <td>{inspiration.enigma_return}</td>
-                    {/* <OverlayTrigger
-                      // className="position-fixed"
-                      style={{ marginTop: '200px' }}
-                      placement="left"
-                      delay={{ show: 250, hide: 200 }}
-                      overlay={renderTooltip}
-                    > */}
+
                     <td>
                       <Button
                         value={inspiration.id}
@@ -242,7 +229,6 @@ function UserProfile({
                         Share
                       </Button>
                     </td>
-                    {/* </OverlayTrigger> */}
                   </tr>
                 ))}
               </tbody>

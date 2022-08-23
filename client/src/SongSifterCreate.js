@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Card from 'react-bootstrap/Card'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
-import Container from 'react-bootstrap/Container'
+
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import InspirationPopUp from './InspirationPopUp'
@@ -46,7 +46,6 @@ function SongSifterCreate({ currentUser }) {
     setRandomLyric(lyricJson)
     setRandomChords(chordJson)
     setShow(true)
-    // console.log(show)
   }
 
   const handleClose = () => {
@@ -78,14 +77,10 @@ function SongSifterCreate({ currentUser }) {
       body: JSON.stringify(newInspiration),
     })
       .then((response) => response.json())
-      .then((data) => {
-        console.log(data)
-      })
+      .then((data) => {})
 
     navigate('/UserProfile')
-    // setShow(false)
   }
-  console.log(randomEnigma)
 
   return (
     <div
@@ -107,7 +102,6 @@ function SongSifterCreate({ currentUser }) {
         handleClose={handleClose}
         handleSave={handleSave}
         handleInspoName={handleInspoName}
-        // randomEnigma={randomEnigma === '' ? false : randomEnigma.enigma}
         randomChords={randomChords.chords}
         randomEnigma={randomEnigma.enigma}
         randomLyric={randomLyric.lyrics}
@@ -119,13 +113,6 @@ function SongSifterCreate({ currentUser }) {
           alignItems: 'center',
         }}
       >
-        {/* <Container
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        > */}
         <div
           id="inspiration-box"
           style={{
@@ -153,7 +140,6 @@ function SongSifterCreate({ currentUser }) {
 
                   <Form.Select
                     variant="primary"
-                    // id="dropdown-basic-button"
                     title="Chords"
                     onChange={handleChordSelection}
                     value={chordSelect}
@@ -195,7 +181,6 @@ function SongSifterCreate({ currentUser }) {
                   </Card.Text>
                   <Form.Select
                     variant="primary"
-                    // id="dropdown-basic-button"
                     title="Enigma"
                     onChange={handleEnigmaSelection}
                     value={enigmaSelect}
@@ -233,7 +218,6 @@ function SongSifterCreate({ currentUser }) {
                   </Card.Text>
                   <Form.Select
                     variant="primary"
-                    // id="dropdown-basic-button"
                     title="Lyric"
                     onChange={handleLyricSelection}
                     value={lyricSelect}
@@ -267,13 +251,11 @@ function SongSifterCreate({ currentUser }) {
             style={{ margin: 'auto' }}
             variant="primary"
             type="submit"
-            // id="form-btn"
             onClick={handleCreate}
           >
             Create
           </Button>
         )}
-        {/* </Container> */}
       </Form>
     </div>
   )

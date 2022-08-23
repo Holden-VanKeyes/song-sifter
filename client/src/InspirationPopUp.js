@@ -11,7 +11,6 @@ function InspirationPopUp({
   randomEnigma,
   randomLyric,
 }) {
-  console.log(showPopUp)
   return (
     <>
       <Modal show={showPopUp} onHide={handleClose}>

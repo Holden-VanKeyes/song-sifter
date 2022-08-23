@@ -17,7 +17,6 @@ function LoginErrorMsg({ showErrorMsg, closeError, errorSelector }) {
             <Toast.Header>
               <img src="" className="rounded me-2" alt="" />
               <strong className="me-auto">ERROR</strong>
-              {/* <small>11 mins ago</small> */}
             </Toast.Header>
             <Toast.Body>Incorrect username or password</Toast.Body>
           </Toast>
@@ -38,7 +37,6 @@ function LoginErrorMsg({ showErrorMsg, closeError, errorSelector }) {
             <Toast.Header>
               <img src="" className="rounded me-2" alt="" />
               <strong className="me-auto">ERROR</strong>
-              {/* <small>11 mins ago</small> */}
             </Toast.Header>
             <Toast.Body>
               Username Not Available - Please Choose Another
