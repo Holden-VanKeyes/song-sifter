@@ -4,6 +4,10 @@ import { Nav, Navbar } from 'react-bootstrap'
 import { Link, useLocation } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import NavDropdown from 'react-bootstrap/NavDropdown'
+import Modal from 'react-bootstrap/Modal'
+
+import Login from './Login'
+import SignUp from './SignUp'
 import {
   enigmaCategories,
   lyricCategories,
@@ -24,10 +28,12 @@ function NavHeader({
   handleCloseModal,
   currentUser,
   showLoginInfo,
+  handleOffset,
 }) {
   const [selection, setSelection] = useState('')
   const [show, setShow] = useState(false)
-
+  const [openLoginModal, setOpenLoginModal] = useState(false)
+  const [isSignUp, setIsSignUp] = useState(false)
   const [showCategories, setShowCategories] = useState([])
 
   const location = useLocation()
@@ -47,6 +53,44 @@ function NavHeader({
       setShowCategories(categoriesByName[e])
     }
   }
+
+  const handleFormChoice = () => {}
+
+  const loginModal = (
+    <div style={{ display: 'block', position: 'initial' }}>
+      <Modal show={openLoginModal} onHide={() => setOpenLoginModal(false)}>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Modal.Title style={{ paddingLeft: '10px', paddingTop: '10px' }}>
+            {isSignUp ? <p>Sign Up</p> : <p> Log In</p>}
+          </Modal.Title>
+          <Modal.Header closeButton />
+        </div>
+        <Modal.Body>{isSignUp ? <SignUp /> : <Login />}</Modal.Body>
+
+        <Modal.Footer>
+          <Button
+            variant={isSignUp ? 'primary' : 'outline-primary'}
+            disabled={isSignUp ? false : true}
+            onClick={() => {
+              setIsSignUp(false)
+            }}
+          >
+            Login
+          </Button>
+          <Button
+            variant={isSignUp ? 'outline-primary' : 'primary'}
+            disabled={isSignUp ? true : false}
+            onClick={() => {
+              setIsSignUp(true)
+            }}
+          >
+            Sign Up
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
+  )
+
   if (isLoggedIn) {
     return (
       <div>
@@ -164,34 +208,36 @@ function NavHeader({
         <Navbar bg="bbcolors" variant="dark" fixed="top" className="navbar p-4">
           <Navbar.Brand className="nav-link">Song Sifter</Navbar.Brand>
           <Nav>
-            <Link
-              to="/SplashPage"
-              style={{
-                padding: '10px',
-                textDecoration: 'none',
-                color: '#99E1D9',
-              }}
-            >
-              About
-            </Link>
-            <Button
-              onClick={showLoginInfo}
-              size="sm"
-              bg="3E885B"
-              style={{
-                padding: '10px',
-                textDecoration: 'none',
-                color: 'white',
-                borderRadius: '16px',
-                marginLeft: '50px',
-                backgroundColor: '#17BEBB',
-                flexWrap: 'wrap',
-              }}
-            >
-              Get Started
-            </Button>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <Button
+                onClick={handleOffset}
+                size="sm"
+                bg="3E885B"
+                style={{
+                  color: 'white',
+                  borderRadius: '8px',
+                  backgroundColor: '#17BEBB',
+                }}
+              >
+                About
+              </Button>
+              <Button
+                // onClick={showLoginInfo}
+                onClick={() => setOpenLoginModal(!openLoginModal)}
+                size="sm"
+                bg="3E885B"
+                style={{
+                  color: 'white',
+                  borderRadius: '8px',
+                  backgroundColor: '#17BEBB',
+                }}
+              >
+                Get Started
+              </Button>
+            </div>
           </Nav>
         </Navbar>
+        {loginModal}
       </div>
     )
   }

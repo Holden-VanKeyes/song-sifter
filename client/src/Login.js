@@ -45,23 +45,24 @@ export default function Login({ loginSignup, handleLoginErrors }) {
   return (
     <>
       <div
-        style={{
-          backgroundImage: `url(${images.Banner})`,
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: '100vw 100vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '100vh',
-          width: '100vw',
-        }}
+      // style={{
+      //   backgroundImage: `url(${images.Banner})`,
+      //   backgroundRepeat: 'no-repeat',
+      //   backgroundSize: '100vw 100vh',
+      //   display: 'flex',
+      //   alignItems: 'center',
+      //   justifyContent: 'center',
+      //   height: '100vh',
+      //   width: '100vw',
+      // }}
       >
-        <Form onSubmit={handleSubmit} style={{ paddingBottom: '400px' }}>
+        <Form onSubmit={handleSubmit}>
           <Row>
             <Col>
               <Form.Control
                 placeholder="Enter Username"
                 onChange={handleUsername}
+                style={{ border: '1px solid black' }}
               />
               <Form.Text className="text-muted"></Form.Text>
             </Col>
@@ -71,13 +72,19 @@ export default function Login({ loginSignup, handleLoginErrors }) {
                 type="password"
                 placeholder="Password"
                 onChange={handlePassword}
+                style={{ border: '1px solid black' }}
               />
             </Col>
           </Row>
-
-          <Button variant="primary" type="submit" style={{ margin: '10px' }}>
-            Log In
-          </Button>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <Button
+              variant="success"
+              type="submit"
+              style={{ marginTop: '20px' }}
+            >
+              Submit
+            </Button>
+          </div>
         </Form>
       </div>
     </>

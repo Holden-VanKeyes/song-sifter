@@ -31,7 +31,7 @@ function AddYourOwnModal({
   useEffect(() => {
     if (showModal) {
       handleUserSelection()
-    } else return null
+    }
   })
 
   function handleUserSelection() {

@@ -15,6 +15,7 @@ export default function Home({
   isLoggedIn,
   handleUserImage,
   getStarted,
+  showOffset,
 }) {
   const [showForm, setShowForm] = useState(false)
   const [showErrorMsg, setShowErrorMsg] = useState(false)
@@ -22,7 +23,7 @@ export default function Home({
   const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
-
+  console.log('SHow', show)
   function handleShowLogIn() {
     setShowForm(true)
   }
@@ -42,7 +43,7 @@ export default function Home({
   function closeError() {
     setShowErrorMsg(false)
   }
-
+  console.log('Sould change', showOffset)
   if (getStarted) {
     return (
       <>
@@ -59,9 +60,9 @@ export default function Home({
               </Button>
             </ButtonGroup>
             <ButtonGroup className="me-2" aria-label="Second group">
-              <Button variant="primary" onClick={handleShow}>
+              {/* <Button variant="primary" onClick={() => setShow(!show)}>
                 About
-              </Button>
+              </Button> */}
             </ButtonGroup>
           </ButtonToolbar>
         </div>
@@ -84,8 +85,8 @@ export default function Home({
           closeError={closeError}
           errorSelector={errorSelector}
         />
-        <div>
-          <Offcanvas show={show} onHide={handleClose}>
+        {/* <div>
+          <Offcanvas show={showOffset} onHide={handleClose}>
             <Offcanvas.Header closeButton>
               <Offcanvas.Title>Song Sifter</Offcanvas.Title>
             </Offcanvas.Header>
@@ -103,7 +104,7 @@ export default function Home({
               Log in or Sign up to explore more!
             </Offcanvas.Body>
           </Offcanvas>
-        </div>
+        </div> */}
       </>
     )
   } else {

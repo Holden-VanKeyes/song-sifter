@@ -27,8 +27,10 @@ export default function SignUp({ loginSignup, handleLoginErrors }) {
 
   async function handleSubmit(e) {
     e.preventDefault()
-
-    await fetch(`https://avatars.dicebear.com/api/personas/${username}.svg`)
+    console.log('E', e)
+    await fetch(
+      `https://api.dicebear.com/8.x/notionists-neutral/svg?seed=${username}`
+    )
       .then((response) => response.url)
       .then((data) => handleSetUser(data))
   }
@@ -51,55 +53,47 @@ export default function SignUp({ loginSignup, handleLoginErrors }) {
     } else {
       //set Errors state
       setNameError('not unique')
-      handleLoginErrors(nameError)
+      // handleLoginErrors(nameError)
       console.log(user.errors)
     }
   }
   return (
     <>
-      <div
-        style={{
-          backgroundImage: `url(${images.Banner})`,
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: '100vw 100vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '100vh',
-          width: '100vw',
-        }}
-      >
-        <Form onSubmit={handleSubmit} style={{ paddingBottom: '400px' }}>
-          <Row>
-            <Col>
-              <Form.Control
-                placeholder="Enter Username"
-                onChange={handleUsername}
-              />
-              <Form.Text className="text-muted"></Form.Text>
-            </Col>
-
-            <Col>
-              <Form.Control
-                type="password"
-                placeholder="Password"
-                onChange={handlePassword}
-              />
-            </Col>
-
-            <Col>
-              <Form.Control
-                type="password"
-                placeholder="Password Confirmation"
-                onChange={handlePasswordConfirm}
-              />
-            </Col>
-          </Row>
-          <Button variant="primary" type="submit" style={{ margin: '10px' }}>
-            Sign Up
+      <Form onSubmit={handleSubmit}>
+        <Row>
+          <Col>
+            <Form.Control
+              placeholder="Enter Username"
+              onChange={handleUsername}
+              style={{ border: '1px solid black' }}
+            />
+            <Form.Text className="text-muted"></Form.Text>
+          </Col>
+        </Row>
+        <Row style={{ marginTop: '10px' }}>
+          <Col>
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              onChange={handlePassword}
+              style={{ border: '1px solid black' }}
+            />
+          </Col>
+          <Col>
+            <Form.Control
+              type="password"
+              placeholder="Password Confirmation"
+              onChange={handlePasswordConfirm}
+              style={{ border: '1px solid black' }}
+            />
+          </Col>
+        </Row>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <Button variant="success" type="submit" style={{ marginTop: '20px' }}>
+            Submit
           </Button>
-        </Form>
-      </div>
+        </div>
+      </Form>
     </>
   )
 }

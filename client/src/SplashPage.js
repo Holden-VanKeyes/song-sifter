@@ -7,8 +7,10 @@ import Figure from 'react-bootstrap/Figure'
 import FigureImage from 'react-bootstrap/FigureImage'
 import FigureCaption from 'react-bootstrap/FigureCaption'
 import Offcanvas from 'react-bootstrap/Offcanvas'
+import { Badge } from '@mantine/core'
 
-function SplashPage() {
+function SplashPage({ showOffset, setShowOffset }) {
+  console.log('OFF', showOffset, setShowOffset)
   const [lyricHover, setLyricHover] = useState(false)
   const [enigmaHover, setEnigmaHover] = useState(false)
   const [chordHover, setChordHover] = useState(false)
@@ -85,10 +87,11 @@ function SplashPage() {
                   margin: 'auto',
                   maxHeight: '100%',
                   maxWidth: '100%',
-
+                  cursor: 'pointer',
                   opacity: lyricHover ? '50%' : '100%',
                 }}
               />
+
               {lyricHover ? (
                 <FigureCaption
                   className="figure-caption"
@@ -119,6 +122,7 @@ function SplashPage() {
                   maxWidth: '100%',
                   objectFit: 'contain',
                   opacity: enigmaHover ? '50%' : '100%',
+                  cursor: 'pointer',
                 }}
               />
               {enigmaHover ? (
@@ -149,6 +153,7 @@ function SplashPage() {
                   maxWidth: '100%',
                   objectFit: 'contain',
                   opacity: chordHover ? '50%' : '100%',
+                  cursor: 'pointer',
                 }}
               />
               {chordHover ? (
@@ -166,7 +171,7 @@ function SplashPage() {
             </Figure>
           </Col>
         </Row>
-        <Offcanvas show={showAbout} onHide={closeAbout}>
+        <Offcanvas show={showOffset} onHide={() => setShowOffset(false)}>
           <Offcanvas.Header closeButton>
             <Offcanvas.Title>Song Sifter</Offcanvas.Title>
           </Offcanvas.Header>

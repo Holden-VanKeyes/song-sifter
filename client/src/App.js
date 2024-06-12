@@ -12,6 +12,9 @@ import { useNavigate } from 'react-router-dom'
 import NotLoggedInAlert from './NotLoggedInAlert'
 import SplashPage from './SplashPage'
 import FilterHelper from './FilterHelper'
+import Offset from './Offset'
+import { AppShell, Burger } from '@mantine/core'
+import { useDisclosure } from '@mantine/hooks'
 
 function App() {
   const [currentUser, setCurrentUser] = useState({
@@ -28,6 +31,8 @@ function App() {
   const [showAddYourOwnForm, setShowAddYourOwnForm] = useState(false)
   const [userAddSelection, setUserAddSelection] = useState('')
   const [getStarted, setGetStarted] = useState(false)
+  const [showOffset, setShowOffset] = useState(false)
+  const [opened, { toggle }] = useDisclosure()
 
   const navigate = useNavigate()
 
@@ -40,7 +45,7 @@ function App() {
         fetch('/creations')
           .then((response) => response.json())
           .then((data) => {
-            setShowFilteredPage(data)
+            // setShowFilteredPage(data)
           })
         if (data.username) {
           handleLoginSignup(data)
@@ -88,6 +93,11 @@ function App() {
     setSharePageUpdate(filteredSet)
   }
 
+  const handleOffset = () => {
+    console.log('in off', showOffset)
+    setShowOffset(!showOffset)
+  }
+
   async function postShare(musicShare) {
     await fetch('/creations', {
       method: 'POST',
@@ -124,101 +134,131 @@ function App() {
   }
 
   return (
-    <div>
-      <FilterHelper
-        filteredSearch={filteredSearch}
-        filteredType={filteredType}
-        updateSharePage={updateSharePage}
-        showFilteredPage={showFilteredPage}
-      />
-      <div
-        className="img-container"
-        style={{
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: '100vw 100vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '100vh',
-          width: '100vw',
+    <>
+      <AppShell
+        header={{ height: 60 }}
+        navbar={{
+          width: 300,
+          breakpoint: 'sm',
+          collapsed: { mobile: !opened },
         }}
+        padding="md"
       >
-        <NavHeader
-          isLoggedIn={isLoggedIn}
-          handleLogout={handleLogout}
-          handleSearch={handleSearch}
-          resetFunction={resetFunction}
-          showAddYourOwnForm={showAddYourOwnForm}
-          userAddSelection={userAddSelection}
-          handleCloseModal={handleCloseModal}
-          currentUser={currentUser}
-          showLoginInfo={showLoginInfo}
-        />
+        <AppShell.Header>
+          <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
+          <div>Logo</div>
+        </AppShell.Header>
 
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Home
-                loginSignup={handleLoginSignup}
-                isLoggedIn={isLoggedIn}
-                getStarted={getStarted}
-              />
-            }
-          />
-          <Route
-            path="/SongSifterCreate"
-            element={
-              isLoggedIn ? (
-                <SongSifterCreate
-                  currentUser={currentUser}
-                  isLoggedIn={isLoggedIn}
-                />
-              ) : (
-                <NotLoggedInAlert />
-              )
-            }
-          />
-          <Route
-            path="/UserProfile"
-            element={
-              isLoggedIn ? (
-                <UserProfile
-                  currentUser={currentUser}
-                  postShare={postShare}
-                  showModalPopUp={showModalPopUp}
-                  handleCloseModal={handleCloseModal}
-                  updatedUserRefresh={updatedUserRefresh}
-                />
-              ) : (
-                <NotLoggedInAlert />
-              )
-            }
-          />
-          <Route
-            path="/ShareCreation"
-            element={
-              isLoggedIn ? (
-                <ShareCreation
-                  currentUser={currentUser}
-                  filteredSearch={filteredSearch}
-                  filteredType={filteredType}
-                  sharePageUpdate={sharePageUpdate}
-                  refreshed={refreshed}
-                  resetFunction={resetFunction}
-                />
-              ) : (
-                <NotLoggedInAlert />
-              )
-            }
-          />
-          <Route
-            path="/SplashPage"
-            element={<SplashPage className="splash-page" />}
-          />
-        </Routes>
-      </div>
-    </div>
+        <AppShell.Navbar p="md">Navbar</AppShell.Navbar>
+
+        <AppShell.Main>Main</AppShell.Main>
+      </AppShell>
+    </>
+    // <div>
+    //   <Offset showOffset={showOffset} handleOffset={handleOffset} />
+    //   <FilterHelper
+    //     filteredSearch={filteredSearch}
+    //     filteredType={filteredType}
+    //     updateSharePage={updateSharePage}
+    //     showFilteredPage={showFilteredPage}
+    //   />
+    //   <div
+    //     className="img-container"
+    //     style={{
+    //       backgroundRepeat: 'no-repeat',
+    //       backgroundSize: '100vw 100vh',
+    //       display: 'flex',
+    //       alignItems: 'center',
+    //       justifyContent: 'center',
+    //       height: '100vh',
+    //       width: '100vw',
+    //     }}
+    //   >
+    //     <NavHeader
+    //       isLoggedIn={isLoggedIn}
+    //       handleLogout={handleLogout}
+    //       handleSearch={handleSearch}
+    //       resetFunction={resetFunction}
+    //       showAddYourOwnForm={showAddYourOwnForm}
+    //       userAddSelection={userAddSelection}
+    //       handleCloseModal={handleCloseModal}
+    //       currentUser={currentUser}
+    //       showLoginInfo={showLoginInfo}
+    //       handleOffset={handleOffset}
+    //       // loginSignup={handleLoginSignup}
+    //     />
+
+    //     <Routes>
+    //       <Route
+    //         path="/"
+    //         element={
+    //           <Home
+    //             loginSignup={handleLoginSignup}
+    //             isLoggedIn={isLoggedIn}
+    //             getStarted={getStarted}
+    //             // showOffset={showOffset}
+    //           />
+    //         }
+    //       />
+    //       <Route
+    //         path="/SongSifterCreate"
+    //         element={
+    //           isLoggedIn ? (
+    //             <SongSifterCreate
+    //               currentUser={currentUser}
+    //               isLoggedIn={isLoggedIn}
+    //             />
+    //           ) : (
+    //             <NotLoggedInAlert />
+    //           )
+    //         }
+    //       />
+    //       <Route
+    //         path="/UserProfile"
+    //         element={
+    //           isLoggedIn ? (
+    //             <UserProfile
+    //               currentUser={currentUser}
+    //               postShare={postShare}
+    //               showModalPopUp={showModalPopUp}
+    //               handleCloseModal={handleCloseModal}
+    //               updatedUserRefresh={updatedUserRefresh}
+    //             />
+    //           ) : (
+    //             <NotLoggedInAlert />
+    //           )
+    //         }
+    //       />
+    //       <Route
+    //         path="/ShareCreation"
+    //         element={
+    //           isLoggedIn ? (
+    //             <ShareCreation
+    //               currentUser={currentUser}
+    //               filteredSearch={filteredSearch}
+    //               filteredType={filteredType}
+    //               sharePageUpdate={sharePageUpdate}
+    //               refreshed={refreshed}
+    //               resetFunction={resetFunction}
+    //             />
+    //           ) : (
+    //             <NotLoggedInAlert />
+    //           )
+    //         }
+    //       />
+    //       <Route
+    //         path="/SplashPage"
+    //         element={
+    //           <SplashPage
+    //             className="splash-page"
+    //             // showOffset={showOffset}
+    //             // setShowOffset={setShowOffset}
+    //           />
+    //         }
+    //       />
+    //     </Routes>
+    //   </div>
+    // </div>
   )
 }
 
