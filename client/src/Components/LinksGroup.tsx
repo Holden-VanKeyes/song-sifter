@@ -1,15 +1,16 @@
 import { useState } from 'react'
+import { Group, Code, Collapse, Text, rem, Stack, Flex } from '@mantine/core'
 import {
-  Group,
-  Box,
-  Collapse,
-  ThemeIcon,
-  Text,
-  UnstyledButton,
-  rem,
-} from '@mantine/core'
-import { IconCalendarStats, IconChevronRight } from '@tabler/icons-react'
-import css from './LinksGroup.module.css'
+  IconSettings,
+  IconMicrophone,
+  IconScanEye,
+  IconPlaylist,
+  IconUserHeart,
+  IconSearch,
+  IconIceCream2,
+  IconChevronRight,
+} from '@tabler/icons-react'
+import css from './SideNav.module.css'
 
 interface LinksGroupProps {
   icon: React.FC<any>
@@ -18,40 +19,45 @@ interface LinksGroupProps {
   links?: { label: string; link: string }[]
 }
 
-export function LinksGroup({
-  icon: Icon,
-  label,
-  initiallyOpened,
-  links,
-}: LinksGroupProps) {
-  const hasLinks = Array.isArray(links)
-  const [opened, setOpened] = useState(initiallyOpened || false)
-  const items = (hasLinks ? links : []).map((link) => (
-    <Text<'a'>
-      component="a"
-      className={css.link}
-      href={link.link}
-      key={link.label}
-      onClick={(event) => event.preventDefault()}
-    >
-      {link.label}
-    </Text>
-  ))
+const data = [
+  { link: '', label: 'Profile', icon: IconUserHeart },
+  { link: '', label: 'Search', icon: IconSearch },
+  { link: '', label: 'Create', icon: IconIceCream2 },
+  {
+    link: '',
+    label: 'Add',
+    icon: IconSettings,
+    links: [
+      { link: '', label: 'Lyrics', icon: IconMicrophone },
+      { link: '', label: 'Enigmas', icon: IconScanEye },
+      { link: '', label: 'Chord Progressions', icon: IconPlaylist },
+    ],
+  },
+]
 
-  return (
+export default function LinksGroup() {
+  const [active, setActive] = useState('')
+  const [opened, setOpened] = useState(false)
+  return data.map((item) => (
     <>
-      <UnstyledButton
-        onClick={() => setOpened((o) => !o)}
-        className={css.control}
+      <a
+        className={css.link}
+        data-active={item.label === active || undefined}
+        href={item.link}
+        key={item.label}
+        onClick={(event) => {
+          event.preventDefault()
+          setActive(item.label)
+          if (item.label === 'Add') {
+            setOpened(!opened)
+          }
+        }}
       >
-        <Group justify="space-between" gap={0}>
-          <Box style={{ display: 'flex', alignItems: 'center' }}>
-            <ThemeIcon variant="light" size={30}>
-              <Icon style={{ width: rem(18), height: rem(18) }} />
-            </ThemeIcon>
-            <Box ml="md">{label}</Box>
-          </Box>
-          {hasLinks && (
+        <item.icon className={css.linkIcon} stroke={1.5} />
+
+        <Group>
+          {item.label}
+          {item.links ? (
             <IconChevronRight
               className={css.chevron}
               stroke={1.5}
@@ -61,28 +67,31 @@ export function LinksGroup({
                 transform: opened ? 'rotate(-90deg)' : 'none',
               }}
             />
-          )}
+          ) : null}
         </Group>
-      </UnstyledButton>
-      {hasLinks ? <Collapse in={opened}>{items}</Collapse> : null}
+      </a>
+      {item.links ? (
+        <Collapse in={opened}>
+          <Stack className={css.collapseLink}>
+            {item.links.map((link) => (
+              <Text
+                className={css.nestedLink}
+                data-active={link.label === active || undefined}
+                // href={link.link}
+                key={link.label}
+                onClick={(event) => {
+                  console.log('Click', link.label)
+                  event.preventDefault()
+                  setActive(link.label)
+                }}
+              >
+                <link.icon className={css.linkIcon} stroke={1.5} />
+                {link.label}
+              </Text>
+            ))}
+          </Stack>
+        </Collapse>
+      ) : null}
     </>
-  )
-}
-
-const mockdata = {
-  label: 'Releases',
-  icon: IconCalendarStats,
-  links: [
-    { label: 'Upcoming releases', link: '/' },
-    { label: 'Previous releases', link: '/' },
-    { label: 'Releases schedule', link: '/' },
-  ],
-}
-
-export function NavbarLinksGroup() {
-  return (
-    <Box mih={220} p="md">
-      <LinksGroup {...mockdata} />
-    </Box>
-  )
+  ))
 }
