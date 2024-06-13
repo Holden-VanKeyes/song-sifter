@@ -22,24 +22,24 @@ export const chordCategories = {
 }
 
 export const categoriesByName = {
-  Enigmas: enigmaCategories,
-  Lyrics: lyricCategories,
-  Chords: chordCategories,
+  enigmas: enigmaCategories,
+  lyrics: lyricCategories,
+  chords: chordCategories,
 }
 
 export const images = {
-  Enigma:
+  enigma:
     'https://res.cloudinary.com/shooksounds/image/upload/v1658846974/Song%20Sifter/SongSifterEnigmasWNotes_gwghgz.png',
-  Chord:
+  chord:
     'https://res.cloudinary.com/shooksounds/image/upload/v1658846939/Song%20Sifter/SongSifterChordsmaller_f3qsel.jpg',
-  Lyric:
+  lyric:
     'https://res.cloudinary.com/shooksounds/image/upload/v1658846648/Song%20Sifter/SongSifterLyric_dpnd6k.png',
 
-  Logo: 'https://res.cloudinary.com/shooksounds/image/upload/v1658846985/Song%20Sifter/SongSifterNoBGNoText_fquz7n.png',
+  logo: 'https://res.cloudinary.com/shooksounds/image/upload/v1658846985/Song%20Sifter/SongSifterNoBGNoText_fquz7n.png',
 
-  Stamp:
+  stamp:
     'https://res.cloudinary.com/shooksounds/image/upload/v1658846740/Song%20Sifter/SongSifterStamp_vqgmlg.png',
 
-  Banner:
+  banner:
     'https://res.cloudinary.com/shooksounds/image/upload/v1659670416/Song%20Sifter/SongSifterBannerr_tipurx.png',
 }

@@ -13,8 +13,20 @@ import NotLoggedInAlert from './NotLoggedInAlert'
 import SplashPage from './SplashPage'
 import FilterHelper from './FilterHelper'
 import Offset from './Offset'
-import { AppShell, Burger } from '@mantine/core'
+import {
+  AppShell,
+  Burger,
+  Group,
+  Button,
+  Image,
+  ActionIcon,
+  Box,
+  Flex,
+} from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
+import SideNav from './Components/SideNav'
+import { images } from './constants'
+import Logo from './assets/images/logo.svg'
 
 function App() {
   const [currentUser, setCurrentUser] = useState({
@@ -33,6 +45,7 @@ function App() {
   const [getStarted, setGetStarted] = useState(false)
   const [showOffset, setShowOffset] = useState(false)
   const [opened, { toggle }] = useDisclosure()
+  const logo = images.banner
 
   const navigate = useNavigate()
 
@@ -60,7 +73,7 @@ function App() {
     navigate('/')
   }
 
-  function handleLoginSignup(user) {
+  function handleLoginSignup(user: any) {
     setGetStarted(false)
     setCurrentUser(user)
     setIsLoggedIn(true)
@@ -70,12 +83,12 @@ function App() {
     setRefreshed(true)
   }
 
-  function handleSearch(category, name) {
+  function handleSearch(category: any, name: any) {
     setFilteredSearch(category)
     setFilteredType(name)
   }
 
-  function showModalPopUp(e) {
+  function showModalPopUp(e: any) {
     setShowAddYourOwnForm(true)
     setUserAddSelection(e.target.value)
   }
@@ -83,11 +96,11 @@ function App() {
     setShowAddYourOwnForm(false)
   }
 
-  function updatedUserRefresh(data) {
+  function updatedUserRefresh(data: any) {
     setCurrentUser(data)
   }
 
-  function updateSharePage(filteredSet) {
+  function updateSharePage(filteredSet: any) {
     setFilteredType('')
     setRefreshed(false)
     setSharePageUpdate(filteredSet)
@@ -98,58 +111,77 @@ function App() {
     setShowOffset(!showOffset)
   }
 
-  async function postShare(musicShare) {
-    await fetch('/creations', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(musicShare),
-    }).then((response) => response.json())
-    // .then((data) => {
-    //   setShowFilteredPage(data)
-    // })
-    fetch('/creations')
-      .then((response) => response.json())
-      .then((data) => {
-        setShowFilteredPage(data)
-      })
+  // async function postShare(musicShare) {
+  //   await fetch('/creations', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(musicShare),
+  //   }).then((response) => response.json())
+  //   // .then((data) => {
+  //   //   setShowFilteredPage(data)
+  //   // })
+  //   fetch('/creations')
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setShowFilteredPage(data)
+  //     })
 
-    navigate('/ShareCreation')
-  }
+  //   navigate('/ShareCreation')
+  // }
 
-  async function handleLogout() {
-    navigate('/')
-    setGetStarted(false)
-    const response = await fetch('/logout', {
-      method: 'DELETE',
-    })
-    if (response.ok) {
-      setIsLoggedIn(false)
-      setCurrentUser({
-        id: '',
-        username: '',
-      })
-    }
-  }
+  // async function handleLogout() {
+  //   navigate('/')
+  //   setGetStarted(false)
+  //   const response = await fetch('/logout', {
+  //     method: 'DELETE',
+  //   })
+  //   if (response.ok) {
+  //     setIsLoggedIn(false)
+  //     setCurrentUser({
+  //       id: '',
+  //       username: '',
+  //     })
+  //   }
+  // }
 
   return (
     <>
       <AppShell
-        header={{ height: 60 }}
+        header={{ height: 80 }}
         navbar={{
           width: 300,
           breakpoint: 'sm',
           collapsed: { mobile: !opened },
         }}
-        padding="md"
       >
+        <AppShell.Navbar>
+          <SideNav />
+        </AppShell.Navbar>
         <AppShell.Header>
-          <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-          <div>Logo</div>
-        </AppShell.Header>
+          <Flex justify="space-between" align="center">
+            <Burger
+              opened={opened}
+              onClick={toggle}
+              hiddenFrom="sm"
+              size="md"
+              p="xl"
+            />
+            <Group p="sm" mr="md" justify="flex-end">
+              <Logo style={{ width: '55' }} />
+            </Group>
+          </Flex>
 
-        <AppShell.Navbar p="md">Navbar</AppShell.Navbar>
+          {/* <Logo /> */}
+          {/* <Button>Login</Button> */}
+          {/* <Image radius="md" h={200} src={logo} /> */}
+          {/* <Group
+            style={{ justifyContent: 'space-between', alignItems: 'center' }}
+          >
+            <div>HI</div>
+          </Group> */}
+        </AppShell.Header>
 
         <AppShell.Main>Main</AppShell.Main>
       </AppShell>
