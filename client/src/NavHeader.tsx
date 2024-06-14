@@ -13,10 +13,23 @@ import {
   lyricCategories,
   chordCategories,
   categoriesByName,
-} from './constants'
+} from './constants/constants'
 
 import CategorySelector from './CategorySelector'
 import AddYourOwnModal from './AddYourOwnModal'
+
+interface NavHeaderProps {
+  isLoggedIn?: boolean
+  handleLogout?: boolean
+  handleSearch?: any
+  resetFunction?: any
+  userAddSelection?: any
+  showAddYourOwnForm?: any
+  handleCloseModal?: any
+  currentUser?: any
+  showLoginInfo?: any
+  handleOffset?: any
+}
 
 function NavHeader({
   isLoggedIn,
@@ -29,7 +42,7 @@ function NavHeader({
   currentUser,
   showLoginInfo,
   handleOffset,
-}) {
+}: NavHeaderProps) {
   const [selection, setSelection] = useState('')
   const [show, setShow] = useState(false)
   const [openLoginModal, setOpenLoginModal] = useState(false)
@@ -43,16 +56,16 @@ function NavHeader({
     setShow(false)
   }
 
-  const handleDropdown = (e) => {
-    setSelection(e)
-    setShow(true)
-    if (e === 'All') {
-      handleClose()
-      resetFunction()
-    } else {
-      setShowCategories(categoriesByName[e])
-    }
-  }
+  // const handleDropdown = (e) => {
+  //   setSelection(e)
+  //   setShow(true)
+  //   if (e === 'All') {
+  //     handleClose()
+  //     resetFunction()
+  //   } else {
+  //     setShowCategories(categoriesByName[e])
+  //   }
+  // }
 
   const handleFormChoice = () => {}
 
@@ -65,7 +78,7 @@ function NavHeader({
           </Modal.Title>
           <Modal.Header closeButton />
         </div>
-        <Modal.Body>{isSignUp ? <SignUp /> : <Login />}</Modal.Body>
+        {/* <Modal.Body>{isSignUp ? <SignUp /> : <Login />}</Modal.Body> */}
 
         <Modal.Footer>
           <Button
@@ -152,8 +165,8 @@ function NavHeader({
             {location.pathname === '/ShareCreation' &&
             currentUser.username !== '' ? (
               <NavDropdown
-                value={selection}
-                onSelect={handleDropdown}
+                // value={selection}
+                // onSelect={handleDropdown}
                 title="Filter By Category"
                 id="basic-nav-dropdown"
                 style={{
@@ -173,7 +186,7 @@ function NavHeader({
             <div className="nav-user">
               <Nav>
                 <Navbar.Collapse className="justify-content-end">
-                  <Button
+                  {/* <Button
                     onClick={handleLogout}
                     size="sm"
                     bg="3E885B"
@@ -185,7 +198,7 @@ function NavHeader({
                     }}
                   >
                     LOGOUT
-                  </Button>
+                  </Button> */}
                 </Navbar.Collapse>
               </Nav>
             </div>
@@ -212,7 +225,7 @@ function NavHeader({
               <Button
                 onClick={handleOffset}
                 size="sm"
-                bg="3E885B"
+                // bg="3E885B"
                 style={{
                   color: 'white',
                   borderRadius: '8px',
@@ -225,7 +238,7 @@ function NavHeader({
                 // onClick={showLoginInfo}
                 onClick={() => setOpenLoginModal(!openLoginModal)}
                 size="sm"
-                bg="3E885B"
+                // bg="3E885B"
                 style={{
                   color: 'white',
                   borderRadius: '8px',

@@ -11,6 +11,21 @@ import {
   IconChevronRight,
 } from '@tabler/icons-react'
 import css from './SideNav.module.css'
+import { NavLink } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+
+{
+  /* <Link
+to="/UserProfile"
+style={{
+  padding: '10px',
+  textDecoration: 'none',
+  color: '#99E1D9',
+}}
+>
+Profile
+</Link> */
+}
 
 interface LinksGroupProps {
   icon: React.FC<any>
@@ -20,9 +35,9 @@ interface LinksGroupProps {
 }
 
 const data = [
-  { link: '', label: 'Profile', icon: IconUserHeart },
+  { link: 'UserProfile', label: 'Profile', icon: IconUserHeart },
   { link: '', label: 'Search', icon: IconSearch },
-  { link: '', label: 'Create', icon: IconIceCream2 },
+  { link: 'SongSifterCreate', label: 'Create', icon: IconIceCream2 },
   {
     link: '',
     label: 'Add',
@@ -35,63 +50,71 @@ const data = [
   },
 ]
 
-export default function LinksGroup() {
+export default function LinksGroup(): JSX.Element {
   const [active, setActive] = useState('')
   const [opened, setOpened] = useState(false)
-  return data.map((item) => (
+  const navigate = useNavigate()
+  return (
     <>
-      <a
-        className={css.link}
-        data-active={item.label === active || undefined}
-        href={item.link}
-        key={item.label}
-        onClick={(event) => {
-          event.preventDefault()
-          setActive(item.label)
-          if (item.label === 'Add') {
-            setOpened(!opened)
-          }
-        }}
-      >
-        <item.icon className={css.linkIcon} stroke={1.5} />
+      {data.map((item) => (
+        <>
+          <NavLink
+            className={css.link}
+            data-active={item.label === active || undefined}
+            to={item.link}
+            key={item.label}
+            onClick={(event) => {
+              event.preventDefault()
+              console.log('Link', item.link)
 
-        <Group>
-          {item.label}
+              setActive(item.label)
+
+              if (item.label === 'Add') {
+                setOpened(!opened)
+              } else navigate(item.link)
+            }}
+          >
+            <item.icon className={css.linkIcon} stroke={1.5} />
+
+            <Group>
+              {item.label}
+              {item.links ? (
+                <IconChevronRight
+                  className={css.chevron}
+                  stroke={1.5}
+                  style={{
+                    width: rem(16),
+                    height: rem(16),
+                    transform: opened ? 'rotate(-90deg)' : 'none',
+                  }}
+                />
+              ) : null}
+            </Group>
+          </NavLink>
           {item.links ? (
-            <IconChevronRight
-              className={css.chevron}
-              stroke={1.5}
-              style={{
-                width: rem(16),
-                height: rem(16),
-                transform: opened ? 'rotate(-90deg)' : 'none',
-              }}
-            />
+            <Collapse in={opened}>
+              <Stack className={css.collapseLink}>
+                {item.links.map((link) => (
+                  <Text
+                    className={css.nestedLink}
+                    data-active={link.label === active || undefined}
+                    // href={link.link}
+                    key={link.label}
+                    onClick={(event) => {
+                      console.log('Click', link.label)
+                      event.preventDefault()
+                      setActive(link.label)
+                    }}
+                  >
+                    <link.icon className={css.linkIcon} stroke={1.5} />
+                    {link.label}
+                  </Text>
+                ))}
+              </Stack>
+            </Collapse>
           ) : null}
-        </Group>
-      </a>
-      {item.links ? (
-        <Collapse in={opened}>
-          <Stack className={css.collapseLink}>
-            {item.links.map((link) => (
-              <Text
-                className={css.nestedLink}
-                data-active={link.label === active || undefined}
-                // href={link.link}
-                key={link.label}
-                onClick={(event) => {
-                  console.log('Click', link.label)
-                  event.preventDefault()
-                  setActive(link.label)
-                }}
-              >
-                <link.icon className={css.linkIcon} stroke={1.5} />
-                {link.label}
-              </Text>
-            ))}
-          </Stack>
-        </Collapse>
-      ) : null}
+        </>
+      ))}
     </>
-  ))
+  )
 }

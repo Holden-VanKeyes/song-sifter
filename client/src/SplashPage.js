@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { images } from './constants'
+import { images } from './constants/constants'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Figure from 'react-bootstrap/Figure'

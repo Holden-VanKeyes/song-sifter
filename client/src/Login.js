@@ -2,7 +2,7 @@ import React from 'react'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import { useState } from 'react'
-import { images } from './constants'
+import { images } from './constants/constants'
 import Col from 'react-bootstrap/Col'
 
 import Row from 'react-bootstrap/Row'

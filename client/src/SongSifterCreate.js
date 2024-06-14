@@ -7,7 +7,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import InspirationPopUp from './InspirationPopUp'
 import { useNavigate } from 'react-router-dom'
-import { images } from './constants'
+import { images } from './constants/constants'
 
 function SongSifterCreate({ currentUser }) {
   const [chordSelect, setChordSelect] = useState('')
@@ -176,8 +176,7 @@ function SongSifterCreate({ currentUser }) {
                 <Card.Body>
                   <Card.Title>Enigmatic Expressions</Card.Title>
                   <Card.Text>
-                    Ways to get you think outside of the box based musically
-                    speaking
+                    Ways to get you think outside of the box musically speaking
                   </Card.Text>
                   <Form.Select
                     variant="primary"

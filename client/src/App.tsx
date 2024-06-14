@@ -25,8 +25,9 @@ import {
 } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import SideNav from './Components/SideNav'
-import { images } from './constants'
+import { images } from './constants/constants'
 import Logo from './assets/images/logo.svg'
+import CreationForm from './Components/Forms/CreationForm'
 
 function App() {
   const [currentUser, setCurrentUser] = useState({
@@ -44,8 +45,8 @@ function App() {
   const [userAddSelection, setUserAddSelection] = useState('')
   const [getStarted, setGetStarted] = useState(false)
   const [showOffset, setShowOffset] = useState(false)
+  const [selectedComponent, setSeletedComponent] = useState('')
   const [opened, { toggle }] = useDisclosure()
-  const logo = images.banner
 
   const navigate = useNavigate()
 
@@ -66,6 +67,20 @@ function App() {
           return null
         }
       })
+  }, [])
+
+  useEffect(() => {
+    const fetcher = async () => {
+      const req = await fetch('/me', { credentials: 'include' })
+
+      if (req.status !== 200) {
+        return
+      }
+      const user = await req.json()
+      // const user = await getUser.json()
+      console.log('USER', user)
+    }
+    fetcher()
   }, [])
 
   function showLoginInfo() {
@@ -110,7 +125,9 @@ function App() {
     console.log('in off', showOffset)
     setShowOffset(!showOffset)
   }
-
+  const handleShowComponent = (label: string) => {
+    console.log('YO IT me', label)
+  }
   // async function postShare(musicShare) {
   //   await fetch('/creations', {
   //     method: 'POST',
@@ -172,18 +189,43 @@ function App() {
               <Logo style={{ width: '55' }} />
             </Group>
           </Flex>
-
-          {/* <Logo /> */}
-          {/* <Button>Login</Button> */}
-          {/* <Image radius="md" h={200} src={logo} /> */}
-          {/* <Group
-            style={{ justifyContent: 'space-between', alignItems: 'center' }}
-          >
-            <div>HI</div>
-          </Group> */}
         </AppShell.Header>
 
-        <AppShell.Main>Main</AppShell.Main>
+        <AppShell.Main>
+          <Routes>
+            <Route
+              path="/UserProfile"
+              element={
+                <UserProfile
+                  currentUser={currentUser}
+                  postShare={'postShare'}
+                  showModalPopUp={showModalPopUp}
+                  // handleCloseModal={handleCloseModal}
+                  updatedUserRefresh={updatedUserRefresh}
+                />
+              }
+            />
+            <Route
+              path="SongSifterCreate"
+              element={
+                // <SongSifterCreate
+                //   currentUser={currentUser}
+                //   // isLoggedIn={isLoggedIn}
+                // />
+                <CreationForm />
+              }
+            />
+          </Routes>
+          {/* <UserProfile
+            currentUser={currentUser}
+            postShare={'postShare'}
+            showModalPopUp={showModalPopUp}
+            // handleCloseModal={handleCloseModal}
+            updatedUserRefresh={updatedUserRefresh}
+          /> */}
+          {selectedComponent}
+          {/* <HomePage /> */}
+        </AppShell.Main>
       </AppShell>
     </>
     // <div>
@@ -207,8 +249,8 @@ function App() {
     //     }}
     //   >
     //     <NavHeader
-    //       isLoggedIn={isLoggedIn}
-    //       handleLogout={handleLogout}
+    //       // isLoggedIn={isLoggedIn}
+    //       // handleLogout={handleLogout}
     //       handleSearch={handleSearch}
     //       resetFunction={resetFunction}
     //       showAddYourOwnForm={showAddYourOwnForm}
@@ -251,9 +293,9 @@ function App() {
     //           isLoggedIn ? (
     //             <UserProfile
     //               currentUser={currentUser}
-    //               postShare={postShare}
+    //               // postShare={postShare}
     //               showModalPopUp={showModalPopUp}
-    //               handleCloseModal={handleCloseModal}
+    //               // handleCloseModal={handleCloseModal}
     //               updatedUserRefresh={updatedUserRefresh}
     //             />
     //           ) : (
@@ -261,7 +303,7 @@ function App() {
     //           )
     //         }
     //       />
-    //       <Route
+    //       {/* <Route
     //         path="/ShareCreation"
     //         element={
     //           isLoggedIn ? (
@@ -277,8 +319,8 @@ function App() {
     //             <NotLoggedInAlert />
     //           )
     //         }
-    //       />
-    //       <Route
+    //       /> */}
+    //       {/* <Route
     //         path="/SplashPage"
     //         element={
     //           <SplashPage
@@ -287,7 +329,7 @@ function App() {
     //             // setShowOffset={setShowOffset}
     //           />
     //         }
-    //       />
+    //       /> */}
     //     </Routes>
     //   </div>
     // </div>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { Row, Col, Card, Button } from 'react-bootstrap'
 import ArtistPopUp from './ArtistPopUp'
-import { images } from './constants'
+import { images } from './constants/constants'
 import Figure from 'react-bootstrap/Figure'
 
 export default function ShareCreation({

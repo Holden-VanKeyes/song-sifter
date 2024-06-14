@@ -8,7 +8,7 @@ import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import { ToastContainer } from 'react-bootstrap'
 import Image from 'react-bootstrap/Image'
-import { images } from './constants'
+import { images } from './constants/constants'
 
 function AddYourOwnModal({
   showModal,
