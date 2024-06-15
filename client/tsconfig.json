@@ -21,4 +21,4 @@
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/ContactInfo", "src/Components/LinksGroup.js", "src/ShareCreation.js"],
     "exclude": ["node_modules"]
-  }
+}

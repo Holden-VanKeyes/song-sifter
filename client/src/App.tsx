@@ -22,12 +22,17 @@ import {
   ActionIcon,
   Box,
   Flex,
+  useMantineColorScheme,
+  useComputedColorScheme,
 } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import SideNav from './Components/SideNav'
 import { images } from './constants/constants'
 import { ReactComponent as Logo } from './assets/images/logo.svg'
 import CreationForm from './Components/Forms/CreationForm'
+import { IconSun, IconMoon } from '@tabler/icons-react'
+// import cx from 'clsx'
+import css from './App.module.scss'
 
 function App() {
   const [currentUser, setCurrentUser] = useState({
@@ -35,6 +40,11 @@ function App() {
     username: '',
     profile_pic: '',
   })
+  const { setColorScheme } = useMantineColorScheme()
+  const computedColorScheme = useComputedColorScheme('light', {
+    getInitialValueInEffect: true,
+  })
+
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [filteredSearch, setFilteredSearch] = useState('')
   const [filteredType, setFilteredType] = useState('')
@@ -185,13 +195,36 @@ function App() {
         </AppShell.Navbar>
         <AppShell.Header>
           <Flex justify="space-between" align="center">
-            <Burger
-              opened={opened}
-              onClick={toggle}
-              hiddenFrom="sm"
-              size="md"
-              p="xl"
-            />
+            <Group>
+              <Burger
+                opened={opened}
+                onClick={toggle}
+                hiddenFrom="sm"
+                size="md"
+                p="xl"
+              />
+              <ActionIcon
+                radius="lg"
+                className={css.darkToggle}
+                onClick={() =>
+                  setColorScheme(
+                    computedColorScheme === 'light' ? 'dark' : 'light'
+                  )
+                }
+                variant="outline"
+                color="cyan"
+                size="xxl"
+                ml="xl"
+                aria-label="Toggle color scheme"
+              >
+                {computedColorScheme === 'light' ? (
+                  <IconMoon stroke={1.5} />
+                ) : (
+                  <IconSun stroke={1.5} />
+                )}
+              </ActionIcon>
+            </Group>
+
             <Group p="sm" mr="md" justify="flex-end">
               <Logo style={{ width: '55' }} />
             </Group>

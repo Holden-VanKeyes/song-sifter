@@ -6,6 +6,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import reportWebVitals from './reportWebVitals'
 import '@mantine/core/styles.css'
 import { createTheme, MantineProvider } from '@mantine/core'
+// import './style.scss'
 
 import { createRoot } from 'react-dom/client'
 

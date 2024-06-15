@@ -67,10 +67,10 @@ export default function CreationForm() {
             </Group>
           </Card.Section>
 
-          <Text mt="sm" c="dimmed" size="sm">
+          <Text py="xs" c="dimmed" size="sm">
             {imageCardArray[stepper].description}
           </Text>
-          <Card.Section withBorder inheritPadding py="xs">
+          <Card.Section inheritPadding>
             <Select
               placeholder={`choose your ${imageCardArray[stepper].type} category`}
               key={form.key(imageCardArray[stepper].type)}
@@ -93,12 +93,16 @@ export default function CreationForm() {
 
         <Group justify="center" style={{ justifyContent: 'space-around' }}>
           <ActionIcon
+            variant="outline"
+            color="rgba(68, 196, 242, 0.96)"
             disabled={stepper === 0 ? true : false}
             onClick={() => setStepper(stepper - 1)}
           >
             <IconChevronLeft />
           </ActionIcon>
           <ActionIcon
+            variant="outline"
+            color="rgba(68, 196, 242, 0.96)"
             disabled={stepper === 2 ? true : false}
             onClick={() => setStepper(stepper + 1)}
           >
@@ -107,7 +111,9 @@ export default function CreationForm() {
         </Group>
         {stepper === 2 ? (
           <Group justify="center" mt="md">
-            <Button type="submit">Submit</Button>
+            <Button type="submit" color="cyan" variant="outline">
+              Submit
+            </Button>
           </Group>
         ) : null}
       </form>
