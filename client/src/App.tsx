@@ -1,6 +1,6 @@
+import React from 'react'
 import './App.css'
 import NavHeader from './NavHeader'
-
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Routes, Route } from 'react-router-dom'
 import Home from './Home'
@@ -8,7 +8,7 @@ import SongSifterCreate from './SongSifterCreate'
 import UserProfile from './UserProfile'
 import ShareCreation from './ShareCreation'
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import NotLoggedInAlert from './NotLoggedInAlert'
 import SplashPage from './SplashPage'
 import FilterHelper from './FilterHelper'
@@ -26,7 +26,7 @@ import {
 import { useDisclosure } from '@mantine/hooks'
 import SideNav from './Components/SideNav'
 import { images } from './constants/constants'
-import Logo from './assets/images/logo.svg'
+import { ReactComponent as Logo } from './assets/images/logo.svg'
 import CreationForm from './Components/Forms/CreationForm'
 
 function App() {
@@ -47,6 +47,8 @@ function App() {
   const [showOffset, setShowOffset] = useState(false)
   const [selectedComponent, setSeletedComponent] = useState('')
   const [opened, { toggle }] = useDisclosure()
+
+  const pathname = useLocation().pathname
 
   const navigate = useNavigate()
 
@@ -82,6 +84,11 @@ function App() {
     }
     fetcher()
   }, [])
+
+  //close sideNav when navigating to new page
+  useEffect(() => {
+    toggle()
+  }, [pathname])
 
   function showLoginInfo() {
     setGetStarted(true)
@@ -205,16 +212,7 @@ function App() {
                 />
               }
             />
-            <Route
-              path="SongSifterCreate"
-              element={
-                // <SongSifterCreate
-                //   currentUser={currentUser}
-                //   // isLoggedIn={isLoggedIn}
-                // />
-                <CreationForm />
-              }
-            />
+            <Route path="SongSifterCreate" element={<CreationForm />} />
           </Routes>
           {/* <UserProfile
             currentUser={currentUser}
@@ -223,7 +221,7 @@ function App() {
             // handleCloseModal={handleCloseModal}
             updatedUserRefresh={updatedUserRefresh}
           /> */}
-          {selectedComponent}
+
           {/* <HomePage /> */}
         </AppShell.Main>
       </AppShell>

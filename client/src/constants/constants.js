@@ -29,13 +29,13 @@ export const categoriesByName = {
 
 export const imageCardArray = [
   {
-    type: 'enigma',
-    title: 'Enigmatic Expressions',
+    type: 'lyric',
+    title: 'Lyrics',
     description:
-      'Ways to get you think outside of the box...musically speaking.',
+      'Lyric snippets based on a style to help you get started writing.',
     imgUrl:
-      'https://res.cloudinary.com/shooksounds/image/upload/v1658846974/Song%20Sifter/SongSifterEnigmasWNotes_gwghgz.png',
-    categories: enigmaCategories,
+      'https://res.cloudinary.com/shooksounds/image/upload/v1658846648/Song%20Sifter/SongSifterLyric_dpnd6k.png',
+    categories: lyricCategories,
   },
   {
     type: 'chord',
@@ -45,14 +45,15 @@ export const imageCardArray = [
       'https://res.cloudinary.com/shooksounds/image/upload/v1658846939/Song%20Sifter/SongSifterChordsmaller_f3qsel.jpg',
     categories: chordCategories,
   },
+
   {
-    type: 'lyric',
-    title: 'Lyrics',
+    type: 'enigma',
+    title: 'Enigmatic Expressions',
     description:
-      'Lyric snippets based on a style to help you get started writing.',
+      'Ways to get you think outside of the box...musically speaking.',
     imgUrl:
-      'https://res.cloudinary.com/shooksounds/image/upload/v1658846648/Song%20Sifter/SongSifterLyric_dpnd6k.png',
-    categories: lyricCategories,
+      'https://res.cloudinary.com/shooksounds/image/upload/v1658846974/Song%20Sifter/SongSifterEnigmasWNotes_gwghgz.png',
+    categories: enigmaCategories,
   },
 ]
 export const images = {
