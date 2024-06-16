@@ -65,7 +65,6 @@ export default function LinksGroup(): JSX.Element {
             key={item.label}
             onClick={(event) => {
               event.preventDefault()
-              console.log('Link', item.link)
 
               setActive(item.label)
 

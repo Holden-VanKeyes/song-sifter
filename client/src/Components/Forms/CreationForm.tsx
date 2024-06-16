@@ -25,10 +25,14 @@ import {
 } from '@tabler/icons-react'
 import { images } from '../../constants/constants'
 import { imageCardArray } from '../../constants/constants'
+import CustomModal from '../CustomModal'
 
 export default function CreationForm() {
-  const [value, setValue] = useState<string | null>('')
+  const [openModal, setOpenModal] = useState(false)
   const [stepper, setStepper] = useState(0)
+  const [randomEnigma, setRandomEnigma] = useState('')
+  const [randomLyric, setRandomLyric] = useState('')
+  const [randomChords, setRandomChords] = useState('')
 
   const form = useForm({
     mode: 'uncontrolled',
@@ -42,15 +46,67 @@ export default function CreationForm() {
       //   console.log('VVV', values)
     },
 
-    // validate: {
-    //   enigma: isNotEmpty('Please Make A Selection'),
-    //   lyric: isNotEmpty('Please Make A Selection'),
-    // },
+    validate: {
+      enigma: isNotEmpty('Please Make A Selection'),
+      lyric: isNotEmpty('Please Make A Selection'),
+      chord: isNotEmpty('Please Make A Selection'),
+    },
   })
 
-  const handleSubmit = () => {
+  const handleCloseModal = () => {
+    setOpenModal(false)
+  }
+
+  const handleSubmit = async () => {
     // e.preventDefault()
-    console.log('VALs', form.getValues())
+    form.validate()
+    const values = form.getValues()
+    setOpenModal(true)
+
+    // const [enigmaJson, lyricJson, chordJson] = await Promise.all([
+    //   fetch(`/random_enigma?category=${values.enigma}`).then((res) =>
+    //     res.json()
+    //   ),
+    //   fetch(`/random_lyrics?category=${values.lyric}`).then((res) =>
+    //     res.json()
+    //   ),
+    //   fetch(`/random_chords?category=${values.chord}`).then((res) =>
+    //     res.json()
+    //   ),
+    // ])
+
+    // console.log('HERE', enigmaJson, lyricJson, chordJson)
+
+    // setRandomEnigma(enigmaJson)
+    // setRandomLyric(lyricJson)
+    // setRandomChords(chordJson)
+    // const newInspiration = {
+    //     title: inspirationName,
+    //     user_id: currentUser.id,
+    //     chord_progression_id: randomChords.id,
+    //     enigma_id: randomEnigma.id,
+    //     lyric_snippet_id: randomLyric.id,
+    //   }
+
+    //   await fetch('/inspirations', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(newInspiration),
+    //   })
+    //     .then((response) => response.json())
+    //     .then((data) => {})
+
+    //   navigate('/UserProfile')
+  }
+
+  const handleNextStep = (direction: string) => {
+    return form.validateField(imageCardArray[stepper].type).hasError
+      ? null
+      : setStepper(direction === 'forward' ? stepper + 1 : stepper - 1)
+    // form.validateField('lyric')
+    console.log('VALs', form.validateField(imageCardArray[stepper].type))
   }
 
   return (
@@ -91,32 +147,45 @@ export default function CreationForm() {
           </Card.Section>
         </Card>
 
-        <Group justify="center" style={{ justifyContent: 'space-around' }}>
+        <Group
+          justify="center"
+          style={{ justifyContent: 'space-between' }}
+          mt="lg"
+        >
           <ActionIcon
             variant="outline"
+            size="lg"
             color="rgba(68, 196, 242, 0.96)"
             disabled={stepper === 0 ? true : false}
             onClick={() => setStepper(stepper - 1)}
           >
             <IconChevronLeft />
           </ActionIcon>
+          {stepper === 2 ? (
+            <Button type="submit" color="cyan" variant="outline">
+              Submit
+            </Button>
+          ) : null}
           <ActionIcon
             variant="outline"
+            size="lg"
             color="rgba(68, 196, 242, 0.96)"
             disabled={stepper === 2 ? true : false}
-            onClick={() => setStepper(stepper + 1)}
+            onClick={() => {
+              handleNextStep('forward')
+            }}
           >
             <IconChevronRight />
           </ActionIcon>
         </Group>
-        {stepper === 2 ? (
-          <Group justify="center" mt="md">
-            <Button type="submit" color="cyan" variant="outline">
-              Submit
-            </Button>
-          </Group>
-        ) : null}
       </form>
+      <CustomModal
+        openModal={openModal}
+        handleClose={handleCloseModal}
+        title="Your Unique Musical Inspiration"
+        buttonOptions={['Discard', 'Save']}
+        textContentOptions={[randomEnigma, randomLyric, randomChords]}
+      />
     </Container>
   )
 }

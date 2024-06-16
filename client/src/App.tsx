@@ -31,7 +31,9 @@ import { images } from './constants/constants'
 import { ReactComponent as Logo } from './assets/images/logo.svg'
 import CreationForm from './Components/Forms/CreationForm'
 import { IconSun, IconMoon } from '@tabler/icons-react'
+import HomePage from './HomePage'
 // import cx from 'clsx'
+
 import css from './App.module.scss'
 
 function App() {
@@ -97,7 +99,9 @@ function App() {
 
   //close sideNav when navigating to new page
   useEffect(() => {
-    toggle()
+    if (opened) {
+      toggle()
+    }
   }, [pathname])
 
   function showLoginInfo() {
@@ -203,8 +207,11 @@ function App() {
                 size="md"
                 p="xl"
               />
+            </Group>
+
+            <Group p="sm" mr="md" justify="flex-end">
               <ActionIcon
-                radius="lg"
+                radius="md"
                 className={css.darkToggle}
                 onClick={() =>
                   setColorScheme(
@@ -212,21 +219,18 @@ function App() {
                   )
                 }
                 variant="outline"
-                color="cyan"
-                size="xxl"
-                ml="xl"
+                color="rgba(0, 0, 0, 1)"
+                size="md"
+                mr="sm"
                 aria-label="Toggle color scheme"
               >
                 {computedColorScheme === 'light' ? (
-                  <IconMoon stroke={1.5} />
+                  <IconMoon stroke={1.0} size={20} />
                 ) : (
-                  <IconSun stroke={1.5} />
+                  <IconSun stroke={1.0} size={20} color="orange" />
                 )}
               </ActionIcon>
-            </Group>
-
-            <Group p="sm" mr="md" justify="flex-end">
-              <Logo style={{ width: '55' }} />
+              <Logo style={{ width: '54' }} onClick={() => navigate('/')} />
             </Group>
           </Flex>
         </AppShell.Header>
@@ -246,6 +250,7 @@ function App() {
               }
             />
             <Route path="SongSifterCreate" element={<CreationForm />} />
+            <Route path="/" element={<HomePage />} />
           </Routes>
           {/* <UserProfile
             currentUser={currentUser}
@@ -254,8 +259,6 @@ function App() {
             // handleCloseModal={handleCloseModal}
             updatedUserRefresh={updatedUserRefresh}
           /> */}
-
-          {/* <HomePage /> */}
         </AppShell.Main>
       </AppShell>
     </>
