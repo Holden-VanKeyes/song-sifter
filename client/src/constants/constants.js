@@ -29,7 +29,7 @@ export const categoriesByName = {
 
 export const imageCardArray = [
   {
-    type: 'lyric',
+    type: 'lyrics',
     title: 'Lyrics',
     description:
       'Lyric snippets based on a style to help you get started writing.',
@@ -38,7 +38,7 @@ export const imageCardArray = [
     categories: lyricCategories,
   },
   {
-    type: 'chord',
+    type: 'chords',
     title: 'Chords',
     description: 'A suggested 4-chord progression based on mood selection.',
     imgUrl:

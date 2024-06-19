@@ -22,24 +22,21 @@ import {
   IconEye,
   IconFileZip,
   IconTrash,
+  IconScanEye,
+  IconMicrophone2,
+  IconPlaylist,
 } from '@tabler/icons-react'
 import { images } from '../../constants/constants'
 import { imageCardArray } from '../../constants/constants'
 import CustomModal from '../CustomModal'
 
 export default function CreationForm() {
-  const [openModal, setOpenModal] = useState(false)
-  const [stepper, setStepper] = useState(0)
-  const [randomEnigma, setRandomEnigma] = useState('')
-  const [randomLyric, setRandomLyric] = useState('')
-  const [randomChords, setRandomChords] = useState('')
-
   const form = useForm({
     mode: 'uncontrolled',
     initialValues: {
       enigma: '',
-      lyric: '',
-      chord: '',
+      lyrics: '',
+      chords: '',
     },
     onValuesChange: (values) => {
       // ✅ This will be called on every form values change
@@ -48,10 +45,16 @@ export default function CreationForm() {
 
     validate: {
       enigma: isNotEmpty('Please Make A Selection'),
-      lyric: isNotEmpty('Please Make A Selection'),
-      chord: isNotEmpty('Please Make A Selection'),
+      lyrics: isNotEmpty('Please Make A Selection'),
+      chords: isNotEmpty('Please Make A Selection'),
     },
   })
+  const [openModal, setOpenModal] = useState(false)
+  const [stepper, setStepper] = useState(0)
+  const [randomEnigma, setRandomEnigma] = useState('')
+  const [randomLyric, setRandomLyric] = useState('')
+  const [randomChords, setRandomChords] = useState('')
+  const [randomSuggestions, setRandomSuggestions] = useState<{}>([])
 
   const handleCloseModal = () => {
     setOpenModal(false)
@@ -61,25 +64,38 @@ export default function CreationForm() {
     // e.preventDefault()
     form.validate()
     const values = form.getValues()
+    const valueClone = {
+      ...values,
+    }
+
     setOpenModal(true)
 
-    // const [enigmaJson, lyricJson, chordJson] = await Promise.all([
-    //   fetch(`/random_enigma?category=${values.enigma}`).then((res) =>
-    //     res.json()
-    //   ),
-    //   fetch(`/random_lyrics?category=${values.lyric}`).then((res) =>
-    //     res.json()
-    //   ),
-    //   fetch(`/random_chords?category=${values.chord}`).then((res) =>
-    //     res.json()
-    //   ),
-    // ])
+    const [enigmaJson, lyricJson, chordJson] = await Promise.all([
+      fetch(`/random_enigma?category=${values.enigma}`).then((res) =>
+        res.json()
+      ),
+      fetch(`/random_lyrics?category=${values.lyrics}`).then((res) =>
+        res.json()
+      ),
+      fetch(`/random_chords?category=${values.chords}`).then((res) =>
+        res.json()
+      ),
+    ])
 
-    // console.log('HERE', enigmaJson, lyricJson, chordJson)
+    valueClone.enigma = enigmaJson.enigma
+    valueClone.lyrics = lyricJson.lyrics
+    valueClone.chords = chordJson.chords
 
-    // setRandomEnigma(enigmaJson)
-    // setRandomLyric(lyricJson)
-    // setRandomChords(chordJson)
+    const returnedSuggestions = Object.entries(valueClone).map(([k, v]) => ({
+      title: k,
+      value: v,
+    }))
+
+    setRandomSuggestions(returnedSuggestions)
+
+    setRandomEnigma(enigmaJson.enigma)
+    setRandomLyric(lyricJson.lyrics)
+    setRandomChords(chordJson.chords)
     // const newInspiration = {
     //     title: inspirationName,
     //     user_id: currentUser.id,
@@ -163,7 +179,7 @@ export default function CreationForm() {
           </ActionIcon>
           {stepper === 2 ? (
             <Button type="submit" color="cyan" variant="outline">
-              Submit
+              Create
             </Button>
           ) : null}
           <ActionIcon
@@ -184,7 +200,7 @@ export default function CreationForm() {
         handleClose={handleCloseModal}
         title="Your Unique Musical Inspiration"
         buttonOptions={['Discard', 'Save']}
-        textContentOptions={[randomEnigma, randomLyric, randomChords]}
+        textContentOptions={randomSuggestions}
       />
     </Container>
   )
