@@ -14,19 +14,6 @@ import css from './SideNav.module.css'
 import { NavLink } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 
-{
-  /* <Link
-to="/UserProfile"
-style={{
-  padding: '10px',
-  textDecoration: 'none',
-  color: '#99E1D9',
-}}
->
-Profile
-</Link> */
-}
-
 interface LinksGroupProps {
   icon: React.FC<any>
   label: string
@@ -57,12 +44,11 @@ export default function LinksGroup(): JSX.Element {
   return (
     <>
       {data.map((item) => (
-        <>
+        <div key={item.label}>
           <NavLink
             className={css.link}
             data-active={item.label === active || undefined}
             to={item.link}
-            key={item.label}
             onClick={(event) => {
               event.preventDefault()
 
@@ -112,7 +98,7 @@ export default function LinksGroup(): JSX.Element {
               </Stack>
             </Collapse>
           ) : null}
-        </>
+        </div>
       ))}
     </>
   )

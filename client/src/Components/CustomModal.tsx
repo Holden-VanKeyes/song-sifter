@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Modal,
   Button,
@@ -8,6 +8,7 @@ import {
   Avatar,
   Text,
   ActionIcon,
+  TextInput,
   Timeline,
 } from '@mantine/core'
 import {
@@ -22,6 +23,8 @@ import {
   IconPlaylist,
 } from '@tabler/icons-react'
 import logo from '../assets/images/logo1.jpg'
+
+import { useForm, isNotEmpty, hasLength } from '@mantine/form'
 
 interface CustomModalProps {
   openModal: boolean
@@ -38,6 +41,18 @@ export default function CustomModal({
   buttonOptions,
   textContentOptions,
 }: CustomModalProps) {
+  const form = useForm({
+    mode: 'uncontrolled',
+    initialValues: {
+      title: '',
+    },
+
+    validate: {
+      title:
+        isNotEmpty('Please Make A Selection') &&
+        hasLength({ min: 2, max: 10 }, 'Name must be 4-20 characters long'),
+    },
+  })
 
   const resolveIcon = (title: string) => {
     if (title === 'enigma') {
@@ -46,6 +61,11 @@ export default function CustomModal({
       return <IconMicrophone size={28} />
     } else return <IconPlaylist size={28} />
   }
+
+  const handleSubmit = () => {
+    form.validate()
+  }
+
   return (
     <>
       <Modal
@@ -70,6 +90,7 @@ export default function CustomModal({
               {textContentOptions && textContentOptions.length > 0
                 ? textContentOptions.map((item: any, indx: any) => (
                     <Timeline.Item
+                      key={indx}
                       title={item.title}
                       bullet={resolveIcon(item.title)}
                       lineVariant={
@@ -86,12 +107,42 @@ export default function CustomModal({
                 : null}
             </Timeline>
           </Card.Section>
-          <Card.Section inheritPadding withBorder p="lg">
+          {/* <Card.Section inheritPadding withBorder p="lg">
             <Group justify="center">
               {buttonOptions
-                ? buttonOptions.map((btn) => <Button>{`${btn}`}</Button>)
+                ? buttonOptions.map((btn) => (
+                    <Button
+                      onClick={
+                        btn === 'Save'
+                          ? () => setSecondaryModal(true)
+                          : () => handleClose()
+                      }
+                    >{`${btn}`}</Button>
+                  ))
                 : null}
             </Group>
+          </Card.Section> */}
+          <Card.Section inheritPadding withBorder p="lg">
+            <form
+              onSubmit={form.onSubmit(() => {
+                handleSubmit()
+              })}
+            >
+              <TextInput
+                key={form.key('title')}
+                {...form.getInputProps('title')}
+                placeholder="give your inspiration a unique name..."
+              />
+              <Group justify="center" mt="md">
+                {buttonOptions
+                  ? buttonOptions.map((btn) => (
+                      <Button
+                        type={btn === 'Save' ? 'submit' : 'button'}
+                      >{`${btn}`}</Button>
+                    ))
+                  : null}
+              </Group>
+            </form>
           </Card.Section>
         </Card>
       </Modal>

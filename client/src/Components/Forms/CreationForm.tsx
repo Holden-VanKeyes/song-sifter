@@ -61,7 +61,6 @@ export default function CreationForm() {
   }
 
   const handleSubmit = async () => {
-    // e.preventDefault()
     form.validate()
     const values = form.getValues()
     const valueClone = {
@@ -199,7 +198,7 @@ export default function CreationForm() {
         openModal={openModal}
         handleClose={handleCloseModal}
         title="Your Unique Musical Inspiration"
-        buttonOptions={['Discard', 'Save']}
+        buttonOptions={['Save']}
         textContentOptions={randomSuggestions}
       />
     </Container>
