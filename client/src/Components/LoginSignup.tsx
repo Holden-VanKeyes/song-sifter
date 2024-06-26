@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Modal,
   Button,
@@ -9,9 +9,17 @@ import {
   Text,
   ActionIcon,
   TextInput,
-  Timeline,
+  PasswordInput,
 } from '@mantine/core'
-import { useForm, isNotEmpty, hasLength } from '@mantine/form'
+import {
+  useForm,
+  isNotEmpty,
+  hasLength,
+  matches,
+  matchesField,
+} from '@mantine/form'
+import { useDisclosure } from '@mantine/hooks'
+import { useNavigate } from 'react-router-dom'
 
 interface LoginSignupProps {
   openModal: boolean
@@ -24,10 +32,14 @@ export default function LoginSignup({
   handleClose,
   formType,
 }: LoginSignupProps) {
+  const [userCreateError, setUserCreateError] = useState('')
+  const [visible, { toggle }] = useDisclosure(false)
+  const navigate = useNavigate()
   const passwordRules = (
     <>
-      At least 10 characters long Contains one special character Contains one
-      capital letter
+      Password Rules: <br />
+      - Between 7 & 20 characters long
+      <br /> - Contains one special character <br /> - Contains one number
     </>
   )
   const form = useForm({
@@ -37,29 +49,68 @@ export default function LoginSignup({
       password: '',
       passwordCheck: '',
     },
+    // onValuesChange: (values) => {
+    //   const username = values.username
+
+    // },
 
     validate: {
-      //   username: (value) => (value.length > 5 ? 'you did it wrong' : null),
       username:
         isNotEmpty('please enter a username') &&
         hasLength(
-          { min: 2, max: 10 },
-          'username must be between 2 and 10 characters'
+          { min: 5, max: 15 },
+          'username must be between 5 and 10 characters'
         ),
-      //   password: (value) => (value.length > 10 ? passwordRules : null),
+      password:
+        isNotEmpty('please enter password') &&
+        matches(
+          /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,20}$/,
+          passwordRules
+        ),
+      passwordCheck:
+        isNotEmpty('please enter password') &&
+        matches(
+          /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,20}$/,
+          passwordRules
+        ) &&
+        matchesField('password', 'Passwords are not the same'),
     },
   })
 
-  const handleSubmit = () => {
-    console.log('HEY')
-
+  const handleSubmit = async () => {
     form.validate()
+    const { username, password, passwordCheck } = form.getValues()
+
+    const createUser = await fetch('/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+        passwordConfirm: passwordCheck,
+        profile_pic: `https://api.dicebear.com/8.x/notionists-neutral/svg?seed=${username}`,
+      }),
+    })
+    const response = await createUser.json()
+    if (response.error) {
+      console.log('RES', response)
+      setUserCreateError(
+        response.exception.slice(31, response.exception.length - 1)
+      )
+    } else {
+      handleClose()
+      navigate('/UserProfile')
+    }
   }
   return (
     <Modal
       opened={openModal}
       onClose={() => {
+        if (visible) {
+          toggle()
+        }
         form.reset()
+        setUserCreateError('')
         handleClose()
       }}
       title={formType === 'signup' ? 'Sign Up' : 'Sign In'}
@@ -73,25 +124,35 @@ export default function LoginSignup({
         >
           <Stack>
             <TextInput
+              label="Name"
               key={form.key('username')}
               {...form.getInputProps('username')}
               placeholder="username"
             />
-            <TextInput
+            <PasswordInput
+              label="Password"
               key={form.key('password')}
               {...form.getInputProps('password')}
-              placeholder="password"
+              visible={visible}
+              onVisibilityChange={toggle}
+              placeholder="..."
             />
             {formType === 'signup' ? (
-              <TextInput
+              <PasswordInput
+                label="Confirm Password"
                 key={form.key('passwordCheck')}
                 {...form.getInputProps('passwordCheck')}
-                placeholder="re-type password"
+                visible={visible}
+                onVisibilityChange={toggle}
+                placeholder="..."
               />
             ) : null}
             <Button type="submit" variant="outline" color="cyan">
               Go
             </Button>
+            {userCreateError.length > 0 ? (
+              <Text c="red">{userCreateError}</Text>
+            ) : null}
           </Stack>
         </form>
       </Card>

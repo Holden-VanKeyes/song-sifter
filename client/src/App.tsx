@@ -58,32 +58,34 @@ function App() {
   const [getStarted, setGetStarted] = useState(false)
   const [showOffset, setShowOffset] = useState(false)
   const [selectedComponent, setSeletedComponent] = useState('')
+
   const [opened, { toggle }] = useDisclosure()
 
   const pathname = useLocation().pathname
 
   const navigate = useNavigate()
 
-  useEffect(() => {
-    fetch('/me', {
-      credentials: 'include',
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        fetch('/creations')
-          .then((response) => response.json())
-          .then((data) => {
-            // setShowFilteredPage(data)
-          })
-        if (data.username) {
-          handleLoginSignup(data)
-        } else {
-          return null
-        }
-      })
-  }, [])
+  // useEffect(() => {
+  //   fetch('/me', {
+  //     credentials: 'include',
+  //   })
+  //     .then((r) => r.json())
+  //     .then((data) => {
+  //       fetch('/creations')
+  //         .then((response) => response.json())
+  //         .then((data) => {
+  //           // setShowFilteredPage(data)
+  //         })
+  //       if (data.username) {
+  //         handleLoginSignup(data)
+  //       } else {
+  //         return null
+  //       }
+  //     })
+  // }, [])
 
   useEffect(() => {
+    console.log('RUNNING')
     const fetcher = async () => {
       const req = await fetch('/me', { credentials: 'include' })
 
@@ -91,12 +93,16 @@ function App() {
         return
       }
       const user = await req.json()
+      if (user.id) {
+        setIsLoggedIn(true)
+        setCurrentUser(user)
+      }
       // const user = await getUser.json()
       console.log('USER', user)
     }
     fetcher()
-  }, [])
-
+  }, [currentUser])
+  console.log('USER', currentUser)
   //close sideNav when navigating to new page
   useEffect(() => {
     if (opened) {
@@ -195,7 +201,7 @@ function App() {
         }}
       >
         <AppShell.Navbar>
-          <SideNav />
+          <SideNav isLoggedIn={isLoggedIn} />
         </AppShell.Navbar>
         <AppShell.Header>
           <Flex justify="space-between" align="center">
