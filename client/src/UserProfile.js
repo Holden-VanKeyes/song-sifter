@@ -26,7 +26,7 @@ function UserProfile({
   const [sharedInspiration, setSharedInspiration] = useState('')
 
   useEffect(() => {
-    console.log('mounted')
+    console.log('mounted', currentUser)
     fetch(`/user_inspirations?user_id=${currentUser.id}`)
       .then((response) => response.json())
       .then((data) => {

@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
+import { UserContext } from 'src/global/UserContext'
 import {
   Modal,
   Button,
@@ -32,6 +33,8 @@ export default function LoginSignup({
   handleClose,
   formType,
 }: LoginSignupProps) {
+  const { user, setUser } = useContext(UserContext)
+  console.log('YOU', user)
   const [userCreateError, setUserCreateError] = useState('')
   const [visible, { toggle }] = useDisclosure(false)
   const navigate = useNavigate()
@@ -98,8 +101,10 @@ export default function LoginSignup({
         response.exception.slice(31, response.exception.length - 1)
       )
     } else {
+      console.log('Success', response)
+      // setUser()
       handleClose()
-      navigate('/UserProfile')
+      // navigate('/UserProfile')
     }
   }
   return (

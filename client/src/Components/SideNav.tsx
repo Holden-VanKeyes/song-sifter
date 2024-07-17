@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { IconSwitchHorizontal, IconLogout } from '@tabler/icons-react'
@@ -12,6 +12,7 @@ interface SideNaveProps {
 }
 
 export default function SideNav({ isLoggedIn }: SideNaveProps) {
+  // const { currentUser, setCurrentUser } = useContext(userContext)
   const [openModal, setOpenModal] = useState(false)
   const [formType, setFormType] = useState('')
   const navigate = useNavigate()
@@ -52,6 +53,7 @@ export default function SideNav({ isLoggedIn }: SideNaveProps) {
                 variant="outline"
                 color="cyan"
                 radius="md"
+                style={{ cursor: 'pointer' }}
                 onClick={() => {
                   setFormType('login')
                   setOpenModal(true)
@@ -64,6 +66,7 @@ export default function SideNav({ isLoggedIn }: SideNaveProps) {
                 variant="outline"
                 color="cyan"
                 radius="md"
+                style={{ cursor: 'pointer' }}
                 onClick={() => {
                   setFormType('signup')
                   setOpenModal(true)

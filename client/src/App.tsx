@@ -25,13 +25,13 @@ import {
   useComputedColorScheme,
 } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
-import SideNav from './Components/SideNav'
+import SideNav from './components/SideNav'
 import { images } from './constants/constants'
 import { ReactComponent as Logo } from './assets/images/logo.svg'
-import CreationForm from './Components/Forms/CreationForm'
+import CreationForm from './components/Forms/CreationForm'
 import { IconSun, IconMoon } from '@tabler/icons-react'
 import HomePage from './HomePage'
-// import cx from 'clsx'
+import UserProvider from './global/UserContext'
 
 import css from './App.module.scss'
 
@@ -199,12 +199,7 @@ function App() {
 
   return (
     <>
-      <UserAuth.Provider
-        value={{
-          currentUser,
-          setCurrentUser,
-        }}
-      >
+      <UserProvider>
         <AppShell
           header={{ height: 80 }}
           navbar={{
@@ -256,7 +251,7 @@ function App() {
 
           <AppShell.Main>
             <Routes>
-              <Route
+              {/* <Route
                 path="/UserProfile"
                 element={
                   <UserProfile
@@ -267,7 +262,7 @@ function App() {
                     updatedUserRefresh={updatedUserRefresh}
                   />
                 }
-              />
+              /> */}
               <Route path="SongSifterCreate" element={<CreationForm />} />
               <Route path="/" element={<HomePage />} />
             </Routes>
@@ -280,7 +275,7 @@ function App() {
           /> */}
           </AppShell.Main>
         </AppShell>
-      </UserAuth.Provider>
+      </UserProvider>
     </>
     // <div>
     //   <Offset showOffset={showOffset} handleOffset={handleOffset} />

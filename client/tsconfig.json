@@ -1,24 +1,31 @@
 {
-    "compilerOptions": {
-      "baseUrl": ".",
-      "paths": {
-        "components/*": ["components/*"]
-      },
-      "target": "es5",
-      "lib": ["dom", "dom.iterable", "esnext"],
-      "allowJs": true,
-      "skipLibCheck": true,
-      "strict": true,
-      "forceConsistentCasingInFileNames": true,
-      "noEmit": true,
-      "esModuleInterop": true,
-      "module": "esnext",
-      "moduleResolution": "node",
-      "resolveJsonModule": true,
-      "isolatedModules": true,
-      "jsx": "preserve",
-      "incremental": true
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "components/*": ["components/*"]
     },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/ContactInfo", "src/Components/LinksGroup.js", "src/ShareCreation.js"],
-    "exclude": ["node_modules"]
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "components/ContactInfo",
+    "src/components/LinksGroup.js",
+    "src/ShareCreation.js"
+  ],
+  "exclude": ["node_modules"]
 }
