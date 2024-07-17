@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { createContext, useContext, useState, useEffect } from 'react'
 import './App.css'
 import NavHeader from './NavHeader'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -7,7 +7,6 @@ import Home from './Home'
 import SongSifterCreate from './SongSifterCreate'
 import UserProfile from './UserProfile'
 import ShareCreation from './ShareCreation'
-import { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import NotLoggedInAlert from './NotLoggedInAlert'
 import SplashPage from './SplashPage'
@@ -36,12 +35,20 @@ import HomePage from './HomePage'
 
 import css from './App.module.scss'
 
+interface UserContext {}
+
+const UserAuth = createContext<{
+  currentUser: null
+  setCurrentUser: React.Dispatch<React.SetStateAction<null>>
+} | null>(null)
+
 function App() {
-  const [currentUser, setCurrentUser] = useState({
-    id: '',
-    username: '',
-    profile_pic: '',
-  })
+  const [currentUser, setCurrentUser] = useState(null)
+  // const [currentUser, setCurrentUser] = useState({
+  //   id: '',
+  //   username: '',
+  //   profile_pic: '',
+  // })
   const { setColorScheme } = useMantineColorScheme()
   const computedColorScheme = useComputedColorScheme('light', {
     getInitialValueInEffect: true,
@@ -192,81 +199,88 @@ function App() {
 
   return (
     <>
-      <AppShell
-        header={{ height: 80 }}
-        navbar={{
-          width: 300,
-          breakpoint: 'sm',
-          collapsed: { mobile: !opened },
+      <UserAuth.Provider
+        value={{
+          currentUser,
+          setCurrentUser,
         }}
       >
-        <AppShell.Navbar>
-          <SideNav isLoggedIn={isLoggedIn} />
-        </AppShell.Navbar>
-        <AppShell.Header>
-          <Flex justify="space-between" align="center">
-            <Group>
-              <Burger
-                opened={opened}
-                onClick={toggle}
-                hiddenFrom="sm"
-                size="md"
-                p="xl"
-              />
-            </Group>
-
-            <Group p="sm" mr="md" justify="flex-end">
-              <ActionIcon
-                radius="md"
-                className={css.darkToggle}
-                onClick={() =>
-                  setColorScheme(
-                    computedColorScheme === 'light' ? 'dark' : 'light'
-                  )
-                }
-                variant="outline"
-                color="rgba(0, 0, 0, 1)"
-                size="md"
-                mr="sm"
-                aria-label="Toggle color scheme"
-              >
-                {computedColorScheme === 'light' ? (
-                  <IconMoon stroke={1.0} size={20} />
-                ) : (
-                  <IconSun stroke={1.0} size={20} color="orange" />
-                )}
-              </ActionIcon>
-              <Logo style={{ width: '54' }} onClick={() => navigate('/')} />
-            </Group>
-          </Flex>
-        </AppShell.Header>
-
-        <AppShell.Main>
-          <Routes>
-            <Route
-              path="/UserProfile"
-              element={
-                <UserProfile
-                  currentUser={currentUser}
-                  postShare={'postShare'}
-                  showModalPopUp={showModalPopUp}
-                  // handleCloseModal={handleCloseModal}
-                  updatedUserRefresh={updatedUserRefresh}
+        <AppShell
+          header={{ height: 80 }}
+          navbar={{
+            width: 300,
+            breakpoint: 'sm',
+            collapsed: { mobile: !opened },
+          }}
+        >
+          <AppShell.Navbar>
+            <SideNav isLoggedIn={isLoggedIn} />
+          </AppShell.Navbar>
+          <AppShell.Header>
+            <Flex justify="space-between" align="center">
+              <Group>
+                <Burger
+                  opened={opened}
+                  onClick={toggle}
+                  hiddenFrom="sm"
+                  size="md"
+                  p="xl"
                 />
-              }
-            />
-            <Route path="SongSifterCreate" element={<CreationForm />} />
-            <Route path="/" element={<HomePage />} />
-          </Routes>
-          {/* <UserProfile
+              </Group>
+
+              <Group p="sm" mr="md" justify="flex-end">
+                <ActionIcon
+                  radius="md"
+                  className={css.darkToggle}
+                  onClick={() =>
+                    setColorScheme(
+                      computedColorScheme === 'light' ? 'dark' : 'light'
+                    )
+                  }
+                  variant="outline"
+                  color="rgba(0, 0, 0, 1)"
+                  size="md"
+                  mr="sm"
+                  aria-label="Toggle color scheme"
+                >
+                  {computedColorScheme === 'light' ? (
+                    <IconMoon stroke={1.0} size={20} />
+                  ) : (
+                    <IconSun stroke={1.0} size={20} color="orange" />
+                  )}
+                </ActionIcon>
+                <Logo style={{ width: '54' }} onClick={() => navigate('/')} />
+              </Group>
+            </Flex>
+          </AppShell.Header>
+
+          <AppShell.Main>
+            <Routes>
+              <Route
+                path="/UserProfile"
+                element={
+                  <UserProfile
+                    currentUser={currentUser}
+                    postShare={'postShare'}
+                    showModalPopUp={showModalPopUp}
+                    // handleCloseModal={handleCloseModal}
+                    updatedUserRefresh={updatedUserRefresh}
+                  />
+                }
+              />
+              <Route path="SongSifterCreate" element={<CreationForm />} />
+              <Route path="/" element={<HomePage />} />
+            </Routes>
+            {/* <UserProfile
             currentUser={currentUser}
             postShare={'postShare'}
             showModalPopUp={showModalPopUp}
             // handleCloseModal={handleCloseModal}
             updatedUserRefresh={updatedUserRefresh}
           /> */}
-        </AppShell.Main>
-      </AppShell>
+          </AppShell.Main>
+        </AppShell>
+      </UserAuth.Provider>
     </>
     // <div>
     //   <Offset showOffset={showOffset} handleOffset={handleOffset} />
