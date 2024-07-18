@@ -16,16 +16,16 @@ interface UserProviderProps {
 // }
 
 export interface UserContextProps {
-  user: any
-  setUser: (user: any) => void
+  currentUser: any
+  setCurrentUser: (currentUser: any) => void
 }
 
 export const UserContext = createContext<Partial<UserContextProps>>({})
 
 export default function UserProvider({ children }: UserProviderProps) {
-  const [user, setUser] = useState()
+  const [currentUser, setCurrentUser] = useState()
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ currentUser, setCurrentUser }}>
       {children}
     </UserContext.Provider>
   )

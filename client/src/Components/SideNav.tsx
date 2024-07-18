@@ -13,7 +13,7 @@ interface SideNaveProps {
 }
 
 export default function SideNav({ isLoggedIn }: SideNaveProps) {
-  const { user, setUser } = useContext(UserContext)
+  const { currentUser, setCurrentUser } = useContext(UserContext)
   const [openModal, setOpenModal] = useState(false)
   const [formType, setFormType] = useState('')
   const navigate = useNavigate()
@@ -30,10 +30,7 @@ export default function SideNav({ isLoggedIn }: SideNaveProps) {
     console.log('RES', response)
     if (response.ok) {
       // setIsLoggedIn(false)
-      setUser!({
-        name: '',
-        email: '',
-      })
+      setCurrentUser!(undefined)
     } else console.log('not logged out')
   }
 
@@ -46,7 +43,7 @@ export default function SideNav({ isLoggedIn }: SideNaveProps) {
       </div>
 
       <div className={css.footer}>
-        {!isLoggedIn ? (
+        {!currentUser ? (
           <div className={css.link}>
             <IconSwitchHorizontal className={css.linkIcon} stroke={1.5} />
             <Group justify="apart">
@@ -79,14 +76,11 @@ export default function SideNav({ isLoggedIn }: SideNaveProps) {
           </div>
         ) : null}
 
-        <div
-          className={css.link}
-          // style={{ cursor: 'pointer' }}
-          onClick={() => handleLogout()}
-        >
+        <div className={css.link} onClick={() => handleLogout()}>
           <IconLogout className={css.linkIcon} stroke={1.5} />
           <span>Logout</span>
         </div>
+
         <LoginSignup
           openModal={openModal}
           handleClose={handleClose}

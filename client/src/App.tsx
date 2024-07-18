@@ -44,13 +44,12 @@ import css from './App.module.scss'
 // } | null>(null)
 
 function App() {
-  const { user } = useContext(UserContext)
-  console.log('IN APP', user)
-  const [currentUser, setCurrentUser] = useState({
-    id: '',
-    username: '',
-    profile_pic: '',
-  })
+  const { currentUser } = useContext(UserContext)
+  // const [currentUser, setCurrentUser] = useState({
+  //   id: '',
+  //   username: '',
+  //   profile_pic: '',
+  // })
   const { setColorScheme } = useMantineColorScheme()
   const computedColorScheme = useComputedColorScheme('light', {
     getInitialValueInEffect: true,
@@ -93,29 +92,28 @@ function App() {
   //     })
   // }, [])
 
-  useEffect(() => {
-    // console.log('RUNNING')
-    // const fetcher = async () => {
-    //   const req = await fetch('/me', { credentials: 'include' })
+  // useEffect(() => {
+  //   console.log('RUNNING')
+  //   const fetcher = async () => {
+  //     const req = await fetch('/me', { credentials: 'include' })
 
-    //   if (req.status !== 200) {
-    //     return
-    //   }
-    //   const user = await req.json()
-    //   if (user.id) {
-    //     setIsLoggedIn(true)
-    //     setCurrentUser(user)
-    //   }
-    //   // const user = await getUser.json()
-    //   console.log('USER', user)
-    // }
-    // fetcher()
+  //     if (req.status !== 200) {
+  //       return
+  //     }
+  //     const currentUser = await req.json()
+  //     if (currentUser.id) {
+  //       setIsLoggedIn(true)
+  //       setCurrentUser(currentUser)
+  //     }
+  //     // const currentUser = await getUser.json()
+  //     console.log('currentUser', currentUser)
+  //   }
+  //   fetcher()
 
-    if (!user) {
-      return
-    } else setIsLoggedIn(true)
-  }, [currentUser])
-  console.log('USER', currentUser)
+  //   if (!currentUser) {
+  //     return
+  //   } else setIsLoggedIn(true)
+  // }, [currentUser])
   //close sideNav when navigating to new page
   useEffect(() => {
     if (opened) {
@@ -128,9 +126,9 @@ function App() {
   //   navigate('/')
   // }
 
-  // function handleLoginSignup(user: any) {
+  // function handleLoginSignup(currentUser: any) {
   //   setGetStarted(false)
-  //   setCurrentUser(user)
+  //   setCurrentUser(currentUser)
   //   setIsLoggedIn(true)
   // }
 
@@ -152,7 +150,7 @@ function App() {
   // }
 
   function updatedUserRefresh(data: any) {
-    setCurrentUser(data)
+    // setCurrentUser(data)
   }
 
   // function updateSharePage(filteredSet: any) {
@@ -260,7 +258,7 @@ function App() {
               path="/UserProfile"
               element={
                 <UserProfile
-                  currentUser={user}
+                  currentUser={currentUser}
                   // postShare={'postShare'}
                   // showModalPopUp={showModalPopUp}
                   // handleCloseModal={handleCloseModal}

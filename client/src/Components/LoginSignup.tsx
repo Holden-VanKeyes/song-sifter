@@ -11,6 +11,7 @@ import {
   ActionIcon,
   TextInput,
   PasswordInput,
+  rem,
 } from '@mantine/core'
 import {
   useForm,
@@ -18,9 +19,11 @@ import {
   hasLength,
   matches,
   matchesField,
+  isEmail,
 } from '@mantine/form'
 import { useDisclosure } from '@mantine/hooks'
 import { useNavigate } from 'react-router-dom'
+import { IconSwitchHorizontal, IconLogout, IconAt } from '@tabler/icons-react'
 
 interface LoginSignupProps {
   openModal: boolean
@@ -33,8 +36,7 @@ export default function LoginSignup({
   handleClose,
   formType,
 }: LoginSignupProps) {
-  const { user, setUser } = useContext(UserContext)
-  console.log('YOU', user)
+  const { currentUser, setCurrentUser } = useContext(UserContext)
   const [userCreateError, setUserCreateError] = useState('')
   const [visible, { toggle }] = useDisclosure(false)
   const navigate = useNavigate()
@@ -49,6 +51,7 @@ export default function LoginSignup({
     mode: 'uncontrolled',
     initialValues: {
       username: '',
+      email: '',
       password: '',
       passwordCheck: '',
     },
@@ -64,6 +67,8 @@ export default function LoginSignup({
           { min: 5, max: 15 },
           'username must be between 5 and 10 characters'
         ),
+      email:
+        formType === 'signup' ? isEmail('Invalid email format') : undefined,
       password:
         isNotEmpty('please enter password') &&
         matches(
@@ -71,24 +76,25 @@ export default function LoginSignup({
           passwordRules
         ),
       passwordCheck:
-        isNotEmpty('please enter password') &&
-        matches(
-          /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,20}$/,
-          passwordRules
-        ) &&
-        matchesField('password', 'Passwords are not the same'),
+        formType === 'signup'
+          ? isNotEmpty('please enter password') &&
+            matches(
+              /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,20}$/,
+              passwordRules
+            ) &&
+            matchesField('password', 'Passwords are not the same')
+          : undefined,
     },
   })
 
-  const handleSubmit = async () => {
-    form.validate()
-    const { username, password, passwordCheck } = form.getValues()
-
+  const handleSubmitSignup = async () => {
+    const { username, email, password, passwordCheck } = form.getValues()
     const createUser = await fetch('/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         username: username,
+        email: email,
         password: password,
         passwordConfirm: passwordCheck,
         profile_pic: `https://api.dicebear.com/8.x/notionists-neutral/svg?seed=${username}`,
@@ -96,16 +102,33 @@ export default function LoginSignup({
     })
     const response = await createUser.json()
     if (response.error) {
-      console.log('RES', response)
       setUserCreateError(
         response.exception.slice(31, response.exception.length - 1)
       )
     } else {
-      console.log('Success', response)
-      setUser!(response)
-      console.log('NEW USER', user)
+      setCurrentUser!(response)
+
       handleClose()
       // navigate('/UserProfile')
+    }
+  }
+
+  const handleSubmitLogin = async () => {
+    const { username, password } = form.getValues()
+    const session = await fetch('/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      }),
+    })
+    const response = await session.json()
+    if (response.error) {
+      setUserCreateError(response.error)
+    } else {
+      setCurrentUser!(response)
+      handleClose()
     }
   }
   return (
@@ -124,7 +147,9 @@ export default function LoginSignup({
       <Card withBorder padding="xl" radius="md" shadow="sm">
         <form
           onSubmit={form.onSubmit(() => {
-            handleSubmit()
+            if (formType === 'signup') {
+              handleSubmitSignup()
+            } else handleSubmitLogin()
           })}
         >
           <Stack>
@@ -134,6 +159,19 @@ export default function LoginSignup({
               {...form.getInputProps('username')}
               placeholder="username"
             />
+            {formType === 'signup' ? (
+              <TextInput
+                label="Email"
+                key={form.key('email')}
+                {...form.getInputProps('email')}
+                placeholder="email"
+                rightSectionPointerEvents="none"
+                leftSection={
+                  <IconAt style={{ width: rem(16), height: rem(16) }} />
+                }
+              />
+            ) : null}
+
             <PasswordInput
               label="Password"
               key={form.key('password')}
