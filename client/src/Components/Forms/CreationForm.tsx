@@ -55,6 +55,7 @@ export default function CreationForm() {
   const [randomLyric, setRandomLyric] = useState('')
   const [randomChords, setRandomChords] = useState('')
   const [randomSuggestions, setRandomSuggestions] = useState<{}>([])
+  const [inspirationIDs, setInspirationIDs] = useState<{}>([])
 
   const handleCloseModal = () => {
     setOpenModal(false)
@@ -80,10 +81,14 @@ export default function CreationForm() {
         res.json()
       ),
     ])
-
+    const idArray = []
+    idArray.push(enigmaJson, lyricJson, chordJson)
     valueClone.enigma = enigmaJson.enigma
+    // valueClone.enigmaId = enigmaJson.id
     valueClone.lyrics = lyricJson.lyrics
+    // valueClone.lyricId = lyricJson.id
     valueClone.chords = chordJson.chords
+    // valueClone.chordId = chordJson.id
 
     const returnedSuggestions = Object.entries(valueClone).map(([k, v]) => ({
       title: k,
@@ -91,6 +96,7 @@ export default function CreationForm() {
     }))
 
     setRandomSuggestions(returnedSuggestions)
+    console.log('Clone', enigmaJson, 'ID', idArray)
 
     setRandomEnigma(enigmaJson.enigma)
     setRandomLyric(lyricJson.lyrics)
@@ -120,8 +126,6 @@ export default function CreationForm() {
     return form.validateField(imageCardArray[stepper].type).hasError
       ? null
       : setStepper(direction === 'forward' ? stepper + 1 : stepper - 1)
-    // form.validateField('lyric')
-    console.log('VALs', form.validateField(imageCardArray[stepper].type))
   }
 
   return (

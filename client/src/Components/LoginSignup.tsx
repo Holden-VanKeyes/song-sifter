@@ -107,7 +107,7 @@ export default function LoginSignup({
       )
     } else {
       setCurrentUser!(response)
-
+      form.reset()
       handleClose()
       // navigate('/UserProfile')
     }
@@ -128,6 +128,7 @@ export default function LoginSignup({
       setUserCreateError(response.error)
     } else {
       setCurrentUser!(response)
+      form.reset()
       handleClose()
     }
   }

@@ -50,7 +50,7 @@ export default function CustomModal({
     validate: {
       title:
         isNotEmpty('Please Make A Selection') &&
-        hasLength({ min: 2, max: 10 }, 'Name must be 4-20 characters long'),
+        hasLength({ min: 2, max: 20 }, 'Name must be 2-20 characters long'),
     },
   })
 
@@ -63,7 +63,14 @@ export default function CustomModal({
   }
 
   const handleSubmit = () => {
-    form.validate()
+    const { title } = form.getValues()
+    // const newInspiration = {
+    //   title: title,
+    //       // user_id: currentUser.id,
+    //       chord_progression_id: randomChords.id,
+    //       enigma_id: randomEnigma.id,
+    //       lyric_snippet_id: randomLyric.id,
+    // }
   }
 
   return (

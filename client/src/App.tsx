@@ -258,11 +258,11 @@ function App() {
               path="/UserProfile"
               element={
                 <UserProfile
-                  currentUser={currentUser}
-                  // postShare={'postShare'}
-                  // showModalPopUp={showModalPopUp}
-                  // handleCloseModal={handleCloseModal}
-                  // updatedUserRefresh={updatedUserRefresh}
+
+                // postShare={'postShare'}
+                // showModalPopUp={showModalPopUp}
+                // handleCloseModal={handleCloseModal}
+                // updatedUserRefresh={updatedUserRefresh}
                 />
               }
             />
