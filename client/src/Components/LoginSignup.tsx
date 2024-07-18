@@ -102,7 +102,8 @@ export default function LoginSignup({
       )
     } else {
       console.log('Success', response)
-      // setUser()
+      setUser!(response)
+      console.log('NEW USER', user)
       handleClose()
       // navigate('/UserProfile')
     }
@@ -122,8 +123,7 @@ export default function LoginSignup({
     >
       <Card withBorder padding="xl" radius="md" shadow="sm">
         <form
-          onSubmit={form.onSubmit((e) => {
-            console.log(e)
+          onSubmit={form.onSubmit(() => {
             handleSubmit()
           })}
         >

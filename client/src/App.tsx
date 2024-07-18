@@ -1,11 +1,12 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
+import { UserContext } from './global/UserContext'
 import './App.css'
 import NavHeader from './NavHeader'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Routes, Route } from 'react-router-dom'
 import Home from './Home'
 import SongSifterCreate from './SongSifterCreate'
-import UserProfile from './UserProfile'
+import UserProfile from './components/UserProfile'
 import ShareCreation from './ShareCreation'
 import { useNavigate, useLocation } from 'react-router-dom'
 import NotLoggedInAlert from './NotLoggedInAlert'
@@ -35,20 +36,21 @@ import UserProvider from './global/UserContext'
 
 import css from './App.module.scss'
 
-interface UserContext {}
+// interface UserContext {}
 
-const UserAuth = createContext<{
-  currentUser: null
-  setCurrentUser: React.Dispatch<React.SetStateAction<null>>
-} | null>(null)
+// const UserAuth = createContext<{
+//   currentUser: null
+//   setCurrentUser: React.Dispatch<React.SetStateAction<null>>
+// } | null>(null)
 
 function App() {
-  const [currentUser, setCurrentUser] = useState(null)
-  // const [currentUser, setCurrentUser] = useState({
-  //   id: '',
-  //   username: '',
-  //   profile_pic: '',
-  // })
+  const { user } = useContext(UserContext)
+  console.log('IN APP', user)
+  const [currentUser, setCurrentUser] = useState({
+    id: '',
+    username: '',
+    profile_pic: '',
+  })
   const { setColorScheme } = useMantineColorScheme()
   const computedColorScheme = useComputedColorScheme('light', {
     getInitialValueInEffect: true,
@@ -92,22 +94,26 @@ function App() {
   // }, [])
 
   useEffect(() => {
-    console.log('RUNNING')
-    const fetcher = async () => {
-      const req = await fetch('/me', { credentials: 'include' })
+    // console.log('RUNNING')
+    // const fetcher = async () => {
+    //   const req = await fetch('/me', { credentials: 'include' })
 
-      if (req.status !== 200) {
-        return
-      }
-      const user = await req.json()
-      if (user.id) {
-        setIsLoggedIn(true)
-        setCurrentUser(user)
-      }
-      // const user = await getUser.json()
-      console.log('USER', user)
-    }
-    fetcher()
+    //   if (req.status !== 200) {
+    //     return
+    //   }
+    //   const user = await req.json()
+    //   if (user.id) {
+    //     setIsLoggedIn(true)
+    //     setCurrentUser(user)
+    //   }
+    //   // const user = await getUser.json()
+    //   console.log('USER', user)
+    // }
+    // fetcher()
+
+    if (!user) {
+      return
+    } else setIsLoggedIn(true)
   }, [currentUser])
   console.log('USER', currentUser)
   //close sideNav when navigating to new page
@@ -117,51 +123,51 @@ function App() {
     }
   }, [pathname])
 
-  function showLoginInfo() {
-    setGetStarted(true)
-    navigate('/')
-  }
+  // function showLoginInfo() {
+  //   setGetStarted(true)
+  //   navigate('/')
+  // }
 
-  function handleLoginSignup(user: any) {
-    setGetStarted(false)
-    setCurrentUser(user)
-    setIsLoggedIn(true)
-  }
+  // function handleLoginSignup(user: any) {
+  //   setGetStarted(false)
+  //   setCurrentUser(user)
+  //   setIsLoggedIn(true)
+  // }
 
-  function resetFunction() {
-    setRefreshed(true)
-  }
+  // function resetFunction() {
+  //   setRefreshed(true)
+  // }
 
-  function handleSearch(category: any, name: any) {
-    setFilteredSearch(category)
-    setFilteredType(name)
-  }
+  // function handleSearch(category: any, name: any) {
+  //   setFilteredSearch(category)
+  //   setFilteredType(name)
+  // }
 
   function showModalPopUp(e: any) {
     setShowAddYourOwnForm(true)
     setUserAddSelection(e.target.value)
   }
-  function handleCloseModal() {
-    setShowAddYourOwnForm(false)
-  }
+  // function handleCloseModal() {
+  //   setShowAddYourOwnForm(false)
+  // }
 
   function updatedUserRefresh(data: any) {
     setCurrentUser(data)
   }
 
-  function updateSharePage(filteredSet: any) {
-    setFilteredType('')
-    setRefreshed(false)
-    setSharePageUpdate(filteredSet)
-  }
+  // function updateSharePage(filteredSet: any) {
+  //   setFilteredType('')
+  //   setRefreshed(false)
+  //   setSharePageUpdate(filteredSet)
+  // }
 
-  const handleOffset = () => {
-    console.log('in off', showOffset)
-    setShowOffset(!showOffset)
-  }
-  const handleShowComponent = (label: string) => {
-    console.log('YO IT me', label)
-  }
+  // const handleOffset = () => {
+  //   console.log('in off', showOffset)
+  //   setShowOffset(!showOffset)
+  // }
+  // const handleShowComponent = (label: string) => {
+  //   console.log('YO IT me', label)
+  // }
   // async function postShare(musicShare) {
   //   await fetch('/creations', {
   //     method: 'POST',
@@ -199,83 +205,81 @@ function App() {
 
   return (
     <>
-      <UserProvider>
-        <AppShell
-          header={{ height: 80 }}
-          navbar={{
-            width: 300,
-            breakpoint: 'sm',
-            collapsed: { mobile: !opened },
-          }}
-        >
-          <AppShell.Navbar>
-            <SideNav isLoggedIn={isLoggedIn} />
-          </AppShell.Navbar>
-          <AppShell.Header>
-            <Flex justify="space-between" align="center">
-              <Group>
-                <Burger
-                  opened={opened}
-                  onClick={toggle}
-                  hiddenFrom="sm"
-                  size="md"
-                  p="xl"
-                />
-              </Group>
+      <AppShell
+        header={{ height: 80 }}
+        navbar={{
+          width: 300,
+          breakpoint: 'sm',
+          collapsed: { mobile: !opened },
+        }}
+      >
+        <AppShell.Navbar>
+          <SideNav isLoggedIn={isLoggedIn} />
+        </AppShell.Navbar>
+        <AppShell.Header>
+          <Flex justify="space-between" align="center">
+            <Group>
+              <Burger
+                opened={opened}
+                onClick={toggle}
+                hiddenFrom="sm"
+                size="md"
+                p="xl"
+              />
+            </Group>
 
-              <Group p="sm" mr="md" justify="flex-end">
-                <ActionIcon
-                  radius="md"
-                  className={css.darkToggle}
-                  onClick={() =>
-                    setColorScheme(
-                      computedColorScheme === 'light' ? 'dark' : 'light'
-                    )
-                  }
-                  variant="outline"
-                  color="rgba(0, 0, 0, 1)"
-                  size="md"
-                  mr="sm"
-                  aria-label="Toggle color scheme"
-                >
-                  {computedColorScheme === 'light' ? (
-                    <IconMoon stroke={1.0} size={20} />
-                  ) : (
-                    <IconSun stroke={1.0} size={20} color="orange" />
-                  )}
-                </ActionIcon>
-                <Logo style={{ width: '54' }} onClick={() => navigate('/')} />
-              </Group>
-            </Flex>
-          </AppShell.Header>
-
-          <AppShell.Main>
-            <Routes>
-              {/* <Route
-                path="/UserProfile"
-                element={
-                  <UserProfile
-                    currentUser={currentUser}
-                    postShare={'postShare'}
-                    showModalPopUp={showModalPopUp}
-                    // handleCloseModal={handleCloseModal}
-                    updatedUserRefresh={updatedUserRefresh}
-                  />
+            <Group p="sm" mr="md" justify="flex-end">
+              <ActionIcon
+                radius="md"
+                className={css.darkToggle}
+                onClick={() =>
+                  setColorScheme(
+                    computedColorScheme === 'light' ? 'dark' : 'light'
+                  )
                 }
-              /> */}
-              <Route path="SongSifterCreate" element={<CreationForm />} />
-              <Route path="/" element={<HomePage />} />
-            </Routes>
-            {/* <UserProfile
+                variant="outline"
+                color="rgba(0, 0, 0, 1)"
+                size="md"
+                mr="sm"
+                aria-label="Toggle color scheme"
+              >
+                {computedColorScheme === 'light' ? (
+                  <IconMoon stroke={1.0} size={20} />
+                ) : (
+                  <IconSun stroke={1.0} size={20} color="orange" />
+                )}
+              </ActionIcon>
+              <Logo style={{ width: '54' }} onClick={() => navigate('/')} />
+            </Group>
+          </Flex>
+        </AppShell.Header>
+
+        <AppShell.Main>
+          <Routes>
+            <Route
+              path="/UserProfile"
+              element={
+                <UserProfile
+                  currentUser={user}
+                  // postShare={'postShare'}
+                  // showModalPopUp={showModalPopUp}
+                  // handleCloseModal={handleCloseModal}
+                  // updatedUserRefresh={updatedUserRefresh}
+                />
+              }
+            />
+            <Route path="SongSifterCreate" element={<CreationForm />} />
+            <Route path="/" element={<HomePage />} />
+          </Routes>
+          {/* <UserProfile
             currentUser={currentUser}
             postShare={'postShare'}
             showModalPopUp={showModalPopUp}
             // handleCloseModal={handleCloseModal}
             updatedUserRefresh={updatedUserRefresh}
           /> */}
-          </AppShell.Main>
-        </AppShell>
-      </UserProvider>
+        </AppShell.Main>
+      </AppShell>
     </>
     // <div>
     //   <Offset showOffset={showOffset} handleOffset={handleOffset} />

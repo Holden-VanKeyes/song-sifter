@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-
+import React, { useState, useContext } from 'react'
+import { UserContext } from './global/UserContext'
 import Tooltip from 'react-bootstrap/Tooltip'
 import { useEffect } from 'react'
 import Table from 'react-bootstrap/Table'
@@ -14,6 +14,7 @@ function UserProfile({
   showModalPopUp,
   updatedUserRefresh,
 }) {
+  const { user } = useContext(UserContext)
   const [userInspirations, setUserInspirations] = useState([])
   const [show, setShow] = useState(false)
   const [showUserEditForm, setShowUserEditForm] = useState(false)
@@ -26,12 +27,13 @@ function UserProfile({
   const [sharedInspiration, setSharedInspiration] = useState('')
 
   useEffect(() => {
-    console.log('mounted', currentUser)
-    fetch(`/user_inspirations?user_id=${currentUser.id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setUserInspirations(data)
-      })
+    if (!user) {
+      fetch(`/user_inspirations?user_id=${currentUser.id}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setUserInspirations(data)
+        })
+    }
   }, [])
 
   const renderTooltip = (props) => (
@@ -126,13 +128,13 @@ function UserProfile({
 
   return (
     <>
-      <EditProfileForm
+      {/* <EditProfileForm
         clicked={clicked}
         showUserEditForm={showUserEditForm}
         handleCloseEditForm={handleCloseEditForm}
         userId={currentUser.id}
         updatedUserRefresh={updatedUserRefresh}
-      />
+      /> */}
       <div>
         <div
           className="container-1"

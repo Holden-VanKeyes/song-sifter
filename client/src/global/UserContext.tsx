@@ -10,20 +10,20 @@ interface UserProviderProps {
   children: ReactNode
 }
 
-export type User = {
-  name: string
-  email: string
-}
+// export type User = {
+//   name: string
+//   email: string
+// }
 
 export interface UserContextProps {
-  user: User
-  setUser: (user: User) => void
+  user: any
+  setUser: (user: any) => void
 }
 
 export const UserContext = createContext<Partial<UserContextProps>>({})
 
 export default function UserProvider({ children }: UserProviderProps) {
-  const [user, setUser] = useState<User>()
+  const [user, setUser] = useState()
   return (
     <UserContext.Provider value={{ user, setUser }}>
       {children}

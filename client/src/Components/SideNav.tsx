@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { UserContext } from 'src/global/UserContext'
 
 import { IconSwitchHorizontal, IconLogout } from '@tabler/icons-react'
 import { Badge, Group, ActionIcon } from '@mantine/core'
@@ -12,7 +13,7 @@ interface SideNaveProps {
 }
 
 export default function SideNav({ isLoggedIn }: SideNaveProps) {
-  // const { currentUser, setCurrentUser } = useContext(userContext)
+  const { user, setUser } = useContext(UserContext)
   const [openModal, setOpenModal] = useState(false)
   const [formType, setFormType] = useState('')
   const navigate = useNavigate()
@@ -29,10 +30,10 @@ export default function SideNav({ isLoggedIn }: SideNaveProps) {
     console.log('RES', response)
     if (response.ok) {
       // setIsLoggedIn(false)
-      // setCurrentUser({
-      //   id: '',
-      //   username: '',
-      // })
+      setUser!({
+        name: '',
+        email: '',
+      })
     } else console.log('not logged out')
   }
 
@@ -78,7 +79,11 @@ export default function SideNav({ isLoggedIn }: SideNaveProps) {
           </div>
         ) : null}
 
-        <div className={css.link} onClick={() => handleLogout()}>
+        <div
+          className={css.link}
+          // style={{ cursor: 'pointer' }}
+          onClick={() => handleLogout()}
+        >
           <IconLogout className={css.linkIcon} stroke={1.5} />
           <span>Logout</span>
         </div>
