@@ -20,9 +20,9 @@ class EnigmasController < ApplicationController
 
        def get_random_enigma
        
-        @one_enigma = Enigma.where(category: params[:category])
+        @description = Enigma.where(category: params[:category])
         
-         render json: @one_enigma.limit(1).order("RANDOM()").first
+         render json: @description.limit(1).order("RANDOM()").first
          
        end
    
@@ -35,6 +35,6 @@ class EnigmasController < ApplicationController
        private
    
        def enigma_params
-        params.permit(:category, :enigma, :author)
+        params.permit(:category, :description, :author)
        end
 end

@@ -1,3 +1,3 @@
 class LyricSnippetSerializer < ActiveModel::Serializer
-  attributes :id, :category, :lyrics, :author, :inspirations
+  attributes :id, :title, :category, :description, :author, :inspirations
 end

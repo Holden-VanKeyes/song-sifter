@@ -35,9 +35,8 @@ export interface InspirationObjectProps {
   author: string
   category: string
   id: number
-  lyrics?: string
-  enigma?: string
-  chords?: string
+  title: string
+  description: string
   inspirations?: []
 }
 

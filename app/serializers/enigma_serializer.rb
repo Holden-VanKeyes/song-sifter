@@ -1,3 +1,3 @@
 class EnigmaSerializer < ActiveModel::Serializer
-  attributes :id, :category, :enigma, :author, :inspirations
+  attributes :id, :title, :category, :description, :author, :inspirations
 end

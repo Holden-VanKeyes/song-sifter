@@ -1,3 +1,3 @@
 class ChordProgressionSerializer < ActiveModel::Serializer
-  attributes :id, :category, :chords, :author, :inspirations
+  attributes :id, :title, :category, :description, :author, :inspirations
 end

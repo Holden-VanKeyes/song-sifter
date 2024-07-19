@@ -44,11 +44,11 @@ export default function InspirationModal({
   const form = useForm({
     mode: 'uncontrolled',
     initialValues: {
-      title: '',
+      name: '',
     },
 
     validate: {
-      title:
+      name:
         isNotEmpty('Please Make A Selection') &&
         hasLength({ min: 2, max: 20 }, 'Name must be 2-20 characters long'),
     },
@@ -63,16 +63,19 @@ export default function InspirationModal({
   }
 
   const handleSubmit = () => {
-    const { title } = form.getValues()
-    // const newInspiration = {
-    //   title: title,
-    //       // user_id: currentUser.id,
-    //       chord_progression_id: randomChords.id,
-    //       enigma_id: randomEnigma.id,
-    //       lyric_snippet_id: randomLyric.id,
-    // }
+    const { name } = form.getValues()
+    const enigma = inspirationObj.find((obj: any) => obj.title === 'enigma')
+    const chords = inspirationObj.find((obj) => obj.title === 'chords')
+    const lyrics = inspirationObj.find((obj) => obj.title === 'lyrics')
+    const newInspiration = {
+      title: name,
+      // user_id: currentUser.id,
+      chord_progression_id: enigma?.id,
+      enigma_id: chords?.id,
+      lyric_snippet_id: lyrics?.id,
+    }
   }
-  console.log('Obj', inspirationObj)
+
   return (
     <>
       <Modal
@@ -93,26 +96,24 @@ export default function InspirationModal({
             </Text>
           </Card.Section>
           <Card.Section inheritPadding withBorder p="lg">
-            {/* <Timeline bulletSize={40} active={textContentOptions.length}>
-              {textContentOptions && textContentOptions.length > 0
-                ? textContentOptions.map((item: any, indx: any) => (
+            <Timeline bulletSize={40} active={inspirationObj.length}>
+              {inspirationObj && inspirationObj.length > 0
+                ? inspirationObj.map((item: any, indx: any) => (
                     <Timeline.Item
                       key={indx}
                       title={item.title}
                       bullet={resolveIcon(item.title)}
                       lineVariant={
-                        indx === textContentOptions.length - 2
-                          ? 'dashed'
-                          : 'solid'
+                        indx === inspirationObj.length - 2 ? 'dashed' : 'solid'
                       }
                     >
                       <Text c="dimmed" size="sm">
-                        {item.value}
+                        {item.description}
                       </Text>
                     </Timeline.Item>
                   ))
                 : null}
-            </Timeline> */}
+            </Timeline>
           </Card.Section>
 
           <Card.Section inheritPadding withBorder p="lg">
@@ -122,8 +123,8 @@ export default function InspirationModal({
               })}
             >
               <TextInput
-                key={form.key('title')}
-                {...form.getInputProps('title')}
+                key={form.key('name')}
+                {...form.getInputProps('name')}
                 placeholder="give your inspiration a unique name..."
               />
               <Group justify="center" mt="md">
