@@ -101,7 +101,7 @@ export default function InspirationModal({
     if (response.ok) {
       form.reset()
       handleClose()
-      navigate('UserProfile')
+      navigate('/UserProfile')
       console.log('RES', data)
     } else console.log('NO')
   }

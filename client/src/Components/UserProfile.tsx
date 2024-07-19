@@ -1,42 +1,48 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { UserContext } from 'src/global/UserContext'
-import { Avatar, Text, Button, Paper } from '@mantine/core'
+import { Avatar, Text, Button, Paper, Box } from '@mantine/core'
+import { SavedInspos } from './SavedInspos'
 
 export default function UserProfile() {
-  const { currentUser, setCurrentUser } = useContext(UserContext)
-  const [userInspirations, setUserInspirations] = useState([])
+  const { currentUser } = useContext(UserContext)
+  // const [userInspirations, setUserInspirations] = useState([])
 
-  useEffect(() => {
-    try {
-      fetch(`/user_inspirations?user_id=${currentUser?.id}`)
-        .then((response) => response.json())
-        .then((data) => {
-          setUserInspirations(data)
-        })
-    } catch (error) {
-      console.log('ERROR', error)
-    }
-  }, [])
+  // useEffect(() => {
+  //   console.log('mounted')
+  //   try {
+  //     fetch(`/user_inspirations?user_id=${currentUser?.id}`)
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         setUserInspirations(data)
+  //       })
+  //   } catch (error) {
+  //     console.log('ERROR', error)
+  //   }
+  // }, [currentUser])
 
-  console.log(userInspirations)
   return (
-    <Paper radius="md" p="lg" bg="var(--mantine-color-body)">
-      <Avatar
-        src={currentUser?.profile_pic}
-        size={120}
-        radius={120}
-        mx="auto"
-      />
-      <Text ta="center" fz="lg" fw={500} mt="md">
-        {currentUser?.name}
-      </Text>
-      <Text ta="center" c="dimmed" fz="sm">
-        {currentUser?.email}
-      </Text>
+    <>
+      <Paper radius="md" p="lg" bg="var(--mantine-color-body)" mb="xl" mt="sm">
+        <Avatar
+          src={currentUser?.profile_pic}
+          size={120}
+          radius={120}
+          mx="auto"
+        />
+        <Text ta="center" fz="lg" fw={500} mt="md">
+          {currentUser?.username}
+        </Text>
+        <Text ta="center" c="dimmed" fz="sm">
+          {currentUser?.email}
+        </Text>
 
-      <Button variant="default" fullWidth mt="md">
-        Send message
-      </Button>
-    </Paper>
+        <Button variant="default" fullWidth mt="md">
+          Send message
+        </Button>
+      </Paper>
+      <Box m="md">
+        <SavedInspos />
+      </Box>
+    </>
   )
 }
