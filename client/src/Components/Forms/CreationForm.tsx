@@ -29,6 +29,17 @@ import {
 import { images } from '../../constants/constants'
 import { imageCardArray } from '../../constants/constants'
 import CustomModal from '../CustomModal'
+import InspirationModal from '../InspirationModal'
+
+export interface InspirationObjectProps {
+  author: string
+  category: string
+  id: number
+  lyrics?: string
+  enigma?: string
+  chords?: string
+  inspirations?: []
+}
 
 export default function CreationForm() {
   const form = useForm({
@@ -55,7 +66,9 @@ export default function CreationForm() {
   const [randomLyric, setRandomLyric] = useState('')
   const [randomChords, setRandomChords] = useState('')
   const [randomSuggestions, setRandomSuggestions] = useState<{}>([])
-  const [inspirationIDs, setInspirationIDs] = useState<{}>([])
+  const [inspirationObj, setInspirationObj] = useState<
+    InspirationObjectProps[]
+  >([])
 
   const handleCloseModal = () => {
     setOpenModal(false)
@@ -81,8 +94,8 @@ export default function CreationForm() {
         res.json()
       ),
     ])
-    const idArray = []
-    idArray.push(enigmaJson, lyricJson, chordJson)
+    const inspoArray = []
+    inspoArray.push(enigmaJson, lyricJson, chordJson)
     valueClone.enigma = enigmaJson.enigma
     // valueClone.enigmaId = enigmaJson.id
     valueClone.lyrics = lyricJson.lyrics
@@ -96,7 +109,7 @@ export default function CreationForm() {
     }))
 
     setRandomSuggestions(returnedSuggestions)
-    console.log('Clone', enigmaJson, 'ID', idArray)
+    setInspirationObj(inspoArray)
 
     setRandomEnigma(enigmaJson.enigma)
     setRandomLyric(lyricJson.lyrics)
@@ -198,12 +211,17 @@ export default function CreationForm() {
           </ActionIcon>
         </Group>
       </form>
-      <CustomModal
+      {/* <CustomModal
         openModal={openModal}
         handleClose={handleCloseModal}
         title="Your Unique Musical Inspiration"
         buttonOptions={['Save']}
         textContentOptions={randomSuggestions}
+      /> */}
+      <InspirationModal
+        openModal={openModal}
+        handleClose={handleCloseModal}
+        inspirationObj={inspirationObj}
       />
     </Container>
   )
