@@ -4,17 +4,17 @@ class InspirationSerializer < ActiveModel::Serializer
   def enigma_return
    
     
-    object.enigma.enigma 
+    object.enigma.description 
    
   
   end
 
   def lyric_return
-    object.lyric_snippet.lyrics
+    object.lyric_snippet.description
   end
 
   def chord_return
-    object.chord_progression.chords
+    object.chord_progression.description
   end
 
   def categories

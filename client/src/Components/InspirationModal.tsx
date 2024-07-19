@@ -1,4 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { UserContext } from 'src/global/UserContext'
+import { useDisclosure } from '@mantine/hooks'
 import {
   Modal,
   Button,
@@ -41,6 +44,8 @@ export default function InspirationModal({
   handleClose,
   inspirationObj,
 }: InspirationModalProps) {
+  const { currentUser } = useContext(UserContext)
+  const navigate = useNavigate()
   const form = useForm({
     mode: 'uncontrolled',
     initialValues: {
@@ -62,18 +67,43 @@ export default function InspirationModal({
     } else return <IconPlaylist size={28} />
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const { name } = form.getValues()
     const enigma = inspirationObj.find((obj: any) => obj.title === 'enigma')
     const chords = inspirationObj.find((obj) => obj.title === 'chords')
     const lyrics = inspirationObj.find((obj) => obj.title === 'lyrics')
+    console.log('BEEP', enigma?.id, chords?.id, lyrics?.id)
     const newInspiration = {
       title: name,
-      // user_id: currentUser.id,
-      chord_progression_id: enigma?.id,
-      enigma_id: chords?.id,
+      user_id: currentUser?.id,
+      chord_progression_id: chords?.id,
+      enigma_id: enigma?.id,
       lyric_snippet_id: lyrics?.id,
     }
+    // await fetch('/inspirations', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(newInspiration),
+    //   })
+    //     .then((response) => response.json())
+    //     .then((data) => {})
+
+    const response = await fetch('inspirations', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newInspiration),
+    })
+    const data = await response.json()
+    if (response.ok) {
+      form.reset()
+      handleClose()
+      navigate('UserProfile')
+      console.log('RES', data)
+    } else console.log('NO')
   }
 
   return (
@@ -128,7 +158,14 @@ export default function InspirationModal({
                 placeholder="give your inspiration a unique name..."
               />
               <Group justify="center" mt="md">
-                <Button type="submit">Save</Button>
+                <Button type="submit" disabled={!currentUser ? true : false}>
+                  Save
+                </Button>
+                {!currentUser ? (
+                  <Text size="xs" c="red">
+                    Please login or signup to save to your profile.
+                  </Text>
+                ) : null}
               </Group>
             </form>
           </Card.Section>

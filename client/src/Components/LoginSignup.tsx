@@ -129,6 +129,7 @@ export default function LoginSignup({
     } else {
       setCurrentUser!(response)
       form.reset()
+      navigate('/UserProfile')
       handleClose()
     }
   }

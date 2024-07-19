@@ -1,55 +1,36 @@
-import React, { createContext, useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { UserContext } from './global/UserContext'
 import './App.css'
-import NavHeader from './NavHeader'
+
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Routes, Route } from 'react-router-dom'
-import Home from './Home'
-import SongSifterCreate from './SongSifterCreate'
+
 import UserProfile from './components/UserProfile'
-import ShareCreation from './ShareCreation'
+
 import { useNavigate, useLocation } from 'react-router-dom'
-import NotLoggedInAlert from './NotLoggedInAlert'
-import SplashPage from './SplashPage'
-import FilterHelper from './FilterHelper'
-import Offset from './Offset'
+
 import {
   AppShell,
   Burger,
   Group,
-  Button,
-  Image,
   ActionIcon,
-  Box,
   Flex,
   useMantineColorScheme,
   useComputedColorScheme,
 } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import SideNav from './components/SideNav'
-import { images } from './constants/constants'
+
 import { ReactComponent as Logo } from './assets/images/logo.svg'
 import CreationForm from './components/Forms/CreationForm'
 import { IconSun, IconMoon } from '@tabler/icons-react'
 import HomePage from './HomePage'
-import UserProvider from './global/UserContext'
 
 import css from './App.module.scss'
 
-// interface UserContext {}
-
-// const UserAuth = createContext<{
-//   currentUser: null
-//   setCurrentUser: React.Dispatch<React.SetStateAction<null>>
-// } | null>(null)
-
 function App() {
   const { currentUser } = useContext(UserContext)
-  // const [currentUser, setCurrentUser] = useState({
-  //   id: '',
-  //   username: '',
-  //   profile_pic: '',
-  // })
+
   const { setColorScheme } = useMantineColorScheme()
   const computedColorScheme = useComputedColorScheme('light', {
     getInitialValueInEffect: true,
