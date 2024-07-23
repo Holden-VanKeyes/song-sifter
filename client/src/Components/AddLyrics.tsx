@@ -1,21 +1,33 @@
 import React from 'react'
-import {
-  Card,
-  Overlay,
-  Button,
-  Text,
-  rem,
-  Container,
-  Group,
-  Avatar,
-} from '@mantine/core'
-import css from './UserAdditions.module.css'
-import abstract from '../assets/images/observational.jpg'
+import { Blockquote, Title } from '@mantine/core'
+
 import { lyricCategories } from '../constants/constants'
 import UserAdditionsForm from './Forms/UserAdditionsForm'
 
 export default function AddLyrics() {
   const lyricChoices = (({ name, ...object }) => object)(lyricCategories)
-
-  return <UserAdditionsForm choices={Object.values(lyricChoices)} />
+  const helperText = {
+    label: '',
+    description: '',
+    placeholder: '',
+  }
+  //TODO remove left border
+  return (
+    <>
+      <Blockquote
+        cite=" - provide a lyric snippet based on chosen style to inspire someone's creativity"
+        color="cyan"
+        radius="xs"
+      >
+        <Title order={2} fs="italic" td="underline">
+          Lyric Styles
+        </Title>
+      </Blockquote>
+      <UserAdditionsForm
+        choices={Object.values(lyricChoices)}
+        type={lyricCategories.name}
+        helperText={helperText}
+      />
+    </>
+  )
 }
