@@ -27,6 +27,9 @@ import { IconSun, IconMoon } from '@tabler/icons-react'
 import HomePage from './HomePage'
 
 import css from './App.module.scss'
+import AddLyrics from './components/AddLyrics'
+import AddEnigma from './components/AddEnigma'
+import AddChords from './components/AddChords'
 
 function App() {
   const { currentUser } = useContext(UserContext)
@@ -249,6 +252,9 @@ function App() {
             />
             <Route path="SongSifterCreate" element={<CreationForm />} />
             <Route path="/" element={<HomePage />} />
+            <Route path="/add-lyrics" element={<AddLyrics />} />
+            <Route path="/add-enigma" element={<AddEnigma />} />
+            <Route path="/add-chords" element={<AddChords />} />
           </Routes>
           {/* <UserProfile
             currentUser={currentUser}

@@ -134,10 +134,10 @@ export default function CreationForm() {
     //   navigate('/UserProfile')
   }
 
-  const handleNextStep = (direction: string) => {
+  const handleNextStep = () => {
     return form.validateField(imageCardArray[stepper].type).hasError
       ? null
-      : setStepper(direction === 'forward' ? stepper + 1 : stepper - 1)
+      : setStepper(stepper + 1)
   }
 
   return (
@@ -203,20 +203,13 @@ export default function CreationForm() {
             color="rgba(68, 196, 242, 0.96)"
             disabled={stepper === 2 ? true : false}
             onClick={() => {
-              handleNextStep('forward')
+              handleNextStep()
             }}
           >
             <IconChevronRight />
           </ActionIcon>
         </Group>
       </form>
-      {/* <CustomModal
-        openModal={openModal}
-        handleClose={handleCloseModal}
-        title="Your Unique Musical Inspiration"
-        buttonOptions={['Save']}
-        textContentOptions={randomSuggestions}
-      /> */}
       <InspirationModal
         openModal={openModal}
         handleClose={handleCloseModal}
