@@ -158,6 +158,7 @@ export default function CreationForm() {
             {imageCardArray[stepper].description}
           </Text>
           <Card.Section inheritPadding>
+            {/* TODO - refactor now that null is not in constant Object */}
             <Select
               placeholder={`choose your ${imageCardArray[stepper].type} category`}
               key={form.key(imageCardArray[stepper].type)}

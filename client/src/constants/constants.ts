@@ -1,16 +1,24 @@
 export const enigmaCategories = {
   name: 'enigmas',
-  cat1: 'on production/arrangement',
-  cat2: 'on melodic/harmonic/tonal elements',
+  cat1: 'production/arrangement',
+  cat2: 'melodic/harmonic/tonal elements',
   cat3: 'random',
-  cat4: null,
+  // cat4: null,
+}
+
+interface lyricCategoriesProps {
+  cat1: string
+  cat2: string
+  cat3: string
+  cat4: string
+  name?: string
 }
 
 export const lyricCategories = {
   name: 'lyrics',
-  cat1: 'observational - worldly - nomadic',
+  cat1: 'worldly - nomadic - observational',
   cat2: 'hopeful - elevated - serene',
-  cat3: 'boozy - despondent - lovelorn',
+  cat3: 'boozy - lovelorn - despondent',
   cat4: 'abstract - esoteric - uneven',
 }
 export const chordCategories = {
@@ -18,7 +26,7 @@ export const chordCategories = {
   cat1: 'uplifting - ebulient - lighthearted',
   cat2: 'brooding - dark - mysterious',
   cat3: 'angular - odd - atmospheric',
-  cat4: null,
+  // cat4: null,
 }
 
 export const categoriesByName = {
