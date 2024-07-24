@@ -9,14 +9,10 @@ import {
   ActionIcon,
   Card,
   Transition,
-  Center,
+  Flex,
+  Stack,
 } from '@mantine/core'
 import {
-  IconSwimming,
-  IconBike,
-  IconRun,
-  IconChevronDown,
-  IconChevronUp,
   IconScanEye,
   IconMicrophone,
   IconPlaylist,
@@ -71,15 +67,29 @@ export function SavedInspos() {
               {userInspirations[position].title}
             </Text>
           </Card.Section>
-          <Text fz="sm" c="dimmed" mt={5}>
-            {userInspirations[position].chord_return}
-          </Text>
-          <Text fz="sm" c="dimmed" mt={5}>
-            {userInspirations[position].enigma_return}
-          </Text>
-          <Text fz="sm" c="dimmed" mt={5}>
-            {userInspirations[position].lyric_return}
-          </Text>
+
+          <Stack pt="md">
+            <Group wrap="nowrap">
+              <ActionIcon color="rgb(160, 194, 207)">
+                <IconPlaylist />
+              </ActionIcon>
+              <Text fz="sm">{userInspirations[position].chord_return}</Text>
+            </Group>
+
+            <Group wrap="nowrap">
+              <ActionIcon color="rgb(160, 194, 207)">
+                <IconScanEye />
+              </ActionIcon>
+              <Text fz="sm">{userInspirations[position].enigma_return}</Text>
+            </Group>
+
+            <Group wrap="nowrap">
+              <ActionIcon color="rgb(160, 194, 207)">
+                <IconMicrophone />
+              </ActionIcon>
+              <Text fz="sm">{userInspirations[position].lyric_return}</Text>
+            </Group>
+          </Stack>
         </Card>
       ) : null}
     </>

@@ -5,20 +5,6 @@ import { SavedInspos } from './SavedInspos'
 
 export default function UserProfile() {
   const { currentUser } = useContext(UserContext)
-  // const [userInspirations, setUserInspirations] = useState([])
-
-  // useEffect(() => {
-  //   console.log('mounted')
-  //   try {
-  //     fetch(`/user_inspirations?user_id=${currentUser?.id}`)
-  //       .then((response) => response.json())
-  //       .then((data) => {
-  //         setUserInspirations(data)
-  //       })
-  //   } catch (error) {
-  //     console.log('ERROR', error)
-  //   }
-  // }, [currentUser])
 
   return (
     <>

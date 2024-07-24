@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { UserContext } from '../../global/UserContext'
 import {
   Card,
   Overlay,
@@ -16,9 +18,14 @@ import {
   ActionIcon,
   Flex,
   UnstyledButton,
+  AspectRatio,
+  Notification,
+  Modal,
+  Title,
 } from '@mantine/core'
-import { useForm, isNotEmpty } from '@mantine/form'
+import { useForm, isNotEmpty, hasLength } from '@mantine/form'
 import { IconArrowAutofitUp, IconDiamond } from '@tabler/icons-react'
+import logo from '../../assets/images/logo1.jpg'
 import css from '../UserAdditions.module.css'
 
 //TODO - need 4 boxes for chords to make easier (one for each chord) then join with dash onSubmit
@@ -47,16 +54,40 @@ export default function UserAdditionsForm({
     },
     onValuesChange: (values) => {
       // ✅ This will be called on every form values change
-      //   console.log('VVV', values)
+    },
+    validate: {
+      userTextInput:
+        isNotEmpty('Please Make A Selection') &&
+        hasLength({ min: 10 }, 'Value must have 10 or more characters'),
     },
   })
 
   const [selectedCategory, setSelectedCategory] = useState('')
-  console.log('HELP', helperText)
-  const handleSubmit = () => {
-    const { userTextInput } = form.getValues()
+  const [opened, setOpened] = useState(false)
+  const { currentUser } = useContext(UserContext)
+  const navigate = useNavigate()
 
-    console.log('SUB', selectedCategory, userTextInput, type)
+  const handleSubmit = async () => {
+    const { userTextInput } = form.getValues()
+    const userAddition = {
+      category: selectedCategory,
+      author: currentUser.username,
+      description: userTextInput,
+    }
+    const res = await fetch(`/${type}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userAddition),
+    })
+    const data = await res.json()
+
+    if (res.status === 200) {
+      form.reset()
+      setOpened(true)
+      console.log('success', res.statusText)
+    } else console.log('ERROR', res.statusText)
   }
 
   return (
@@ -76,6 +107,7 @@ export default function UserAdditionsForm({
                     setSelectedCategory(category)
                   }}
                   name="checked"
+                  defaultChecked
                 />
                 <Avatar
                   src={`https://api.dicebear.com/9.x/shapes/svg?seed=${category}`}
@@ -122,6 +154,21 @@ export default function UserAdditionsForm({
           />
         </form>
       </Stack>
+
+      <Modal
+        opened={opened}
+        onClose={() => {
+          setOpened(false)
+          navigate('/UserProfile')
+        }}
+        centered
+        withCloseButton={false}
+      >
+        <Group justify="center">
+          <Title order={4}>We appreciate your contribution!</Title>
+          <Avatar src={logo} size={80} radius={80} mx="auto" />
+        </Group>
+      </Modal>
     </Container>
   )
 }

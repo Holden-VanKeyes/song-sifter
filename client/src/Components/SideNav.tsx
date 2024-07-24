@@ -23,11 +23,12 @@ export default function SideNav() {
     const response = await fetch('/logout', {
       method: 'DELETE',
     })
-    console.log('RES', response)
+
     if (response.ok) {
       // setIsLoggedIn(false)
+      console.log('RES', response.statusText)
       setCurrentUser!(undefined)
-    } else console.log('not logged out')
+    } else console.log('not logged out', response.statusText)
   }
 
   return (

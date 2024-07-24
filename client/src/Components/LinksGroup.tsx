@@ -86,7 +86,6 @@ export default function LinksGroup(): JSX.Element {
                     to={item.link}
                     key={item.label}
                     onClick={(event) => {
-                      console.log('Click', item.label)
                       event.preventDefault()
                       setActive(item.label)
                       navigate(item.link)

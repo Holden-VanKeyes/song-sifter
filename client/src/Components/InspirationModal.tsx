@@ -72,7 +72,7 @@ export default function InspirationModal({
     const enigma = inspirationObj.find((obj: any) => obj.title === 'enigma')
     const chords = inspirationObj.find((obj) => obj.title === 'chords')
     const lyrics = inspirationObj.find((obj) => obj.title === 'lyrics')
-    console.log('BEEP', enigma?.id, chords?.id, lyrics?.id)
+
     const newInspiration = {
       title: name,
       user_id: currentUser?.id,
@@ -102,8 +102,8 @@ export default function InspirationModal({
       form.reset()
       handleClose()
       navigate('/UserProfile')
-      console.log('RES', data)
-    } else console.log('NO')
+      console.log('RES', response.statusText)
+    } else console.log('ERROR', response.statusText)
   }
 
   return (

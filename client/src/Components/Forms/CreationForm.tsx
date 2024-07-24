@@ -14,6 +14,7 @@ import {
   Button,
   UnstyledButton,
   Center,
+  Flex,
 } from '@mantine/core'
 import { useForm, isNotEmpty } from '@mantine/form'
 import {
@@ -51,7 +52,6 @@ export default function CreationForm() {
     },
     onValuesChange: (values) => {
       // ✅ This will be called on every form values change
-      //   console.log('VVV', values)
     },
 
     validate: {
@@ -142,7 +142,7 @@ export default function CreationForm() {
   }
 
   return (
-    <Center>
+    <Flex justify="center" align="center">
       <Container m="md">
         <form
           onSubmit={form.onSubmit(() => {
@@ -219,6 +219,6 @@ export default function CreationForm() {
           inspirationObj={inspirationObj}
         />
       </Container>
-    </Center>
+    </Flex>
   )
 }
