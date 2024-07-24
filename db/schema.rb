@@ -10,17 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_03_210221) do
+ActiveRecord::Schema.define(version: 2024_07_19_173042) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "chord_progressions", force: :cascade do |t|
     t.string "category"
-    t.string "chords"
+    t.string "description"
     t.string "author"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "title", default: "chords"
   end
 
   create_table "creations", force: :cascade do |t|
@@ -35,10 +36,11 @@ ActiveRecord::Schema.define(version: 2022_08_03_210221) do
 
   create_table "enigmas", force: :cascade do |t|
     t.string "category"
-    t.string "enigma"
+    t.string "description"
     t.string "author"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "title", default: "enigma"
   end
 
   create_table "inspirations", force: :cascade do |t|
@@ -53,10 +55,11 @@ ActiveRecord::Schema.define(version: 2022_08_03_210221) do
 
   create_table "lyric_snippets", force: :cascade do |t|
     t.string "category"
-    t.string "lyrics"
+    t.string "description"
     t.string "author"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "title", default: "lyrics"
   end
 
   create_table "users", force: :cascade do |t|

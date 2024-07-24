@@ -139,7 +139,7 @@ function AddYourOwnModal({
               <br></br>
               {userAddSelection === 'chords' ? (
                 <Form.Label>
-                  please separate chords with '-' and use verbose naming
+                  please separate chords with '-' and use shorthand naming
                   <br></br>
                   <br></br>(min for minor, dim for diminished etc) ex; Amin -
                   Bdim - Amin(b13)

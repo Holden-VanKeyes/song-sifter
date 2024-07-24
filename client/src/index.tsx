@@ -25,15 +25,6 @@ root.render(
     </MantineProvider>
   </Router>
 )
-// ReactDOM.render(
-//   <Router>
-//     <MantineProvider theme={theme}>
-//       <App />
-//     </MantineProvider>
-//   </Router>,
-
-//   document.getElementById('root')
-// )
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

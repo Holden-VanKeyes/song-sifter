@@ -17,15 +17,16 @@ class ChordProgressionsController < ApplicationController
 
     def get_random_chords
         # byebug
-        @chords = ChordProgression.where(category: params[:category])
+        @description = ChordProgression.where(category: params[:category])
+      
         
-         render json: @chords.limit(1).order("RANDOM()").first
+         render json: @description.limit(1).order("RANDOM()").first
          
        end
 
     private
 
     def chord_params
-     params.permit(:category, :chords, :author)
+     params.permit(:category, :description, :author)
     end
 end

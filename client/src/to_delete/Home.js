@@ -7,7 +7,7 @@ import { useState } from 'react'
 
 import Offcanvas from 'react-bootstrap/Offcanvas'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
-import SplashPage from './SplashPage'
+import SplashPage from '../SplashPage'
 import LoginErrorMsg from './LoginErrorMsg'
 
 export default function Home({

@@ -1,71 +1,38 @@
-import React, { createContext, useContext, useState, useEffect } from 'react'
-import { UserContext } from './global/UserContext'
-import './App.css'
-import NavHeader from './NavHeader'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import React, { useContext, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
-import Home from './Home'
-import SongSifterCreate from './SongSifterCreate'
-import UserProfile from './components/UserProfile'
-import ShareCreation from './ShareCreation'
 import { useNavigate, useLocation } from 'react-router-dom'
-import NotLoggedInAlert from './NotLoggedInAlert'
-import SplashPage from './SplashPage'
-import FilterHelper from './FilterHelper'
-import Offset from './Offset'
+
+import { UserContext } from './global/UserContext'
+
+import { IconSun, IconMoon } from '@tabler/icons-react'
 import {
   AppShell,
   Burger,
   Group,
-  Button,
-  Image,
   ActionIcon,
-  Box,
   Flex,
   useMantineColorScheme,
   useComputedColorScheme,
 } from '@mantine/core'
-import { useDisclosure } from '@mantine/hooks'
-import SideNav from './components/SideNav'
-import { images } from './constants/constants'
-import { ReactComponent as Logo } from './assets/images/logo.svg'
-import CreationForm from './components/Forms/CreationForm'
-import { IconSun, IconMoon } from '@tabler/icons-react'
-import HomePage from './HomePage'
-import UserProvider from './global/UserContext'
-
 import css from './App.module.scss'
+import { ReactComponent as Logo } from './assets/images/logo.svg'
+import { useDisclosure } from '@mantine/hooks'
 
-// interface UserContext {}
-
-// const UserAuth = createContext<{
-//   currentUser: null
-//   setCurrentUser: React.Dispatch<React.SetStateAction<null>>
-// } | null>(null)
+import UserProfile from './components/UserProfile'
+import SideNav from './components/SideNav'
+import CreationForm from './components/Forms/CreationForm'
+import HomePage from './HomePage'
+import AddLyrics from './components/AddLyrics'
+import AddEnigma from './components/AddEnigma'
+import AddChords from './components/AddChords'
 
 function App() {
-  const { currentUser } = useContext(UserContext)
-  // const [currentUser, setCurrentUser] = useState({
-  //   id: '',
-  //   username: '',
-  //   profile_pic: '',
-  // })
+  const { setCurrentUser } = useContext(UserContext)
+
   const { setColorScheme } = useMantineColorScheme()
   const computedColorScheme = useComputedColorScheme('light', {
     getInitialValueInEffect: true,
   })
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [filteredSearch, setFilteredSearch] = useState('')
-  const [filteredType, setFilteredType] = useState('')
-  const [sharePageUpdate, setSharePageUpdate] = useState([])
-  const [showFilteredPage, setShowFilteredPage] = useState([])
-  const [refreshed, setRefreshed] = useState(false)
-  const [showAddYourOwnForm, setShowAddYourOwnForm] = useState(false)
-  const [userAddSelection, setUserAddSelection] = useState('')
-  const [getStarted, setGetStarted] = useState(false)
-  const [showOffset, setShowOffset] = useState(false)
-  const [selectedComponent, setSeletedComponent] = useState('')
 
   const [opened, { toggle }] = useDisclosure()
 
@@ -73,85 +40,28 @@ function App() {
 
   const navigate = useNavigate()
 
-  // useEffect(() => {
-  //   fetch('/me', {
-  //     credentials: 'include',
-  //   })
-  //     .then((r) => r.json())
-  //     .then((data) => {
-  //       fetch('/creations')
-  //         .then((response) => response.json())
-  //         .then((data) => {
-  //           // setShowFilteredPage(data)
-  //         })
-  //       if (data.username) {
-  //         handleLoginSignup(data)
-  //       } else {
-  //         return null
-  //       }
-  //     })
-  // }, [])
+  useEffect(() => {
+    const fetcher = async () => {
+      const req = await fetch('/me', { credentials: 'include' })
 
-  // useEffect(() => {
-  //   console.log('RUNNING')
-  //   const fetcher = async () => {
-  //     const req = await fetch('/me', { credentials: 'include' })
+      if (req.status !== 200) {
+        console.log('ERROR', req.statusText)
+        return
+      }
+      const userSession = await req.json()
+      if (userSession.id) {
+        setCurrentUser!(userSession)
+      }
+    }
+    fetcher()
+  }, [])
 
-  //     if (req.status !== 200) {
-  //       return
-  //     }
-  //     const currentUser = await req.json()
-  //     if (currentUser.id) {
-  //       setIsLoggedIn(true)
-  //       setCurrentUser(currentUser)
-  //     }
-  //     // const currentUser = await getUser.json()
-  //     console.log('currentUser', currentUser)
-  //   }
-  //   fetcher()
-
-  //   if (!currentUser) {
-  //     return
-  //   } else setIsLoggedIn(true)
-  // }, [currentUser])
   //close sideNav when navigating to new page
   useEffect(() => {
     if (opened) {
       toggle()
     }
   }, [pathname])
-
-  // function showLoginInfo() {
-  //   setGetStarted(true)
-  //   navigate('/')
-  // }
-
-  // function handleLoginSignup(currentUser: any) {
-  //   setGetStarted(false)
-  //   setCurrentUser(currentUser)
-  //   setIsLoggedIn(true)
-  // }
-
-  // function resetFunction() {
-  //   setRefreshed(true)
-  // }
-
-  // function handleSearch(category: any, name: any) {
-  //   setFilteredSearch(category)
-  //   setFilteredType(name)
-  // }
-
-  function showModalPopUp(e: any) {
-    setShowAddYourOwnForm(true)
-    setUserAddSelection(e.target.value)
-  }
-  // function handleCloseModal() {
-  //   setShowAddYourOwnForm(false)
-  // }
-
-  function updatedUserRefresh(data: any) {
-    // setCurrentUser(data)
-  }
 
   // function updateSharePage(filteredSet: any) {
   //   setFilteredType('')
@@ -186,21 +96,6 @@ function App() {
   //   navigate('/ShareCreation')
   // }
 
-  // async function handleLogout() {
-  //   navigate('/')
-  //   setGetStarted(false)
-  //   const response = await fetch('/logout', {
-  //     method: 'DELETE',
-  //   })
-  //   if (response.ok) {
-  //     setIsLoggedIn(false)
-  //     setCurrentUser({
-  //       id: '',
-  //       username: '',
-  //     })
-  //   }
-  // }
-
   return (
     <>
       <AppShell
@@ -212,7 +107,7 @@ function App() {
         }}
       >
         <AppShell.Navbar>
-          <SideNav isLoggedIn={isLoggedIn} />
+          <SideNav />
         </AppShell.Navbar>
         <AppShell.Header>
           <Flex justify="space-between" align="center">
@@ -258,132 +153,23 @@ function App() {
               path="/UserProfile"
               element={
                 <UserProfile
-                  currentUser={currentUser}
-                  // postShare={'postShare'}
-                  // showModalPopUp={showModalPopUp}
-                  // handleCloseModal={handleCloseModal}
-                  // updatedUserRefresh={updatedUserRefresh}
+
+                // postShare={'postShare'}
+                // showModalPopUp={showModalPopUp}
+                // handleCloseModal={handleCloseModal}
+                // updatedUserRefresh={updatedUserRefresh}
                 />
               }
             />
             <Route path="SongSifterCreate" element={<CreationForm />} />
             <Route path="/" element={<HomePage />} />
+            <Route path="/add-lyrics" element={<AddLyrics />} />
+            <Route path="/add-enigma" element={<AddEnigma />} />
+            <Route path="/add-chords" element={<AddChords />} />
           </Routes>
-          {/* <UserProfile
-            currentUser={currentUser}
-            postShare={'postShare'}
-            showModalPopUp={showModalPopUp}
-            // handleCloseModal={handleCloseModal}
-            updatedUserRefresh={updatedUserRefresh}
-          /> */}
         </AppShell.Main>
       </AppShell>
     </>
-    // <div>
-    //   <Offset showOffset={showOffset} handleOffset={handleOffset} />
-    //   <FilterHelper
-    //     filteredSearch={filteredSearch}
-    //     filteredType={filteredType}
-    //     updateSharePage={updateSharePage}
-    //     showFilteredPage={showFilteredPage}
-    //   />
-    //   <div
-    //     className="img-container"
-    //     style={{
-    //       backgroundRepeat: 'no-repeat',
-    //       backgroundSize: '100vw 100vh',
-    //       display: 'flex',
-    //       alignItems: 'center',
-    //       justifyContent: 'center',
-    //       height: '100vh',
-    //       width: '100vw',
-    //     }}
-    //   >
-    //     <NavHeader
-    //       // isLoggedIn={isLoggedIn}
-    //       // handleLogout={handleLogout}
-    //       handleSearch={handleSearch}
-    //       resetFunction={resetFunction}
-    //       showAddYourOwnForm={showAddYourOwnForm}
-    //       userAddSelection={userAddSelection}
-    //       handleCloseModal={handleCloseModal}
-    //       currentUser={currentUser}
-    //       showLoginInfo={showLoginInfo}
-    //       handleOffset={handleOffset}
-    //       // loginSignup={handleLoginSignup}
-    //     />
-
-    //     <Routes>
-    //       <Route
-    //         path="/"
-    //         element={
-    //           <Home
-    //             loginSignup={handleLoginSignup}
-    //             isLoggedIn={isLoggedIn}
-    //             getStarted={getStarted}
-    //             // showOffset={showOffset}
-    //           />
-    //         }
-    //       />
-    //       <Route
-    //         path="/SongSifterCreate"
-    //         element={
-    //           isLoggedIn ? (
-    //             <SongSifterCreate
-    //               currentUser={currentUser}
-    //               isLoggedIn={isLoggedIn}
-    //             />
-    //           ) : (
-    //             <NotLoggedInAlert />
-    //           )
-    //         }
-    //       />
-    //       <Route
-    //         path="/UserProfile"
-    //         element={
-    //           isLoggedIn ? (
-    //             <UserProfile
-    //               currentUser={currentUser}
-    //               // postShare={postShare}
-    //               showModalPopUp={showModalPopUp}
-    //               // handleCloseModal={handleCloseModal}
-    //               updatedUserRefresh={updatedUserRefresh}
-    //             />
-    //           ) : (
-    //             <NotLoggedInAlert />
-    //           )
-    //         }
-    //       />
-    //       {/* <Route
-    //         path="/ShareCreation"
-    //         element={
-    //           isLoggedIn ? (
-    //             <ShareCreation
-    //               currentUser={currentUser}
-    //               filteredSearch={filteredSearch}
-    //               filteredType={filteredType}
-    //               sharePageUpdate={sharePageUpdate}
-    //               refreshed={refreshed}
-    //               resetFunction={resetFunction}
-    //             />
-    //           ) : (
-    //             <NotLoggedInAlert />
-    //           )
-    //         }
-    //       /> */}
-    //       {/* <Route
-    //         path="/SplashPage"
-    //         element={
-    //           <SplashPage
-    //             className="splash-page"
-    //             // showOffset={showOffset}
-    //             // setShowOffset={setShowOffset}
-    //           />
-    //         }
-    //       /> */}
-    //     </Routes>
-    //   </div>
-    // </div>
   )
 }
 

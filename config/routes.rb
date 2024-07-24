@@ -23,6 +23,9 @@ Rails.application.routes.draw do
   delete '/logout', to: "sessions#destroy"
   post '/login', to: "sessions#create"
   post '/signup', to: "users#create"
+  post '/lyrics', to: "lyric_snippets#create"
+  post '/chords', to: "chord_progressions#create"
+  # post '/enigmas', to: "enigmas#create"
 
   # to remeber session cookie on refresh
   get '/me', to: "users#show"

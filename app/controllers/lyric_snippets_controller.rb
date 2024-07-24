@@ -22,15 +22,15 @@ class LyricSnippetsController < ApplicationController
    
        def get_random_lyrics
        
-        @lyrics = LyricSnippet.where(category: params[:category])
+        @description = LyricSnippet.where(category: params[:category])
         
-         render json: @lyrics.limit(1).order("RANDOM()").first
+         render json: @description.limit(1).order("RANDOM()").first
          
        end
    
        private
    
        def lyric_params
-        params.permit(:category, :lyrics, :author)
+        params.permit(:category, :description, :author)
        end
 end

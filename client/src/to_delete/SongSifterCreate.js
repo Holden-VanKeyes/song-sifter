@@ -7,7 +7,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import InspirationPopUp from './InspirationPopUp'
 import { useNavigate } from 'react-router-dom'
-import { images } from './constants/constants'
+import { images } from '../constants/constants'
 
 function SongSifterCreate({ currentUser }) {
   const [chordSelect, setChordSelect] = useState('')

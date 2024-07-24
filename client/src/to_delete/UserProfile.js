@@ -1,12 +1,12 @@
 import React, { useState, useContext } from 'react'
-import { UserContext } from './global/UserContext'
+import { UserContext } from '../global/UserContext'
 import Tooltip from 'react-bootstrap/Tooltip'
 import { useEffect } from 'react'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
-import ShareCreationForm from './ShareCreationForm'
+import ShareCreationForm from '../ShareCreationForm'
 
-import EditProfileForm from './EditProfileForm'
+import EditProfileForm from '../EditProfileForm'
 
 function UserProfile({
   currentUser,

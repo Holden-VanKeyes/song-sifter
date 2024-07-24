@@ -29,10 +29,10 @@ const data = [
     link: '',
     label: 'Add',
     icon: IconSettings,
-    links: [
-      { link: '', label: 'Lyrics', icon: IconMicrophone },
-      { link: '', label: 'Enigmas', icon: IconScanEye },
-      { link: '', label: 'Chord Progressions', icon: IconPlaylist },
+    additions: [
+      { link: 'add-lyrics', label: 'Lyrics', icon: IconMicrophone },
+      { link: 'add-enigma', label: 'Enigmas', icon: IconScanEye },
+      { link: 'add-chords', label: 'Chord Progressions', icon: IconPlaylist },
     ],
   },
 ]
@@ -63,7 +63,7 @@ export default function LinksGroup(): JSX.Element {
 
             <Group>
               {item.label}
-              {item.links ? (
+              {item.additions ? (
                 <IconChevronRight
                   className={css.chevron}
                   stroke={1.5}
@@ -76,24 +76,24 @@ export default function LinksGroup(): JSX.Element {
               ) : null}
             </Group>
           </NavLink>
-          {item.links ? (
+          {item.additions ? (
             <Collapse in={opened}>
               <Stack className={css.collapseLink}>
-                {item.links.map((link) => (
-                  <Text
+                {item.additions.map((item) => (
+                  <NavLink
                     className={css.nestedLink}
-                    data-active={link.label === active || undefined}
-                    // href={link.link}
-                    key={link.label}
+                    data-active={item.label === active || undefined}
+                    to={item.link}
+                    key={item.label}
                     onClick={(event) => {
-                      console.log('Click', link.label)
                       event.preventDefault()
-                      setActive(link.label)
+                      setActive(item.label)
+                      navigate(item.link)
                     }}
                   >
-                    <link.icon className={css.linkIcon} stroke={1.5} />
-                    {link.label}
-                  </Text>
+                    <item.icon className={css.linkIcon} stroke={1.5} />
+                    {item.label}
+                  </NavLink>
                 ))}
               </Stack>
             </Collapse>
