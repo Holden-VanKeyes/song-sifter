@@ -13,6 +13,7 @@ import {
   Select,
   Button,
   UnstyledButton,
+  Center,
 } from '@mantine/core'
 import { useForm, isNotEmpty } from '@mantine/form'
 import {
@@ -141,81 +142,83 @@ export default function CreationForm() {
   }
 
   return (
-    <Container m="md">
-      <form
-        onSubmit={form.onSubmit(() => {
-          handleSubmit()
-        })}
-      >
-        <Card withBorder shadow="sm" radius="md" mb="sm">
-          <Card.Section withBorder inheritPadding py="xs">
-            <Group justify="space-between">
-              <Text fw={500}>{imageCardArray[stepper].title}</Text>
-            </Group>
-          </Card.Section>
-
-          <Text py="xs" c="dimmed" size="sm">
-            {imageCardArray[stepper].description}
-          </Text>
-          <Card.Section inheritPadding>
-            {/* TODO - refactor now that null is not in constant Object */}
-            <Select
-              placeholder={`choose your ${imageCardArray[stepper].type} category`}
-              key={form.key(imageCardArray[stepper].type)}
-              {...form.getInputProps(imageCardArray[stepper].type)}
-              data={
-                Object.entries(imageCardArray[stepper].categories)
-                  .flatMap(([k, v]) => {
-                    if (k === 'name' || v === null) {
-                      return
-                    } else return v
-                  })
-                  .filter((item) => item !== undefined) as string[]
-              }
-            />
-          </Card.Section>
-          <Card.Section mt="sm">
-            <Image src={imageCardArray[stepper].imgUrl} />
-          </Card.Section>
-        </Card>
-
-        <Group
-          justify="center"
-          style={{ justifyContent: 'space-between' }}
-          mt="lg"
+    <Center>
+      <Container m="md">
+        <form
+          onSubmit={form.onSubmit(() => {
+            handleSubmit()
+          })}
         >
-          <ActionIcon
-            variant="outline"
-            size="lg"
-            color="rgba(68, 196, 242, 0.96)"
-            disabled={stepper === 0 ? true : false}
-            onClick={() => setStepper(stepper - 1)}
+          <Card withBorder shadow="sm" radius="md" mb="sm">
+            <Card.Section withBorder inheritPadding py="xs">
+              <Group justify="space-between">
+                <Text fw={500}>{imageCardArray[stepper].title}</Text>
+              </Group>
+            </Card.Section>
+
+            <Text py="xs" c="dimmed" size="sm">
+              {imageCardArray[stepper].description}
+            </Text>
+            <Card.Section inheritPadding>
+              {/* TODO - refactor now that null is not in constant Object */}
+              <Select
+                placeholder={`choose your ${imageCardArray[stepper].type} category`}
+                key={form.key(imageCardArray[stepper].type)}
+                {...form.getInputProps(imageCardArray[stepper].type)}
+                data={
+                  Object.entries(imageCardArray[stepper].categories)
+                    .flatMap(([k, v]) => {
+                      if (k === 'name' || v === null) {
+                        return
+                      } else return v
+                    })
+                    .filter((item) => item !== undefined) as string[]
+                }
+              />
+            </Card.Section>
+            <Card.Section mt="sm">
+              <Image src={imageCardArray[stepper].imgUrl} />
+            </Card.Section>
+          </Card>
+
+          <Group
+            justify="center"
+            style={{ justifyContent: 'space-between' }}
+            mt="lg"
           >
-            <IconChevronLeft />
-          </ActionIcon>
-          {stepper === 2 ? (
-            <Button type="submit" color="cyan" variant="outline">
-              Create
-            </Button>
-          ) : null}
-          <ActionIcon
-            variant="outline"
-            size="lg"
-            color="rgba(68, 196, 242, 0.96)"
-            disabled={stepper === 2 ? true : false}
-            onClick={() => {
-              handleNextStep()
-            }}
-          >
-            <IconChevronRight />
-          </ActionIcon>
-        </Group>
-      </form>
-      <InspirationModal
-        openModal={openModal}
-        handleClose={handleCloseModal}
-        inspirationObj={inspirationObj}
-      />
-    </Container>
+            <ActionIcon
+              variant="outline"
+              size="lg"
+              color="rgba(68, 196, 242, 0.96)"
+              disabled={stepper === 0 ? true : false}
+              onClick={() => setStepper(stepper - 1)}
+            >
+              <IconChevronLeft />
+            </ActionIcon>
+            {stepper === 2 ? (
+              <Button type="submit" color="cyan" variant="outline">
+                Create
+              </Button>
+            ) : null}
+            <ActionIcon
+              variant="outline"
+              size="lg"
+              color="rgba(68, 196, 242, 0.96)"
+              disabled={stepper === 2 ? true : false}
+              onClick={() => {
+                handleNextStep()
+              }}
+            >
+              <IconChevronRight />
+            </ActionIcon>
+          </Group>
+        </form>
+        <InspirationModal
+          openModal={openModal}
+          handleClose={handleCloseModal}
+          inspirationObj={inspirationObj}
+        />
+      </Container>
+    </Center>
   )
 }

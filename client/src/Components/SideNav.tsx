@@ -8,11 +8,7 @@ import LinksGroup from './LinksGroup'
 import LoginSignup from './LoginSignup'
 import css from './SideNav.module.css'
 
-interface SideNaveProps {
-  isLoggedIn: boolean
-}
-
-export default function SideNav({ isLoggedIn }: SideNaveProps) {
+export default function SideNav() {
   const { currentUser, setCurrentUser } = useContext(UserContext)
   const [openModal, setOpenModal] = useState(false)
   const [formType, setFormType] = useState('')
