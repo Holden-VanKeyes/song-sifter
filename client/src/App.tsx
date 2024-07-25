@@ -25,6 +25,7 @@ import HomePage from './HomePage'
 import AddLyrics from './components/AddLyrics'
 import AddEnigma from './components/AddEnigma'
 import AddChords from './components/AddChords'
+import Search from './components/ShareAndSearch'
 
 function App() {
   const { setCurrentUser } = useContext(UserContext)
@@ -149,20 +150,10 @@ function App() {
 
         <AppShell.Main>
           <Routes>
-            <Route
-              path="/UserProfile"
-              element={
-                <UserProfile
-
-                // postShare={'postShare'}
-                // showModalPopUp={showModalPopUp}
-                // handleCloseModal={handleCloseModal}
-                // updatedUserRefresh={updatedUserRefresh}
-                />
-              }
-            />
-            <Route path="SongSifterCreate" element={<CreationForm />} />
             <Route path="/" element={<HomePage />} />
+            <Route path="/user-profile" element={<UserProfile />} />
+            <Route path="/share-and-search" element={<Search />} />
+            <Route path="create" element={<CreationForm />} />
             <Route path="/add-lyrics" element={<AddLyrics />} />
             <Route path="/add-enigma" element={<AddEnigma />} />
             <Route path="/add-chords" element={<AddChords />} />

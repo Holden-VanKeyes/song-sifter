@@ -22,9 +22,9 @@ interface LinksGroupProps {
 }
 
 const data = [
-  { link: 'UserProfile', label: 'Profile', icon: IconUserHeart },
-  { link: '', label: 'Search', icon: IconSearch },
-  { link: 'SongSifterCreate', label: 'Create', icon: IconIceCream2 },
+  { link: 'user-profile', label: 'Profile', icon: IconUserHeart },
+  { link: 'share-and-search', label: 'Search', icon: IconSearch },
+  { link: 'create', label: 'Create', icon: IconIceCream2 },
   {
     link: '',
     label: 'Add',

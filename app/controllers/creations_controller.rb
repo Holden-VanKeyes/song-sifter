@@ -1,6 +1,7 @@
 class CreationsController < ApplicationController
 
     def create
+  
      creation = Creation.create!(creation_params)
      render json: creation
     end

@@ -70,22 +70,22 @@ export function SavedInspos() {
 
           <Stack pt="md">
             <Group wrap="nowrap">
-              <ActionIcon color="rgb(160, 194, 207)">
-                <IconPlaylist />
+              <ActionIcon color="rgb(160, 194, 207)" size={35} radius="lg">
+                <IconPlaylist width={25} height={25} />
               </ActionIcon>
               <Text fz="sm">{userInspirations[position].chord_return}</Text>
             </Group>
 
             <Group wrap="nowrap">
-              <ActionIcon color="rgb(160, 194, 207)">
-                <IconScanEye />
+              <ActionIcon color="rgb(160, 194, 207)" size={35} radius="lg">
+                <IconScanEye width={25} height={25} />
               </ActionIcon>
               <Text fz="sm">{userInspirations[position].enigma_return}</Text>
             </Group>
 
             <Group wrap="nowrap">
-              <ActionIcon color="rgb(160, 194, 207)">
-                <IconMicrophone />
+              <ActionIcon color="rgb(160, 194, 207)" size={35} radius="lg">
+                <IconMicrophone width={24} height={24} />
               </ActionIcon>
               <Text fz="sm">{userInspirations[position].lyric_return}</Text>
             </Group>

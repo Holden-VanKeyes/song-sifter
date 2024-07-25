@@ -10,6 +10,7 @@ import {
   Text,
   ActionIcon,
   TextInput,
+  Input,
   PasswordInput,
   rem,
 } from '@mantine/core'
@@ -37,6 +38,7 @@ export default function LoginSignup({
   formType,
 }: LoginSignupProps) {
   const { currentUser, setCurrentUser } = useContext(UserContext)
+  const [hexcode, setHexcode] = useState('')
   const [userCreateError, setUserCreateError] = useState('')
   const [visible, { toggle }] = useDisclosure(false)
   const navigate = useNavigate()
@@ -47,6 +49,15 @@ export default function LoginSignup({
       <br /> - Contains one special character <br /> - Contains one number
     </>
   )
+
+  // useEffect(() => {
+  //   const randomHex = () =>
+  //     `#${Math.floor(Math.random() * 0xffffff)
+  //       .toString(16)
+  //       .padEnd(6, '0')}`
+
+  // },[])
+
   const form = useForm({
     mode: 'uncontrolled',
     initialValues: {
@@ -88,7 +99,12 @@ export default function LoginSignup({
   })
 
   const handleSubmitSignup = async () => {
+    const randomHex = () =>
+      `${Math.floor(Math.random() * 0xffffff)
+        .toString(16)
+        .padEnd(6, '0')}`
     const { username, email, password, passwordCheck } = form.getValues()
+
     const createUser = await fetch('/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -97,7 +113,7 @@ export default function LoginSignup({
         email: email,
         password: password,
         passwordConfirm: passwordCheck,
-        profile_pic: `https://api.dicebear.com/8.x/notionists-neutral/svg?seed=${username}`,
+        profile_pic: `https://api.dicebear.com/8.x/notionists-neutral/svg?seed=${username}&backgroundColor=${randomHex()}`,
       }),
     })
     const response = await createUser.json()
@@ -109,7 +125,7 @@ export default function LoginSignup({
       setCurrentUser!(response)
       form.reset()
       handleClose()
-      // navigate('/UserProfile')
+      navigate('/user-profile')
     }
   }
 
@@ -129,7 +145,7 @@ export default function LoginSignup({
     } else {
       setCurrentUser!(response)
       form.reset()
-      navigate('/UserProfile')
+      navigate('/user-profile')
       handleClose()
     }
   }

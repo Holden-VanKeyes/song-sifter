@@ -114,25 +114,6 @@ export default function CreationForm() {
     setRandomEnigma(enigmaJson.enigma)
     setRandomLyric(lyricJson.lyrics)
     setRandomChords(chordJson.chords)
-    // const newInspiration = {
-    //     title: inspirationName,
-    //     user_id: currentUser.id,
-    //     chord_progression_id: randomChords.id,
-    //     enigma_id: randomEnigma.id,
-    //     lyric_snippet_id: randomLyric.id,
-    //   }
-
-    //   await fetch('/inspirations', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(newInspiration),
-    //   })
-    //     .then((response) => response.json())
-    //     .then((data) => {})
-
-    //   navigate('/UserProfile')
   }
 
   const handleNextStep = () => {
