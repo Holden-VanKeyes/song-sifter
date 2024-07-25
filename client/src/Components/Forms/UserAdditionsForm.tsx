@@ -159,7 +159,7 @@ export default function UserAdditionsForm({
         opened={opened}
         onClose={() => {
           setOpened(false)
-          navigate('/UserProfile')
+          navigate('/user-profile')
         }}
         centered
         withCloseButton={false}

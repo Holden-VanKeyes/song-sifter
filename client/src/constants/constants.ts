@@ -35,6 +35,14 @@ export const categoriesByName = {
   chords: chordCategories,
 }
 
+export const moods = [
+  { emoji: '☀️', label: 'Sunny weather' },
+  { emoji: '🦓', label: 'Onsite zoo' },
+  { emoji: '🌊', label: 'Sea' },
+  { emoji: '🌲', label: 'Nature' },
+  { emoji: '🤽', label: 'Water sports' },
+]
+
 export const imageCardArray = [
   {
     type: 'lyrics',
