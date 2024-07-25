@@ -85,13 +85,40 @@ export default function UserProfile() {
         </Tabs.List>
 
         <Tabs.Panel value="saves">
-          {/* <Box m="md"> */}
-          <SavedInspos /> {/* </Box> */}
+          <SavedInspos />
         </Tabs.Panel>
         <Tabs.Panel value="thoughts">
-          <Box m="md">
-            <div>HELLO</div>
-          </Box>
+          <Stack mt="lg">
+            <Blockquote
+              color="teal"
+              radius="lg"
+              style={{
+                borderInlineEnd: '3px solid aquamarine',
+              }}
+            >
+              hey heye hey
+            </Blockquote>
+
+            <Blockquote
+              style={{
+                borderInlineEnd: '3px solid crimson',
+              }}
+              color="rgba(255, 144, 92, 1)"
+              radius="lg"
+            >
+              hey heye hey
+            </Blockquote>
+
+            <Blockquote
+              color="cyan"
+              radius="lg"
+              style={{
+                borderInlineEnd: '3px solid cornflowerblue',
+              }}
+            >
+              hey heye hey
+            </Blockquote>
+          </Stack>
         </Tabs.Panel>
       </Tabs>
     </>
