@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   Avatar,
   Text,
@@ -25,6 +26,7 @@ import {
 import { moods } from '../constants/constants'
 
 export default function ShareAndSearch() {
+  const navigate = useNavigate()
   const [sharedCreations, setSharedCreations] = useState<[]>([])
   useEffect(() => {
     console.log('search')
@@ -60,7 +62,13 @@ export default function ShareAndSearch() {
     <Container mt="sm">
       <Stack>
         {sharedCreations.map((share: any) => (
-          <Paper radius="md" withBorder p="md">
+          <Paper
+            radius="md"
+            withBorder
+            p="md"
+            key={share.id}
+            onClick={() => navigate('/view-user', { state: share.user_id })}
+          >
             <Paper mb="sm">
               <Avatar src={share.get_avatars} size={60} radius={60} mx="auto" />
               <Text ta="center" fz="lg" fw={500} mt="md">

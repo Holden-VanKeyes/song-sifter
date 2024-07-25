@@ -26,6 +26,7 @@ import AddLyrics from './components/AddLyrics'
 import AddEnigma from './components/AddEnigma'
 import AddChords from './components/AddChords'
 import Search from './components/ShareAndSearch'
+import ViewUser from './components/ViewUser'
 
 function App() {
   const { setCurrentUser } = useContext(UserContext)
@@ -152,6 +153,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/user-profile" element={<UserProfile />} />
+            <Route path="/view-user" element={<ViewUser />} />
             <Route path="/share-and-search" element={<Search />} />
             <Route path="create" element={<CreationForm />} />
             <Route path="/add-lyrics" element={<AddLyrics />} />
