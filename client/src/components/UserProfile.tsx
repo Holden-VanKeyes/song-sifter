@@ -39,6 +39,10 @@ export default function UserProfile() {
     ? `#${currentUser.profile_pic?.slice(currentUser.profile_pic.length - 6)}`
     : '#44c4f2f5'
 
+  const handleClose = () => {
+    setOpened(false)
+  }
+
   return (
     <>
       <Paper radius="md" p="lg" bg="var(--mantine-color-body)" mb="md" mt="sm">
@@ -134,7 +138,7 @@ export default function UserProfile() {
         centered
         title="Edit Your Deets"
       >
-        <EditProfile />
+        <EditProfile handleClose={handleClose} />
       </Modal>
     </>
   )

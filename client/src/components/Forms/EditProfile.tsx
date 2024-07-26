@@ -28,28 +28,19 @@ import {
 } from '@mantine/core'
 import { useForm, isNotEmpty } from '@mantine/form'
 import { avatarOptions } from 'src/constants/constants'
-import { countryArray } from 'src/constants/constants'
+import { countries } from 'src/constants/countries'
 
-const groceries = [
-  '🍎 Apples',
-  '🍌 Bananas',
-  '🥦 Broccoli',
-  '🥕 Carrots',
-  '🍫 Chocolate',
-  '🍇 Grapes',
-]
-
-interface UsersAvatarProps {
-  style: string
+interface EditProfileProps {
+  handleClose: () => void
 }
 
-export default function EditProfile() {
-  const { currentUser } = useContext(UserContext)
+export default function EditProfile({ handleClose }: EditProfileProps) {
+  const { currentUser, setCurrentUser } = useContext(UserContext)
   const usersCurrentAvatar = avatarOptions.find((avatar) =>
     currentUser.profile_pic.includes(avatar.style)
   )
   const [value, setValue] = useState<string | null>(null)
-  const [search, setSearch] = useState('')
+  const [countrySearch, setCountrySearch] = useState('')
   const [opened, setOpened] = useState(false)
   const [selectedAvatar, setSelectedAvatar] = useState(
     usersCurrentAvatar!.style
@@ -60,30 +51,37 @@ export default function EditProfile() {
   const form = useForm({
     mode: 'uncontrolled',
     initialValues: {
-      username: '',
+      username: currentUser.username,
       instrument: '',
       favSong: '',
       quote: '',
       underRadar: '',
+      country: '',
     },
     onValuesChange: (values) => {
       // ✅ This will be called on every form values change
     },
 
-    validate: {
-      instrument: isNotEmpty('Please Make A Selection'),
-      favSong: isNotEmpty('Please Make A Selection'),
-      quote: isNotEmpty('Please Make A Selection'),
-      underRadar: isNotEmpty('Please Make A Selection'),
-    },
+    // validate: {
+    //   instrument: isNotEmpty('Please Make A Selection'),
+    //   favSong: isNotEmpty('Please Make A Selection'),
+    //   quote: isNotEmpty('Please Make A Selection'),
+    //   underRadar: isNotEmpty('Please Make A Selection'),
+    // },
   })
+  const countryArray = []
+  countryArray.push(
+    Object.values(countries[0]).map((item) => item.name + ' ' + item.emoji)
+  )
 
-  const shouldFilterOptions = groceries.every((item) => item !== search)
+  const shouldFilterOptions = countryArray[0].every(
+    (item) => item !== countrySearch
+  )
   const filteredOptions = shouldFilterOptions
-    ? groceries.filter((item) =>
-        item.toLowerCase().includes(search.toLowerCase().trim())
+    ? countryArray[0].filter((item) =>
+        item.toLowerCase().includes(countrySearch.toLowerCase().trim())
       )
-    : groceries
+    : countryArray[0]
 
   const options = filteredOptions.map((item) => (
     <Combobox.Option value={item} key={item}>
@@ -91,35 +89,71 @@ export default function EditProfile() {
     </Combobox.Option>
   ))
 
-  console.log(countryArray)
+  const handleSubmit = async () => {
+    // console.log(form.getValues(), selectedAvatar, countrySearch)
+    const { username, favSong, instrument, quote, underRadar } =
+      form.getValues()
+    const avatarUrl = `https://api.dicebear.com/8.x/${selectedAvatar}/svg?seed=${
+      username ? username : currentUser.username
+    }}`
+
+    const userUpdates = {
+      username: username,
+      fav_song: favSong,
+      instrument: instrument,
+      quote: quote,
+      under_radar: underRadar,
+      country: countrySearch,
+      profile_pic: avatarUrl,
+    }
+
+    const res = await fetch(`/users/${currentUser.id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userUpdates),
+    })
+
+    if (res.ok) {
+      const data = await res.json()
+      setCurrentUser!(data)
+      form.reset()
+      handleClose()
+
+      console.log('UPDATED USER', data)
+    } else console.log('ERROR', res.statusText)
+  }
 
   return (
     <>
-      <form>
+      <form onSubmit={form.onSubmit(() => handleSubmit())}>
         <Stack gap="lg">
           <Combobox
             store={combobox}
             withinPortal={false}
             onOptionSubmit={(val) => {
               setValue(val)
-              setSearch(val)
+              setCountrySearch(val)
               combobox.closeDropdown()
             }}
           >
             <Combobox.Target>
               <InputBase
+                // key={form.key('country')}
+                // {...form.getInputProps('country')}
                 rightSection={<Combobox.Chevron />}
-                value={search}
+                value={countrySearch}
                 onChange={(event) => {
                   combobox.openDropdown()
                   combobox.updateSelectedOptionIndex()
-                  setSearch(event.currentTarget.value)
+                  setCountrySearch(event.currentTarget.value)
                 }}
                 onClick={() => combobox.openDropdown()}
                 onFocus={() => combobox.openDropdown()}
                 onBlur={() => {
                   combobox.closeDropdown()
-                  setSearch(value || '')
+                  setCountrySearch(value || '')
                 }}
                 placeholder="Country"
                 rightSectionPointerEvents="none"
@@ -138,30 +172,47 @@ export default function EditProfile() {
             <TextInput
               key={form.key('username')}
               {...form.getInputProps('username')}
-              //   placeholder="give your inspiration a unique name..."
-            />
-            <TextInput
-              key={form.key('instrument')}
-              {...form.getInputProps('instrument')}
-              //   placeholder="give your inspiration a unique name..."
+              placeholder="New username"
             />
             <TextInput
               key={form.key('favSong')}
               {...form.getInputProps('favSong')}
-              //   placeholder="give your inspiration a unique name..."
+              placeholder={currentUser.fav_song}
             />
             <TextInput
               key={form.key('quote')}
               {...form.getInputProps('quote')}
-              //   placeholder="give your inspiration a unique name..."
+              placeholder={currentUser.quote}
             />
             <TextInput
               key={form.key('underRadar')}
               {...form.getInputProps('underRadar')}
-              //   placeholder="give your inspiration a unique name..."
+              placeholder={currentUser.under_radar}
+            />
+            <TextInput
+              key={form.key('instrument')}
+              {...form.getInputProps('instrument')}
+              placeholder="Share your main instrument"
             />
           </Combobox>
-          <Button onClick={() => setOpened(true)}>Change Avatar</Button>
+          <Group justify="center">
+            <Button
+              color="teal"
+              variant="outline"
+              leftSection={<Avatar size={25} src={currentUser.profile_pic} />}
+              onClick={() => setOpened(true)}
+            >
+              Edit Avatar
+            </Button>
+            <Button
+              type="submit"
+              color="teal"
+              variant="outline"
+              //   onClick={() => setOpened(true)}
+            >
+              Submit Changes
+            </Button>
+          </Group>
         </Stack>
         <Modal
           centered
@@ -170,7 +221,7 @@ export default function EditProfile() {
           title="Choose an avatar type"
         >
           <Text c="dimmed" size="xs" fs="italic">
-            avatars are generated at random from selected style
+            avatars will be generated at random from selected style
           </Text>
 
           <Grid>

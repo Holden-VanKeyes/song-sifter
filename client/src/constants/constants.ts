@@ -36,7 +36,9 @@ export const categoriesByName = {
   chords: chordCategories,
 }
 
-export const countryArray = Object.values(countries)
+// const countryArray
+
+// export const countryArray = Object.values(countries)
 export const avatarOptions = [
   {
     style: 'adventurer',
