@@ -18,9 +18,9 @@ import css from './App.module.scss'
 import { ReactComponent as Logo } from './assets/images/logo.svg'
 import { useDisclosure } from '@mantine/hooks'
 
-// import UserProfile from './components/UserProfile'
-import UserProfile from '../src/components/UserProfile'
+import UserProfile from './components/UserProfile'
 import SideNav from './components/SideNav'
+
 import CreationForm from './components/Forms/CreationForm'
 import HomePage from './HomePage'
 import AddLyrics from './components/AddLyrics'
