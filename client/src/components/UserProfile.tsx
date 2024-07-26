@@ -15,6 +15,7 @@ import {
   Stack,
   Flex,
   Tabs,
+  Modal,
 } from '@mantine/core'
 import {
   IconScanEye,
@@ -26,9 +27,11 @@ import {
 } from '@tabler/icons-react'
 import { SavedInspos } from './SavedInspos'
 import css from './UserProfile.module.css'
+import EditProfile from './Forms/EditProfile'
 
 export default function UserProfile() {
   const [activeTab, setActiveTab] = useState<string | null>('saves')
+  const [opened, setOpened] = useState(false)
 
   const { state } = useLocation()
   const { currentUser } = useContext(UserContext)
@@ -52,6 +55,10 @@ export default function UserProfile() {
               style={{ position: 'absolute', right: 0 }}
               radius="lg"
               variant="white"
+              onClick={() => {
+                console.log('HIT', opened)
+                setOpened(true)
+              }}
             >
               <IconPencil />
             </ActionIcon>
@@ -121,6 +128,14 @@ export default function UserProfile() {
           </Stack>
         </Tabs.Panel>
       </Tabs>
+      <Modal
+        opened={opened}
+        onClose={() => setOpened(false)}
+        centered
+        title="Edit Your Deets"
+      >
+        <EditProfile />
+      </Modal>
     </>
   )
 }

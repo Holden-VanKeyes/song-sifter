@@ -1,3 +1,4 @@
+import { countries } from './countries'
 export const enigmaCategories = {
   name: 'enigmas',
   cat1: 'production/arrangement',
@@ -34,6 +35,51 @@ export const categoriesByName = {
   lyrics: lyricCategories,
   chords: chordCategories,
 }
+
+export const countryArray = Object.values(countries)
+export const avatarOptions = [
+  {
+    style: 'adventurer',
+    url: 'https://api.dicebear.com/9.x/adventurer/svg?seed=Abram',
+  },
+
+  {
+    style: 'avataaars',
+    url: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Jack',
+  },
+  {
+    style: 'big-ears',
+    url: 'https://api.dicebear.com/9.x/big-ears/svg?seed=French',
+  },
+  {
+    style: 'big-smile',
+    url: 'https://api.dicebear.com/9.x/big-smile/svg?seed=Sleator',
+  },
+  {
+    style: 'bottts',
+    url: 'https://api.dicebear.com/9.x/bottts/svg?seed=Stavitz',
+  },
+  {
+    style: 'croodles',
+    url: 'https://api.dicebear.com/9.x/croodles/svg?seed=Christian',
+  },
+  // {
+  //   style: 'notionists',
+  //   url: 'https://api.dicebear.com/9.x/notionists/svg?seed=Felipe',
+  // },
+  {
+    style: 'notionists-neutral',
+    url: 'https://api.dicebear.com/9.x/notionists-neutral/svg?seed=Laura',
+  },
+  {
+    style: 'personas',
+    url: 'https://api.dicebear.com/9.x/personas/svg?seed=Sandra',
+  },
+  {
+    style: 'bottts-neutral',
+    url: 'https://api.dicebear.com/9.x/bottts-neutral/svg?seed=Drake',
+  },
+]
 
 export const moods = [
   { emoji: '☀️', label: 'Sunny weather' },
