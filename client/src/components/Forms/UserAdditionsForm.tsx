@@ -27,6 +27,7 @@ import { useForm, isNotEmpty, hasLength } from '@mantine/form'
 import { IconArrowAutofitUp, IconDiamond } from '@tabler/icons-react'
 import logo from '../../assets/images/logo1.jpg'
 import css from '../UserAdditions.module.css'
+import PleaseLogin from '../PleaseLogin'
 
 //TODO - need 4 boxes for chords to make easier (one for each chord) then join with dash onSubmit
 
@@ -64,30 +65,37 @@ export default function UserAdditionsForm({
 
   const [selectedCategory, setSelectedCategory] = useState('')
   const [opened, setOpened] = useState(false)
+  const [loginAlert, setLoginAlert] = useState(false)
   const { currentUser } = useContext(UserContext)
   const navigate = useNavigate()
 
-  const handleSubmit = async () => {
-    const { userTextInput } = form.getValues()
-    const userAddition = {
-      category: selectedCategory,
-      author: currentUser.username,
-      description: userTextInput,
-    }
-    const res = await fetch(`/${type}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userAddition),
-    })
-    const data = await res.json()
+  const handleCloseAlert = () => setLoginAlert(false)
 
-    if (res.status === 200) {
-      form.reset()
-      setOpened(true)
-      console.log('success', res.statusText)
-    } else console.log('ERROR', res.statusText)
+  const handleSubmit = async () => {
+    if (!currentUser) {
+      setLoginAlert(true)
+    } else {
+      const { userTextInput } = form.getValues()
+      const userAddition = {
+        category: selectedCategory,
+        author: currentUser.username,
+        description: userTextInput,
+      }
+      const res = await fetch(`/${type}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userAddition),
+      })
+      const data = await res.json()
+
+      if (res.status === 200) {
+        form.reset()
+        setOpened(true)
+        console.log('success', res.statusText)
+      } else console.log('ERROR', res.statusText)
+    }
   }
 
   return (
@@ -169,6 +177,10 @@ export default function UserAdditionsForm({
           <Avatar src={logo} size={80} radius={80} mx="auto" />
         </Group>
       </Modal>
+      <PleaseLogin
+        loginAlert={loginAlert}
+        handleCloseAlert={handleCloseAlert}
+      />
     </Container>
   )
 }

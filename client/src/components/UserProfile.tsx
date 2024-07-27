@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { useLocation } from 'react-router-dom'
 import { UserContext } from 'src/global/UserContext'
+import { useNavigate } from 'react-router-dom'
 import {
   Avatar,
   Text,
@@ -16,6 +17,9 @@ import {
   Flex,
   Tabs,
   Modal,
+  Badge,
+  Container,
+  rem,
 } from '@mantine/core'
 import {
   IconScanEye,
@@ -28,10 +32,13 @@ import {
 import { SavedInspos } from './SavedInspos'
 import css from './UserProfile.module.css'
 import EditProfile from './Forms/EditProfile'
+import PleaseLogin from './PleaseLogin'
 
 export default function UserProfile() {
-  const [activeTab, setActiveTab] = useState<string | null>('saves')
+  const [activeTab, setActiveTab] = useState<string | null>('thoughts')
+  const [loginAlert, setLoginAlert] = useState(false)
   const [opened, setOpened] = useState(false)
+  const navigate = useNavigate()
 
   const { state } = useLocation()
   const { currentUser } = useContext(UserContext)
@@ -39,107 +46,160 @@ export default function UserProfile() {
     ? `#${currentUser.profile_pic?.slice(currentUser.profile_pic.length - 6)}`
     : '#44c4f2f5'
 
-  const handleClose = () => {
-    setOpened(false)
+  const handleClose = () => setOpened(false)
+
+  const handleCloseAlert = () => {
+    setLoginAlert(false)
+    navigate('/')
   }
+
+  useEffect(() => {
+    if (!currentUser) {
+      setLoginAlert(true)
+    } else return
+  }, [currentUser])
 
   return (
     <>
-      <Paper radius="md" p="lg" bg="var(--mantine-color-body)" mb="md" mt="sm">
-        <Center>
-          <div className={css.avatar}>
-            <Avatar
-              src={currentUser?.profile_pic}
-              size={120}
-              radius={120}
-              mx="auto"
-            />
+      {currentUser ? (
+        <>
+          <Paper radius="md" bg="var(--mantine-color-body)" mb="md" mt="sm">
+            <Center>
+              <div className={css.avatar}>
+                <Avatar
+                  src={currentUser?.profile_pic}
+                  size={120}
+                  radius={120}
+                  mx="auto"
+                />
 
-            <ActionIcon
-              style={{ position: 'absolute', right: 0 }}
-              radius="lg"
-              variant="white"
-              onClick={() => {
-                console.log('HIT', opened)
-                setOpened(true)
-              }}
-            >
-              <IconPencil />
-            </ActionIcon>
-          </div>
-        </Center>
+                <ActionIcon
+                  style={{ position: 'absolute', right: 0 }}
+                  radius="lg"
+                  variant="white"
+                  onClick={() => {
+                    console.log('HIT', opened)
+                    setOpened(true)
+                  }}
+                >
+                  <IconPencil />
+                </ActionIcon>
+              </div>
+            </Center>
 
-        <Text ta="center" fz="lg" fw={500} mt="md">
-          {currentUser?.username}
-        </Text>
-        <Text ta="center" c="dimmed" fz="sm">
-          {currentUser?.email}
-        </Text>
-        {/* <Group justify="center">
-          <Button variant="default" mt="md">
-            Thoughts
-          </Button>
-          <Button variant="default" mt="md">
-            Saves
-          </Button>
-        </Group> */}
-      </Paper>
-      <Tabs
-        value={activeTab}
-        onChange={setActiveTab}
-        m="md"
-        color={`${colorMatch}`}
-      >
-        <Tabs.List>
-          <Tabs.Tab value="saves">Saves</Tabs.Tab>
-          <Tabs.Tab value="thoughts">Thoughts</Tabs.Tab>
-        </Tabs.List>
+            <Text ta="center" fz="lg" fw={500} mt="md">
+              {currentUser?.username}
+            </Text>
+            <Text ta="center" c="dimmed" fz="sm">
+              {currentUser?.email}
+            </Text>
+          </Paper>
+          <Tabs
+            value={activeTab}
+            onChange={setActiveTab}
+            m="md"
+            color={`${colorMatch}`}
+          >
+            <Tabs.List>
+              <Tabs.Tab value="thoughts">Thoughts</Tabs.Tab>
+              <Tabs.Tab value="saves">Saves</Tabs.Tab>
+            </Tabs.List>
 
-        <Tabs.Panel value="saves">
-          <SavedInspos />
-        </Tabs.Panel>
-        <Tabs.Panel value="thoughts">
-          <Stack mt="lg">
-            <Blockquote
-              color="teal"
-              radius="lg"
-              style={{
-                borderInlineEnd: '3px solid aquamarine',
-              }}
-            >
-              hey heye hey
-            </Blockquote>
+            <Tabs.Panel value="saves">
+              <SavedInspos />
+            </Tabs.Panel>
+            <Tabs.Panel value="thoughts" p="lg">
+              <Stack mt="lg" gap={40}>
+                <Blockquote
+                  cite="- Men I Trust"
+                  color="teal"
+                  radius="lg"
+                  style={{
+                    borderInlineEnd: '3px solid aquamarine',
+                  }}
+                  styles={{
+                    icon: {
+                      width: '100%',
+                      justifyContent: 'flex-start',
+                      height: rem(20),
+                    },
+                  }}
+                  icon={
+                    <Badge color="teal" variant="outline" radius="md">
+                      On Repeat
+                    </Badge>
+                  }
+                >
+                  {currentUser?.fav_song}
+                </Blockquote>
 
-            <Blockquote
-              style={{
-                borderInlineEnd: '3px solid crimson',
-              }}
-              color="rgba(255, 144, 92, 1)"
-              radius="lg"
-            >
-              hey heye hey
-            </Blockquote>
+                <Blockquote
+                  cite="- Oblique Dream Designer"
+                  style={{
+                    borderInlineEnd: '3px solid crimson',
+                  }}
+                  color="rgba(255, 144, 92, 1)"
+                  radius="lg"
+                  styles={{
+                    icon: {
+                      width: '100%',
+                      justifyContent: 'flex-start',
+                      height: rem(20),
+                    },
+                  }}
+                  icon={
+                    <Badge
+                      color="rgba(255, 144, 92, 1)"
+                      variant="outline"
+                      radius="md"
+                    >
+                      Wise Words
+                    </Badge>
+                  }
+                >
+                  {currentUser?.quote}
+                </Blockquote>
 
-            <Blockquote
-              color="cyan"
-              radius="lg"
-              style={{
-                borderInlineEnd: '3px solid cornflowerblue',
-              }}
-            >
-              hey heye hey
-            </Blockquote>
-          </Stack>
-        </Tabs.Panel>
-      </Tabs>
-      <Modal
-        opened={opened}
-        onClose={() => setOpened(false)}
-        centered
-        title="Edit Your Deets"
-      >
-        <EditProfile handleClose={handleClose} />
-      </Modal>
+                <Blockquote
+                  cite="- 7,000 monthly listeners"
+                  color="cyan"
+                  radius="lg"
+                  style={{
+                    borderInlineEnd: '3px solid cornflowerblue',
+                  }}
+                  styles={{
+                    icon: {
+                      width: '100%',
+                      justifyContent: 'flex-start',
+                      height: rem(20),
+                    },
+                  }}
+                  icon={
+                    <Badge color="cyan" variant="outline" radius="md">
+                      Under Rated
+                    </Badge>
+                  }
+                >
+                  {currentUser?.under_radar}
+                </Blockquote>
+              </Stack>
+            </Tabs.Panel>
+          </Tabs>
+          <Modal
+            opened={opened}
+            onClose={() => setOpened(false)}
+            centered
+            title="Edit Your Deets"
+          >
+            <EditProfile handleClose={handleClose} />
+          </Modal>
+        </>
+      ) : (
+        <PleaseLogin
+          loginAlert={loginAlert}
+          handleCloseAlert={handleCloseAlert}
+        />
+      )}
     </>
   )
 }
