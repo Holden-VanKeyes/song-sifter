@@ -41,7 +41,9 @@ export default function EditProfile({ handleClose }: EditProfileProps) {
     currentUser.profile_pic.includes(avatar.style)
   )
   const [value, setValue] = useState<string | null>(null)
-  const [countrySearch, setCountrySearch] = useState(currentUser.country)
+  const [countrySearch, setCountrySearch] = useState(
+    currentUser.country ? currentUser.country : ''
+  )
   const [opened, setOpened] = useState(false)
   const [selectedAvatar, setSelectedAvatar] = useState(
     usersCurrentAvatar!.style
@@ -52,26 +54,34 @@ export default function EditProfile({ handleClose }: EditProfileProps) {
   const form = useForm({
     mode: 'uncontrolled',
     initialValues: {
+      country: currentUser.country,
       username: currentUser.username,
       instrument: '',
-      favSong: '',
-      favSongArtist: '',
-      quote: '',
-      quouteArtist: '',
-      underRadar: '',
-      artistCount: '',
-      country: '',
+      favSong: currentUser.fav_song,
+      favSongArtist: currentUser.fav_song_artist,
+      favSongLink: currentUser.fav_song_link,
+      quote: currentUser.quote,
+      quoteArtist: currentUser.quote_artist,
+      underRadar: currentUser.under_radar,
+      underRadarPlayCount: currentUser.under_radar_play_count,
+      underRadarLink: currentUser.under_radar_link,
     },
     onValuesChange: (values) => {
       // ✅ This will be called on every form values change
     },
 
-    // validate: {
-    //   instrument: isNotEmpty('Please Make A Selection'),
-    //   favSong: isNotEmpty('Please Make A Selection'),
-    //   quote: isNotEmpty('Please Make A Selection'),
-    //   underRadar: isNotEmpty('Please Make A Selection'),
-    // },
+    validate: {
+      country: isNotEmpty('Please Make A Selection'),
+      username: isNotEmpty('Please Make A Selection'),
+      favSong: isNotEmpty('Please Make A Selection'),
+      favSongArtist: isNotEmpty('Please Make A Selection'),
+      favSongLink: isNotEmpty('Please Make A Selection'),
+      quote: isNotEmpty('Please Make A Selection'),
+      quoteArtist: isNotEmpty('Please Make A Selection'),
+      underRadar: isNotEmpty('Please Make A Selection'),
+      underRadarPlayCount: isNotEmpty('Please Make A Selection'),
+      underRadarLink: isNotEmpty('Please Make A Selection'),
+    },
   })
   const countryArray = []
   countryArray.push(
@@ -81,11 +91,13 @@ export default function EditProfile({ handleClose }: EditProfileProps) {
   const shouldFilterOptions = countryArray[0].every(
     (item) => item !== countrySearch
   )
-  const filteredOptions = shouldFilterOptions
-    ? countryArray[0].filter((item) =>
-        item.toLowerCase().includes(countrySearch.toLowerCase().trim())
-      )
-    : countryArray[0]
+
+  const filteredOptions =
+    shouldFilterOptions && countryArray.length > 0
+      ? countryArray[0]?.filter((item) =>
+          item.toLowerCase().includes(countrySearch.toLowerCase().trim())
+        )
+      : countryArray[0]
 
   const options = filteredOptions.map((item) => (
     <Combobox.Option value={item} key={item}>
@@ -93,18 +105,19 @@ export default function EditProfile({ handleClose }: EditProfileProps) {
     </Combobox.Option>
   ))
 
-  const marks = [
-    { value: 0, label: 'xs' },
-    { value: 25, label: 'sm' },
-    { value: 50, label: 'md' },
-    { value: 75, label: 'lg' },
-    { value: 100, label: 'xl' },
-  ]
-
   const handleSubmit = async () => {
     // console.log(form.getValues(), selectedAvatar, countrySearch)
-    const { username, favSong, instrument, quote, underRadar } =
-      form.getValues()
+    const {
+      username,
+      favSong,
+      favSongArtist,
+      favSongLink,
+      quote,
+      quoteArtist,
+      underRadar,
+      underRadarLink,
+      underRadarPlayCount,
+    } = form.getValues()
     const avatarUrl = `https://api.dicebear.com/8.x/${selectedAvatar}/svg?seed=${
       username ? username : currentUser.username
     }}`
@@ -112,9 +125,13 @@ export default function EditProfile({ handleClose }: EditProfileProps) {
     const userUpdates = {
       username: username,
       fav_song: favSong,
-      instrument: instrument,
+      fav_song_artist: favSongArtist,
+      fav_song_link: favSongLink,
       quote: quote,
+      quote_artist: quoteArtist,
       under_radar: underRadar,
+      under_radar_play_count: underRadarPlayCount,
+      under_radar_link: underRadarLink,
       country: countrySearch,
       profile_pic: avatarUrl,
     }
@@ -192,7 +209,7 @@ export default function EditProfile({ handleClose }: EditProfileProps) {
                   description="song in heavy rotation"
                   key={form.key('favSong')}
                   {...form.getInputProps('favSong')}
-                  placeholder={currentUser.fav_song}
+                  //   placeholder={currentUser.fav_song}
                 />
               </Grid.Col>
               <Grid.Col span={1}>
@@ -203,19 +220,27 @@ export default function EditProfile({ handleClose }: EditProfileProps) {
                   // placeholder={currentUser.fav_song}
                 />
               </Grid.Col>
+              <Grid.Col span={2}>
+                <TextInput
+                  description="song link"
+                  key={form.key('favSongLink')}
+                  {...form.getInputProps('favSongLink')}
+                  //   placeholder={currentUser.quote}
+                />
+              </Grid.Col>
               <Grid.Col span={1}>
                 <TextInput
                   description="inspiring lyric or quote"
                   key={form.key('quote')}
                   {...form.getInputProps('quote')}
-                  placeholder={currentUser.quote}
+                  //   placeholder={currentUser.quote}
                 />
               </Grid.Col>
               <Grid.Col span={1}>
                 <TextInput
                   description="quote author"
-                  key={form.key('quouteArtist')}
-                  {...form.getInputProps('quouteArtist')}
+                  key={form.key('quoteArtist')}
+                  {...form.getInputProps('quoteArtist')}
                   //   placeholder={currentUser.quote}
                 />
               </Grid.Col>
@@ -224,7 +249,7 @@ export default function EditProfile({ handleClose }: EditProfileProps) {
                   description="an under the radar artist"
                   key={form.key('underRadar')}
                   {...form.getInputProps('underRadar')}
-                  placeholder={currentUser.under_radar}
+                  //   placeholder={currentUser.under_radar}
                 />
               </Grid.Col>
               <Grid.Col span={1}>
@@ -232,11 +257,21 @@ export default function EditProfile({ handleClose }: EditProfileProps) {
                   description="their monthly listeners"
                   inputSize={'18'}
                   step={5000}
-                  placeholder="Dollars"
+                  placeholder="monthly listeners"
                   prefix="< "
                   defaultValue={1000}
                   min={1000}
                   max={50000}
+                  key={form.key('underRadarPlayCount')}
+                  {...form.getInputProps('underRadarPlayCount')}
+                />
+              </Grid.Col>
+              <Grid.Col span={2}>
+                <TextInput
+                  description="artist link"
+                  key={form.key('underRadarLink')}
+                  {...form.getInputProps('underRadarLink')}
+                  //   placeholder={currentUser.quote}
                 />
               </Grid.Col>
             </Grid>

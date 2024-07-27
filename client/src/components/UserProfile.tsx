@@ -111,7 +111,11 @@ export default function UserProfile() {
             <Tabs.Panel value="thoughts" p="lg">
               <Stack mt="lg" gap={40}>
                 <Blockquote
-                  cite="- Men I Trust"
+                  cite={`- ${
+                    currentUser.fav_song_artist
+                      ? currentUser.fav_song_artist
+                      : 'edit your profile'
+                  }`}
                   color="teal"
                   radius="lg"
                   style={{
@@ -134,7 +138,11 @@ export default function UserProfile() {
                 </Blockquote>
 
                 <Blockquote
-                  cite="- Oblique Dream Designer"
+                  cite={`- ${
+                    currentUser.quote_artist
+                      ? currentUser.quote_artist
+                      : 'change your deets'
+                  }`}
                   style={{
                     borderInlineEnd: '3px solid crimson',
                   }}
@@ -161,7 +169,12 @@ export default function UserProfile() {
                 </Blockquote>
 
                 <Blockquote
-                  cite="- 7,000 monthly listeners"
+                  cite={`< ${
+                    currentUser.under_radar_play_count
+                      ? currentUser.under_radar_play_count +
+                        ' - monthly listeners'
+                      : 'update your info'
+                  } `}
                   color="cyan"
                   radius="lg"
                   style={{

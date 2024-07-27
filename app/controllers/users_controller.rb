@@ -49,7 +49,8 @@ class UsersController < ApplicationController
     end
 
     def update_profile_params
-      params.permit(:username, :profile_pic, :country, :instrument, :quote, :under_radar, :fav_song)
+      params.permit(:username, :profile_pic, :country, :quote, :quote_artist, :under_radar, :under_radar_link,
+                    :under_radar_play_count, :fav_song, :fav_song_artist, :fav_song_link)
     end
 
     def user_not_found

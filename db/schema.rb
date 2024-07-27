@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_07_26_175411) do
+ActiveRecord::Schema.define(version: 2024_07_27_174043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,11 @@ ActiveRecord::Schema.define(version: 2024_07_26_175411) do
     t.string "fav_song", default: "Tell us a song you've got on heavy rotation"
     t.string "quote", default: "Drop us your favorite lyric or creative tidbit"
     t.string "under_radar", default: "Link your favorite under the radar artist"
+    t.string "fav_song_link"
+    t.string "fav_song_artist"
+    t.string "quote_artist"
+    t.integer "under_radar_play_count"
+    t.string "under_radar_link"
   end
 
 end
