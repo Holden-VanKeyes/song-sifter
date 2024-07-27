@@ -149,8 +149,6 @@ export default function EditProfile({ handleClose }: EditProfileProps) {
       setCurrentUser!(data)
       form.reset()
       handleClose()
-
-      console.log('UPDATED USER', data)
     } else console.log('ERROR', res.statusText)
   }
 

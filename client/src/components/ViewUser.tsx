@@ -44,7 +44,6 @@ export default function ViewUser() {
       if (res.ok) {
         const data = await res.json()
         setViewedUser(data)
-        console.log('user', data)
       } else console.log('ERROR', res.statusText)
     }
 
@@ -53,7 +52,7 @@ export default function ViewUser() {
   const colorMatch = viewedUser
     ? `#${viewedUser.profile_pic?.slice(viewedUser.profile_pic.length - 6)}`
     : '#44c4f2f5'
-  console.log(colorMatch)
+
   return (
     <>
       <Paper radius="md" p="lg" bg="var(--mantine-color-body)" mb="xl" mt="sm">

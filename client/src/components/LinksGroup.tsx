@@ -45,7 +45,6 @@ export default function LinksGroup(): JSX.Element {
   const navigate = useNavigate()
 
   const handleClick = (item: any) => {
-    console.log('item', item.label)
     return 'create'
     // event.preventDefault()
     // if (!currentUser && item.label === '') {

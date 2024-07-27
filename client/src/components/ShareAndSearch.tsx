@@ -29,15 +29,12 @@ export default function ShareAndSearch() {
   const navigate = useNavigate()
   const [sharedCreations, setSharedCreations] = useState<[]>([])
   useEffect(() => {
-    console.log('search')
-
     const fetcher = async () => {
       const res = await fetch('/creations')
 
       const data = await res.json()
 
       if (res.ok) {
-        console.log('DATA', data)
         setSharedCreations(data)
       } else console.log('ERROR', res.statusText)
     }

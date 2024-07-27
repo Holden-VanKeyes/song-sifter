@@ -78,7 +78,6 @@ export default function UserProfile() {
                   radius="lg"
                   variant="white"
                   onClick={() => {
-                    console.log('HIT', opened)
                     setOpened(true)
                   }}
                 >

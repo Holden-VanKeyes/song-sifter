@@ -126,8 +126,8 @@ export default function UserAdditionsForm({
                   direction="column"
                   pl={type === 'enigmas' ? '0.5rem' : '2rem'}
                 >
-                  {splitString.map((item) => (
-                    <Text fz="xs" tt="uppercase" fw={700}>
+                  {splitString.map((item, indx) => (
+                    <Text fz="xs" tt="uppercase" fw={700} key={indx}>
                       {item}
                     </Text>
                   ))}
