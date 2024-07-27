@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_07_19_173042) do
+ActiveRecord::Schema.define(version: 2024_07_26_175411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(version: 2024_07_19_173042) do
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "profile_pic"
-    t.string "bio"
+    t.string "instrument"
     t.string "password_digest"
     t.string "email"
     t.datetime "created_at", precision: 6, null: false
@@ -73,6 +73,9 @@ ActiveRecord::Schema.define(version: 2024_07_19_173042) do
     t.string "city"
     t.string "state"
     t.string "country"
+    t.string "fav_song", default: "Tell us a song you've got on heavy rotation"
+    t.string "quote", default: "Drop us your favorite lyric or creative tidbit"
+    t.string "under_radar", default: "Link your favorite under the radar artist"
   end
 
 end

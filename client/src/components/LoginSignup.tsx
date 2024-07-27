@@ -75,8 +75,8 @@ export default function LoginSignup({
       username:
         isNotEmpty('please enter a username') &&
         hasLength(
-          { min: 5, max: 15 },
-          'username must be between 5 and 10 characters'
+          { min: 5, max: 20 },
+          'username must be between 5 and 20 characters'
         ),
       email:
         formType === 'signup' ? isEmail('Invalid email format') : undefined,
