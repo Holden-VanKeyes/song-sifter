@@ -72,11 +72,12 @@ export default function SideNav() {
             </Group>
           </div>
         ) : null}
-
-        <div className={css.link} onClick={() => handleLogout()}>
-          <IconLogout className={css.linkIcon} stroke={1.5} />
-          <span>Logout</span>
-        </div>
+        {currentUser ? (
+          <div className={css.link} onClick={() => handleLogout()}>
+            <IconLogout className={css.linkIcon} stroke={1.5} />
+            <span>Logout</span>
+          </div>
+        ) : null}
 
         <LoginSignup
           openModal={openModal}

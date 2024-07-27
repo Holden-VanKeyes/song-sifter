@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import { UserContext } from 'src/global/UserContext'
 import {
   Card,
   Group,
@@ -15,6 +16,9 @@ import {
   UnstyledButton,
   Center,
   Flex,
+  Alert,
+  Modal,
+  Title,
 } from '@mantine/core'
 import { useForm, isNotEmpty } from '@mantine/form'
 import {
@@ -32,6 +36,7 @@ import { images } from '../../constants/constants'
 import { imageCardArray } from '../../constants/constants'
 import CustomModal from '../CustomModal'
 import InspirationModal from '../InspirationModal'
+import PleaseLogin from '../PleaseLogin'
 
 export interface InspirationObjectProps {
   author: string
@@ -60,9 +65,10 @@ export default function CreationForm() {
       chords: isNotEmpty('Please Make A Selection'),
     },
   })
+  const { currentUser } = useContext(UserContext)
   const [openModal, setOpenModal] = useState(false)
   const [stepper, setStepper] = useState(0)
-  const [randomEnigma, setRandomEnigma] = useState('')
+  const [loginAlert, setLoginAlert] = useState(false)
   const [randomLyric, setRandomLyric] = useState('')
   const [randomChords, setRandomChords] = useState('')
   const [randomSuggestions, setRandomSuggestions] = useState<{}>([])
@@ -74,46 +80,49 @@ export default function CreationForm() {
     setOpenModal(false)
   }
 
+  const handleCloseAlert = () => setLoginAlert(false)
+
   const handleSubmit = async () => {
-    form.validate()
-    const values = form.getValues()
-    const valueClone = {
-      ...values,
+    if (!currentUser) {
+      setLoginAlert(true)
+    } else {
+      form.validate()
+      const values = form.getValues()
+      const valueClone = {
+        ...values,
+      }
+
+      setOpenModal(true)
+
+      const [enigmaJson, lyricJson, chordJson] = await Promise.all([
+        fetch(`/random_enigma?category=${values.enigma}`).then((res) =>
+          res.json()
+        ),
+        fetch(`/random_lyrics?category=${values.lyrics}`).then((res) =>
+          res.json()
+        ),
+        fetch(`/random_chords?category=${values.chords}`).then((res) =>
+          res.json()
+        ),
+      ])
+      const inspoArray = []
+      inspoArray.push(enigmaJson, lyricJson, chordJson)
+      valueClone.enigma = enigmaJson.enigma
+      valueClone.lyrics = lyricJson.lyrics
+      valueClone.chords = chordJson.chords
+
+      const returnedSuggestions = Object.entries(valueClone).map(([k, v]) => ({
+        title: k,
+        value: v,
+      }))
+
+      setRandomSuggestions(returnedSuggestions)
+      setInspirationObj(inspoArray)
+
+      // setRandomEnigma(enigmaJson.enigma)
+      // setRandomLyric(lyricJson.lyrics)
+      // setRandomChords(chordJson.chords)
     }
-
-    setOpenModal(true)
-
-    const [enigmaJson, lyricJson, chordJson] = await Promise.all([
-      fetch(`/random_enigma?category=${values.enigma}`).then((res) =>
-        res.json()
-      ),
-      fetch(`/random_lyrics?category=${values.lyrics}`).then((res) =>
-        res.json()
-      ),
-      fetch(`/random_chords?category=${values.chords}`).then((res) =>
-        res.json()
-      ),
-    ])
-    const inspoArray = []
-    inspoArray.push(enigmaJson, lyricJson, chordJson)
-    valueClone.enigma = enigmaJson.enigma
-    // valueClone.enigmaId = enigmaJson.id
-    valueClone.lyrics = lyricJson.lyrics
-    // valueClone.lyricId = lyricJson.id
-    valueClone.chords = chordJson.chords
-    // valueClone.chordId = chordJson.id
-
-    const returnedSuggestions = Object.entries(valueClone).map(([k, v]) => ({
-      title: k,
-      value: v,
-    }))
-
-    setRandomSuggestions(returnedSuggestions)
-    setInspirationObj(inspoArray)
-
-    setRandomEnigma(enigmaJson.enigma)
-    setRandomLyric(lyricJson.lyrics)
-    setRandomChords(chordJson.chords)
   }
 
   const handleNextStep = () => {
@@ -200,6 +209,11 @@ export default function CreationForm() {
           inspirationObj={inspirationObj}
         />
       </Container>
+
+      <PleaseLogin
+        loginAlert={loginAlert}
+        handleCloseAlert={handleCloseAlert}
+      />
     </Flex>
   )
 }

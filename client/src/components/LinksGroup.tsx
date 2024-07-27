@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { UserContext } from 'src/global/UserContext'
 import { Group, Code, Collapse, Text, rem, Stack, Flex } from '@mantine/core'
 import {
   IconSettings,
@@ -38,9 +39,23 @@ const data = [
 ]
 
 export default function LinksGroup(): JSX.Element {
+  const { currentUser } = useContext(UserContext)
   const [active, setActive] = useState('')
   const [opened, setOpened] = useState(false)
   const navigate = useNavigate()
+
+  const handleClick = (item: any) => {
+    console.log('item', item.label)
+    return 'create'
+    // event.preventDefault()
+    // if (!currentUser && item.label === '') {
+    //   console.log('yes')
+    // } else {
+    //   console.log('item', item.label)
+    //   setActive(item.label)
+    //   navigate(item.link)
+    // }
+  }
   return (
     <>
       {data.map((item) => (
@@ -85,11 +100,7 @@ export default function LinksGroup(): JSX.Element {
                     data-active={item.label === active || undefined}
                     to={item.link}
                     key={item.label}
-                    onClick={(event) => {
-                      event.preventDefault()
-                      setActive(item.label)
-                      navigate(item.link)
-                    }}
+                    // onClick={(event) => handleClick(event, item)}
                   >
                     <item.icon className={css.linkIcon} stroke={1.5} />
                     {item.label}
