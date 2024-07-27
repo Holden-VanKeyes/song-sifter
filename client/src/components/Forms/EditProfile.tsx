@@ -14,7 +14,7 @@ import {
   Select,
   Button,
   UnstyledButton,
-  Center,
+  NumberInput,
   Flex,
   Modal,
   Input,
@@ -25,6 +25,7 @@ import {
   Avatar,
   Grid,
   Paper,
+  SimpleGrid,
 } from '@mantine/core'
 import { useForm, isNotEmpty } from '@mantine/form'
 import { avatarOptions } from 'src/constants/constants'
@@ -40,7 +41,7 @@ export default function EditProfile({ handleClose }: EditProfileProps) {
     currentUser.profile_pic.includes(avatar.style)
   )
   const [value, setValue] = useState<string | null>(null)
-  const [countrySearch, setCountrySearch] = useState('')
+  const [countrySearch, setCountrySearch] = useState(currentUser.country)
   const [opened, setOpened] = useState(false)
   const [selectedAvatar, setSelectedAvatar] = useState(
     usersCurrentAvatar!.style
@@ -54,8 +55,11 @@ export default function EditProfile({ handleClose }: EditProfileProps) {
       username: currentUser.username,
       instrument: '',
       favSong: '',
+      favSongArtist: '',
       quote: '',
+      quouteArtist: '',
       underRadar: '',
+      artistCount: '',
       country: '',
     },
     onValuesChange: (values) => {
@@ -88,6 +92,14 @@ export default function EditProfile({ handleClose }: EditProfileProps) {
       {item}
     </Combobox.Option>
   ))
+
+  const marks = [
+    { value: 0, label: 'xs' },
+    { value: 25, label: 'sm' },
+    { value: 50, label: 'md' },
+    { value: 75, label: 'lg' },
+    { value: 100, label: 'xl' },
+  ]
 
   const handleSubmit = async () => {
     // console.log(form.getValues(), selectedAvatar, countrySearch)
@@ -140,8 +152,6 @@ export default function EditProfile({ handleClose }: EditProfileProps) {
           >
             <Combobox.Target>
               <InputBase
-                // key={form.key('country')}
-                // {...form.getInputProps('country')}
                 rightSection={<Combobox.Chevron />}
                 value={countrySearch}
                 onChange={(event) => {
@@ -156,6 +166,7 @@ export default function EditProfile({ handleClose }: EditProfileProps) {
                   setCountrySearch(value || '')
                 }}
                 placeholder="Country"
+                description="country"
                 rightSectionPointerEvents="none"
               />
             </Combobox.Target>
@@ -170,30 +181,71 @@ export default function EditProfile({ handleClose }: EditProfileProps) {
               </Combobox.Options>
             </Combobox.Dropdown>
             <TextInput
+              description="username"
               key={form.key('username')}
               {...form.getInputProps('username')}
               placeholder="New username"
             />
-            <TextInput
-              key={form.key('favSong')}
-              {...form.getInputProps('favSong')}
-              placeholder={currentUser.fav_song}
-            />
-            <TextInput
-              key={form.key('quote')}
-              {...form.getInputProps('quote')}
-              placeholder={currentUser.quote}
-            />
-            <TextInput
-              key={form.key('underRadar')}
-              {...form.getInputProps('underRadar')}
-              placeholder={currentUser.under_radar}
-            />
-            <TextInput
+            <Grid columns={2}>
+              <Grid.Col span={1}>
+                <TextInput
+                  description="song in heavy rotation"
+                  key={form.key('favSong')}
+                  {...form.getInputProps('favSong')}
+                  placeholder={currentUser.fav_song}
+                />
+              </Grid.Col>
+              <Grid.Col span={1}>
+                <TextInput
+                  description="song artist"
+                  key={form.key('favSongArtist')}
+                  {...form.getInputProps('favSongArtist')}
+                  // placeholder={currentUser.fav_song}
+                />
+              </Grid.Col>
+              <Grid.Col span={1}>
+                <TextInput
+                  description="inspiring lyric or quote"
+                  key={form.key('quote')}
+                  {...form.getInputProps('quote')}
+                  placeholder={currentUser.quote}
+                />
+              </Grid.Col>
+              <Grid.Col span={1}>
+                <TextInput
+                  description="quote author"
+                  key={form.key('quouteArtist')}
+                  {...form.getInputProps('quouteArtist')}
+                  //   placeholder={currentUser.quote}
+                />
+              </Grid.Col>
+              <Grid.Col span={1}>
+                <TextInput
+                  description="an under the radar artist"
+                  key={form.key('underRadar')}
+                  {...form.getInputProps('underRadar')}
+                  placeholder={currentUser.under_radar}
+                />
+              </Grid.Col>
+              <Grid.Col span={1}>
+                <NumberInput
+                  description="their monthly listeners"
+                  inputSize={'18'}
+                  step={5000}
+                  placeholder="Dollars"
+                  prefix="< "
+                  defaultValue={1000}
+                  min={1000}
+                  max={50000}
+                />
+              </Grid.Col>
+            </Grid>
+
+            {/* <TextInput
               key={form.key('instrument')}
               {...form.getInputProps('instrument')}
               placeholder="Share your main instrument"
-            />
+            /> */}
           </Combobox>
           <Group justify="center">
             <Button
@@ -226,9 +278,8 @@ export default function EditProfile({ handleClose }: EditProfileProps) {
 
           <Grid>
             {avatarOptions.map((option, indx) => (
-              <Grid.Col span={4}>
+              <Grid.Col span={4} key={indx}>
                 <Avatar
-                  key={indx}
                   src={option.url}
                   name={option.style}
                   size={70}
