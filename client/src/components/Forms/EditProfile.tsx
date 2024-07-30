@@ -70,18 +70,18 @@ export default function EditProfile({ handleClose }: EditProfileProps) {
       // ✅ This will be called on every form values change
     },
 
-    validate: {
-      country: isNotEmpty('Please Make A Selection'),
-      username: isNotEmpty('Please Make A Selection'),
-      favSong: isNotEmpty('Please Make A Selection'),
-      favSongArtist: isNotEmpty('Please Make A Selection'),
-      favSongLink: isNotEmpty('Please Make A Selection'),
-      quote: isNotEmpty('Please Make A Selection'),
-      quoteArtist: isNotEmpty('Please Make A Selection'),
-      underRadar: isNotEmpty('Please Make A Selection'),
-      underRadarPlayCount: isNotEmpty('Please Make A Selection'),
-      underRadarLink: isNotEmpty('Please Make A Selection'),
-    },
+    // validate: {
+    //   country: isNotEmpty('Please Make A Selection'),
+    //   username: isNotEmpty('Please Make A Selection'),
+    //   favSong: isNotEmpty('Please Make A Selection'),
+    //   favSongArtist: isNotEmpty('Please Make A Selection'),
+    //   favSongLink: isNotEmpty('Please Make A Selection'),
+    //   quote: isNotEmpty('Please Make A Selection'),
+    //   quoteArtist: isNotEmpty('Please Make A Selection'),
+    //   underRadar: isNotEmpty('Please Make A Selection'),
+    //   underRadarPlayCount: isNotEmpty('Please Make A Selection'),
+    //   underRadarLink: isNotEmpty('Please Make A Selection'),
+    // },
   })
   const countryArray = []
   countryArray.push(

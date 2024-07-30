@@ -133,7 +133,9 @@ export default function UserProfile() {
                     </Badge>
                   }
                 >
-                  {currentUser?.fav_song}
+                  {currentUser?.fav_song
+                    ? currentUser.fav_song
+                    : "Tell us a song you've got on heavy rotation"}
                 </Blockquote>
 
                 <Blockquote
@@ -164,7 +166,9 @@ export default function UserProfile() {
                     </Badge>
                   }
                 >
-                  {currentUser?.quote}
+                  {currentUser?.quote
+                    ? currentUser.quote
+                    : 'Drop us your favorite lyric or creative tidbit'}
                 </Blockquote>
 
                 <Blockquote
@@ -192,7 +196,9 @@ export default function UserProfile() {
                     </Badge>
                   }
                 >
-                  {currentUser?.under_radar}
+                  {currentUser?.under_radar
+                    ? currentUser.under_radar
+                    : 'Link your favorite under the radar artist'}
                 </Blockquote>
               </Stack>
             </Tabs.Panel>
