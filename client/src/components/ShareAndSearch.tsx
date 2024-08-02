@@ -14,6 +14,8 @@ import {
   rem,
   Badge,
   Center,
+  SimpleGrid,
+  useMantineColorScheme,
 } from '@mantine/core'
 import {
   IconPhoneCall,
@@ -27,7 +29,10 @@ import { moods } from '../constants/constants'
 
 export default function ShareAndSearch() {
   const navigate = useNavigate()
+  const colorScheme = useMantineColorScheme().colorScheme
   const [sharedCreations, setSharedCreations] = useState<[]>([])
+  const playerColor = colorScheme === 'light' ? 'ffffff' : '000000'
+
   useEffect(() => {
     const fetcher = async () => {
       const res = await fetch('/creations')
@@ -56,8 +61,8 @@ export default function ShareAndSearch() {
     </Badge>
   ))
   return (
-    <Container mt="sm">
-      <Stack>
+    <Container mt="sm" size="xl">
+      <SimpleGrid cols={{ base: 1, sm: 2, lg: 3 }} spacing="lg">
         {sharedCreations.map((share: any) => (
           <Paper
             radius="md"
@@ -77,22 +82,22 @@ export default function ShareAndSearch() {
                 {features}
               </Group>
             </Flex>
-            <Center>
+            <Flex justify="center">
               <iframe
-                title="test"
+                title="web player"
                 style={{
                   marginTop: '10px',
                   border: 0,
-                  // width: '100%',
+
                   height: '42px',
                 }}
-                src="https://bandcamp.com/EmbeddedPlayer/album=1687291876/size=small/bgcol=000000/linkcol=2292A4/track=1815572757/transparent=true/"
+                src={`https://bandcamp.com/EmbeddedPlayer/album=1687291876/size=small/bgcol=${playerColor}/linkcol=2292A4/track=1815572757/transparent=true/`}
                 seamless
               />
-            </Center>
+            </Flex>
           </Paper>
         ))}
-      </Stack>
+      </SimpleGrid>
     </Container>
   )
 }

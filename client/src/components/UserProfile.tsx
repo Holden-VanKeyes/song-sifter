@@ -20,6 +20,7 @@ import {
   Badge,
   Container,
   rem,
+  useMantineColorScheme,
 } from '@mantine/core'
 import {
   IconScanEye,
@@ -38,6 +39,7 @@ export default function UserProfile() {
   const [activeTab, setActiveTab] = useState<string | null>('thoughts')
   const [loginAlert, setLoginAlert] = useState(false)
   const [opened, setOpened] = useState(false)
+  const colorScheme = useMantineColorScheme().colorScheme
   const navigate = useNavigate()
 
   const { state } = useLocation()
