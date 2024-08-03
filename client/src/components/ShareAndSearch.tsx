@@ -60,6 +60,7 @@ export default function ShareAndSearch() {
       {badge.label}
     </Badge>
   ))
+  console.log(playerColor)
   return (
     <Container mt="sm" size="xl">
       <SimpleGrid cols={{ base: 1, sm: 2, lg: 3 }} spacing="lg">
@@ -68,36 +69,33 @@ export default function ShareAndSearch() {
             radius="md"
             withBorder
             p="md"
+            // style={{ height: '470px' }}
             key={share.id}
             onClick={() => navigate('/view-user', { state: share.user_id })}
           >
-            <Paper mb="sm">
-              <Avatar src={share.get_avatars} size={60} radius={60} mx="auto" />
-              <Text ta="center" fz="lg" fw={500} mt="md">
-                {share.username}
-              </Text>
-            </Paper>
-            <Flex mb="xs" justify="space-around">
-              <Group gap={7} mt={5}>
-                {features}
-              </Group>
-            </Flex>
-            <Flex justify="center">
-              <iframe
-                title="web player"
-                style={{
-                  marginTop: '10px',
-                  border: 0,
-
-                  height: '42px',
-                }}
-                src={`https://bandcamp.com/EmbeddedPlayer/album=1687291876/size=small/bgcol=${playerColor}/linkcol=2292A4/track=1815572757/transparent=true/`}
-                seamless
-              />
-            </Flex>
+            <iframe
+              title="web player"
+              style={{
+                border: 0,
+                width: '100%',
+                height: '305px',
+              }}
+              src={`https://bandcamp.com/EmbeddedPlayer/album=1687291876/size=large/bgcol=${playerColor}/linkcol=2292A4/track=1815572757/transparent=false/`}
+              seamless
+            />
           </Paper>
         ))}
       </SimpleGrid>
     </Container>
   )
 }
+
+// ;<iframe
+//   style="border: 0; width: 350px; height: 470px;"
+//   src="https://bandcamp.com/EmbeddedPlayer/album=1687291876/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/"
+//   seamless
+// >
+//   <a href="https://thegreatnostalgic.bandcamp.com/album/the-great-nostalgic-2">
+//     The Great Nostalgic by The Great Nostalgic
+//   </a>
+// </iframe>
