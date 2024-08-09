@@ -1,5 +1,11 @@
 import React from 'react'
+import img from './assets/images/person1.jpg'
+import { Image } from '@mantine/core'
 
 export default function HomePage() {
-  return <div>HomePage</div>
+  return (
+    <div>
+      <Image src={img} />
+    </div>
+  )
 }

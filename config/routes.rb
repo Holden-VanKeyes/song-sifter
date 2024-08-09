@@ -17,15 +17,18 @@ Rails.application.routes.draw do
   get '/filtered_creations', to: 'creations#get_filtered_creations'
 
   get '/user_inspirations', to: "inspirations#get_user_inspirations"
+  delete 'delete_inspiration', to: 'inspirations#destroy'
 
   get '/selected_user', to: 'users#get_selected_user'
 
   delete '/logout', to: "sessions#destroy"
   post '/login', to: "sessions#create"
   post '/signup', to: "users#create"
+
   post '/lyrics', to: "lyric_snippets#create"
   post '/chords', to: "chord_progressions#create"
-  # post '/enigmas', to: "enigmas#create"
+  post '/enigmas', to: "enigmas#create"
+
 
   # to remeber session cookie on refresh
   get '/me', to: "users#show"

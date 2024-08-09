@@ -34,7 +34,6 @@ import {
 } from '@tabler/icons-react'
 import { images } from '../../constants/constants'
 import { imageCardArray } from '../../constants/constants'
-import CustomModal from '../CustomModal'
 import InspirationModal from '../InspirationModal'
 import PleaseLogin from '../PleaseLogin'
 
@@ -92,6 +91,7 @@ export default function CreationForm() {
         ...values,
       }
 
+      console.log('Blip', values)
       setOpenModal(true)
 
       const [enigmaJson, lyricJson, chordJson] = await Promise.all([
@@ -107,9 +107,10 @@ export default function CreationForm() {
       ])
       const inspoArray = []
       inspoArray.push(enigmaJson, lyricJson, chordJson)
-      valueClone.enigma = enigmaJson.enigma
-      valueClone.lyrics = lyricJson.lyrics
-      valueClone.chords = chordJson.chords
+      console.log('AR', inspoArray)
+      valueClone.enigma = await enigmaJson.enigma
+      valueClone.lyrics = await lyricJson.lyrics
+      valueClone.chords = await chordJson.chords
 
       const returnedSuggestions = Object.entries(valueClone).map(([k, v]) => ({
         title: k,

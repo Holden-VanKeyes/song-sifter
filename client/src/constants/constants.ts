@@ -1,4 +1,5 @@
 import { countries } from './countries'
+
 export const enigmaCategories = {
   name: 'enigmas',
   cat1: 'production/arrangement',
@@ -17,7 +18,7 @@ interface lyricCategoriesProps {
 
 export const lyricCategories = {
   name: 'lyrics',
-  cat1: 'worldly - nomadic - observational',
+  cat1: 'observational - worldly - nomadic',
   cat2: 'hopeful - elevated - serene',
   cat3: 'boozy - lovelorn - despondent',
   cat4: 'abstract - esoteric - uneven',
@@ -97,16 +98,16 @@ export const imageCardArray = [
     title: 'Lyrics',
     description:
       'Lyric snippets based on a style to help you get started writing.',
-    imgUrl:
-      'https://res.cloudinary.com/shooksounds/image/upload/v1658846648/Song%20Sifter/SongSifterLyric_dpnd6k.png',
+    // imgUrl:
+    //   'https://res.cloudinary.com/shooksounds/image/upload/v1658846648/Song%20Sifter/SongSifterLyric_dpnd6k.png',
+    imgUrl: require('../assets/images/alienSings1.jpg'),
     categories: lyricCategories,
   },
   {
     type: 'chords',
     title: 'Chords',
     description: 'A suggested 4-chord progression based on mood selection.',
-    imgUrl:
-      'https://res.cloudinary.com/shooksounds/image/upload/v1658846939/Song%20Sifter/SongSifterChordsmaller_f3qsel.jpg',
+    imgUrl: require('../assets/images/animal.jpg'),
     categories: chordCategories,
   },
 
@@ -115,8 +116,7 @@ export const imageCardArray = [
     title: 'Enigmatic Expressions',
     description:
       'Ways to get you think outside of the box...musically speaking.',
-    imgUrl:
-      'https://res.cloudinary.com/shooksounds/image/upload/v1658846974/Song%20Sifter/SongSifterEnigmasWNotes_gwghgz.png',
+    imgUrl: require('../assets/images/person3.jpg'),
     categories: enigmaCategories,
   },
 ]

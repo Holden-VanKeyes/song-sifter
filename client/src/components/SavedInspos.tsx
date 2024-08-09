@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from 'react'
 import { UserContext } from 'src/global/UserContext'
 import {
-  UnstyledButton,
+  Button,
   Text,
   Paper,
   Group,
@@ -22,11 +22,11 @@ import {
 import css from './SavedInspos.module.css'
 import { InspirationObjectProps } from './Forms/CreationForm'
 
-// interface UserInspirationProps {
-//   userInspirations: InspirationObjectProps[]
-// }
+interface UserInspirationProps {
+  handleShare: () => void
+}
 
-export function SavedInspos() {
+export function SavedInspos({ handleShare }: UserInspirationProps) {
   const [position, setPosition] = useState(0)
   const [transitionEnded, setTransitionEnded] = useState(true)
   const [opened, setOpened] = useState(false)
@@ -35,16 +35,17 @@ export function SavedInspos() {
   const { currentUser } = useContext(UserContext)
   const mounted = userInspirations.length > 0
 
+  const getInspos = async () => {
+    const response = await fetch(
+      `/user_inspirations?user_id=${currentUser?.id}`
+    )
+    const data = await response.json()
+    if (response.ok) {
+      setUserInspirations(data)
+    } else console.log(response.statusText)
+  }
+
   useEffect(() => {
-    const getInspos = async () => {
-      const response = await fetch(
-        `/user_inspirations?user_id=${currentUser?.id}`
-      )
-      const data = await response.json()
-      if (response.ok) {
-        setUserInspirations(data)
-      } else console.log(response.statusText)
-    }
     getInspos()
     return () => {}
   }, [currentUser])
@@ -57,6 +58,19 @@ export function SavedInspos() {
       setOpened(true)
     }, 800)
   }, [position])
+
+  const handleDelete = async () => {
+    const res = await fetch(
+      `/delete_inspiration?id=${userInspirations[position].id}`,
+      {
+        method: 'DELETE',
+      }
+    )
+    if (res.ok) {
+      getInspos()
+      console.log('Success', res.statusText)
+    } else console.log('not deleted', res.statusText)
+  }
 
   return mounted ? (
     <Card withBorder padding="lg" radius="md" mt="lg">
@@ -100,7 +114,7 @@ export function SavedInspos() {
         </Group>
       </Card.Section>
 
-      <Stack pt="md">
+      <Stack py="md">
         <Group wrap="nowrap">
           <ActionIcon color="rgb(160, 194, 207)" size={35} radius="lg">
             <IconPlaylist width={25} height={25} />
@@ -122,6 +136,16 @@ export function SavedInspos() {
           <Text fz="sm">{userInspirations[position].lyric_return}</Text>
         </Group>
       </Stack>
+      <Card.Section withBorder p="md">
+        <Group justify="center" style={{ gap: '80px' }}>
+          <Button radius="md" variant="outline" onClick={handleShare}>
+            Share
+          </Button>
+          <Button radius="md" variant="outline" onClick={() => handleDelete()}>
+            Delete
+          </Button>
+        </Group>
+      </Card.Section>
     </Card>
   ) : null
 }

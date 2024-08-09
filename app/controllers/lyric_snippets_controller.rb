@@ -21,8 +21,8 @@ class LyricSnippetsController < ApplicationController
       end
    
        def get_random_lyrics
-       
         @description = LyricSnippet.where(category: params[:category])
+      
         
          render json: @description.limit(1).order("RANDOM()").first
          

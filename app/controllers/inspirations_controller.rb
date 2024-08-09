@@ -29,11 +29,9 @@ class InspirationsController < ApplicationController
     end
 
     def destroy
-   
-
-    inspiration = Inspiration.find(params[:id])
-    inspiration.destroy
-    head :no_content
+        inspiration = Inspiration.find(params[:id])
+        inspiration.destroy
+        head :no_content
     end
 
 

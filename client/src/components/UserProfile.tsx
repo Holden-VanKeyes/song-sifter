@@ -34,11 +34,13 @@ import { SavedInspos } from './SavedInspos'
 import css from './UserProfile.module.css'
 import EditProfile from './Forms/EditProfile'
 import PleaseLogin from './PleaseLogin'
+import ShareMusicForm from './Forms/ShareMusicForm'
 
 export default function UserProfile() {
   const [activeTab, setActiveTab] = useState<string | null>('thoughts')
   const [loginAlert, setLoginAlert] = useState(false)
-  const [opened, setOpened] = useState(false)
+  const [editFormOpened, setEditFormOpened] = useState(false)
+  const [shareMusicForm, setShareMusicForm] = useState(false)
   const colorScheme = useMantineColorScheme().colorScheme
   const navigate = useNavigate()
 
@@ -48,11 +50,15 @@ export default function UserProfile() {
     ? `#${currentUser.profile_pic?.slice(currentUser.profile_pic.length - 6)}`
     : '#44c4f2f5'
 
-  const handleClose = () => setOpened(false)
+  const handleClose = () => setEditFormOpened(false)
 
   const handleCloseAlert = () => {
     setLoginAlert(false)
     navigate('/')
+  }
+
+  const handleShare = async () => {
+    setShareMusicForm(true)
   }
 
   useEffect(() => {
@@ -80,7 +86,7 @@ export default function UserProfile() {
                   radius="lg"
                   variant="white"
                   onClick={() => {
-                    setOpened(true)
+                    setEditFormOpened(true)
                   }}
                 >
                   <IconPencil />
@@ -107,7 +113,7 @@ export default function UserProfile() {
             </Tabs.List>
 
             <Tabs.Panel value="saves">
-              <SavedInspos />
+              <SavedInspos handleShare={handleShare} />
             </Tabs.Panel>
             <Tabs.Panel value="thoughts" p="lg">
               <Stack mt="lg" gap={40}>
@@ -206,12 +212,19 @@ export default function UserProfile() {
             </Tabs.Panel>
           </Tabs>
           <Modal
-            opened={opened}
-            onClose={() => setOpened(false)}
+            opened={editFormOpened}
+            onClose={() => setEditFormOpened(false)}
             centered
             title="Edit Your Deets"
           >
             <EditProfile handleClose={handleClose} />
+          </Modal>
+          <Modal
+            opened={shareMusicForm}
+            onClose={() => setShareMusicForm(false)}
+            centered
+          >
+            <ShareMusicForm />
           </Modal>
         </>
       ) : (

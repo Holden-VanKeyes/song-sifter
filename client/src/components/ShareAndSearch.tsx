@@ -60,7 +60,7 @@ export default function ShareAndSearch() {
       {badge.label}
     </Badge>
   ))
-  console.log(playerColor)
+
   return (
     <Container mt="sm" size="xl">
       <SimpleGrid cols={{ base: 1, sm: 2, lg: 3 }} spacing="lg">
@@ -77,10 +77,13 @@ export default function ShareAndSearch() {
               title="web player"
               style={{
                 border: 0,
+                borderRadius: '16px',
                 width: '100%',
-                height: '305px',
+                height: '352px',
               }}
-              src={`https://bandcamp.com/EmbeddedPlayer/album=1687291876/size=large/bgcol=${playerColor}/linkcol=2292A4/track=1815572757/transparent=false/`}
+              // src="https://bandcamp.com/EmbeddedPlayer/album=1687291876/size=large/track=1815572757"
+              // src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1147193188&visual=true"
+              // src="https://open.spotify.com/embed/track/61dAd09odJQ1pLareDlPpW"
               seamless
             />
           </Paper>
